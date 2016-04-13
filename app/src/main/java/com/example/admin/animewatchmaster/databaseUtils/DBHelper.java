@@ -116,10 +116,14 @@ public class DBHelper extends SQLiteOpenHelper{
         String command = "select title from animeinfo where title=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
 
-        if(res.getCount()>0)
+        if(res.getCount()>0) {
+            res.close();
             return true;
-        else
+        }
+        else{
+            res.close();
             return false;
+        }
 
     }
 
@@ -186,7 +190,7 @@ public class DBHelper extends SQLiteOpenHelper{
             agerating = res.getString(res.getColumnIndex("agerating"));
             description = res.getString(res.getColumnIndex("description"));
 
-            allanime.add(new Anime(id,title,imgurl,genre,Integer.valueOf(episodes),animetype,agerating,description)); //episodes mporei na einai string na to elenksw
+            allanime.add(new Anime(id,title,imgurl,genre,/*Integer.valueOf(episodes)*/0,animetype,agerating,description)); //episodes mporei na einai string na to elenksw
             res.moveToNext();
         }
         return allanime;
