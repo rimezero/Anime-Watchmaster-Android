@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public void callit(View v){
         new databaseUpdater(this,animedb).execute(getString(R.string.base_db_url));
     }
-
+    //test commit
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
