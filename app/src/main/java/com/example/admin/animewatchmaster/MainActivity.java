@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Costas 1
+        //Gianis 1
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -47,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     public void callit(View v){
         new databaseUpdater(this,animedb).execute(getString(R.string.base_db_url));
     }
-    //test commit
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
