@@ -18,6 +18,7 @@ import java.util.ArrayList;
  */
 public class DBHelper extends SQLiteOpenHelper{
 
+    //dbhelper
     public static final String DATABASE_NAME = "anime.db";
     public static final int DATABASE_VERSION = 1;
     private static final String CLASS_TAG = "DBHelper - ";
