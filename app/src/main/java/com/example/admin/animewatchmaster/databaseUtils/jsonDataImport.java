@@ -1,5 +1,7 @@
 package com.example.admin.animewatchmaster.databaseUtils;
 
+import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -22,6 +24,7 @@ import java.net.URL;
  * Created by admin on 11/6/2015.
  */
 public class jsonDataImport {
+    private static final String CLASS_TAG = "jsonDataImport - ";
     private static InputStream is;
     public static JSONArray getAllanimeData(String base_db_url){
         return getData(base_db_url+"/animedraw/drawclasses/drawallanime.php");
@@ -34,6 +37,7 @@ public class jsonDataImport {
     }
 
     private static JSONArray getData(String db_url){
+        final String TAG = CLASS_TAG+"getData";
         JSONArray jarr=null;
         //i palia methodos sto api 23 exei katargithei alla den epsaksa na vrw pws na to kanw
         try {
@@ -48,12 +52,16 @@ public class jsonDataImport {
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.e(TAG,"MalformedURLException");
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            Log.e(TAG,"URISyntaxException");
         } catch (ClientProtocolException e) {
             e.printStackTrace();
+            Log.e(TAG,"ClientProtocolException");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG,"IOException");
         }
 
 
@@ -69,14 +77,14 @@ public class jsonDataImport {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("BufferedReader   "+e.toString());
+            Log.e(TAG,"IOException on read");
         }
 
         try {
             jarr = new JSONArray(sb.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-            System.out.println("Jsonparser    "+e.toString());
+            Log.e(TAG,"JSONException on creating array");
         }
 
 
@@ -84,7 +92,8 @@ public class jsonDataImport {
     }
 
     public static JSONObject getVData(String db_url){
-        JSONObject jarr=null;
+        final String TAG = CLASS_TAG+"getVData";
+        JSONObject job=null;
         db_url+="/animedraw/drawclasses/drawversion.php";
         try {
             URL url = new URL(db_url);
@@ -98,12 +107,16 @@ public class jsonDataImport {
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
+            Log.e(TAG,"MalformedURLException");
         } catch (URISyntaxException e) {
             e.printStackTrace();
+            Log.e(TAG,"URISyntaxException");
         } catch (ClientProtocolException e) {
             e.printStackTrace();
+            Log.e(TAG,"ClientProtocolException");
         } catch (IOException e) {
             e.printStackTrace();
+            Log.e(TAG,"IOException");
         }
 
 
@@ -119,17 +132,17 @@ public class jsonDataImport {
 
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("BufferedReader   "+e.toString());
+            Log.e(TAG,"IOException on read");
         }
 
         try {
-            jarr = new JSONObject(sb.toString());
+            job = new JSONObject(sb.toString());
         } catch (JSONException e) {
             e.printStackTrace();
-            System.out.println("Jsonparser    "+e.toString());
+            Log.e(TAG,"JSONException on creating object");
         }
 
 
-        return jarr;
+        return job;
     }
 }

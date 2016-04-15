@@ -46,7 +46,6 @@ public class databaseUpdater extends AsyncTask<String,Void,Boolean> {
                         System.out.println(job.getString("title"));
                         System.out.println(job.getString("imgurl"));
                         System.out.println(job.getString("genre"));
-                        System.out.println(job.getString("description"));
                         System.out.println(job.getString("episodes"));
                         System.out.println(job.getString("agerating"));
                         System.out.println(job.getString("animetype"));

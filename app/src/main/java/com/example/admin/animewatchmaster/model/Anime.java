@@ -8,13 +8,13 @@ public class Anime {
     private String title;
     private String imgurl;
     private String genre;
-    private int episodes;
+    private String episodes;
     private String animetype;
     private String agerating;
     private String description;
 
 
-    public Anime(int id, String title, String imgurl, String genre, int episodes, String animetype, String agerating, String description) {
+    public Anime(int id, String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description) {
         this.id = id;
         this.title = title;
         this.imgurl = imgurl;
@@ -41,7 +41,7 @@ public class Anime {
         return genre;
     }
 
-    public int getEpisodes() {
+    public String getEpisodes() {
         return episodes;
     }
 
@@ -73,7 +73,7 @@ public class Anime {
         this.genre = genre;
     }
 
-    public void setEpisodes(int episodes) {
+    public void setEpisodes(String episodes) {
         this.episodes = episodes;
     }
 
