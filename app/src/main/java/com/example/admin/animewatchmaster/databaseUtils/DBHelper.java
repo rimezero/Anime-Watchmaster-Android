@@ -72,7 +72,7 @@ public class DBHelper extends SQLiteOpenHelper{
                         "("+COLUMN_VERSION+" integer primary key)"
         );
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TABLE_VERSION, 0);
+        contentValues.put(COLUMN_VERSION, 0);
         db.insert(TABLE_VERSION, null, contentValues);
     }
 
@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertAnime(String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
+    public boolean insertIntoAnimeinfo(String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
         final String TAG = CLASS_TAG+"insertAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -108,6 +108,7 @@ public class DBHelper extends SQLiteOpenHelper{
             Log.i(TAG,"insert of anime with title "+title+" failed");
             return false;
         }
+        Log.d(TAG,"inserted anime "+title);
         return true;
     }
 
@@ -140,22 +141,38 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public Cursor getVersion(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+TABLE_VERSION, null );
+        return res;
+    }
+
     public Cursor getAnimeinfo(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from animeinfo where "+COLUMN_ID+"="+id+"", null );
+        Cursor res =  db.rawQuery( "select * from "+TABLE_ANIMEINFO+" where "+COLUMN_ID+"="+id+"", null );
         return res;
     }
 
     public Cursor getAnimeinfo(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select title from animeinfo where "+COLUMN_TITLE+"=?";
+        String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
         return res;
     }
 
+    public int getAnimeID(String title){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
+        Cursor res =  db.rawQuery( command, new String[] {title} );
+        res.moveToFirst();
+        int id = res.getInt(res.getColumnIndex("version"));
+        res.close();
+        return id;
+    }
+
     public boolean checkIfExists(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select title from animeinfo where "+COLUMN_TITLE+"=?";
+        String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
 
         if(res.getCount()>0) {
@@ -211,6 +228,10 @@ public class DBHelper extends SQLiteOpenHelper{
         if(res==0)
             Log.i(TAG,"delete of anime with id: "+id+" has failed");
         return res;
+    }
+
+    public void databaseUpdate(){
+
     }
 
     public ArrayList<Anime> getAllAnimeByLetter(String Letter){ //ftiaxnei para polla objects prepei na ginei alliws

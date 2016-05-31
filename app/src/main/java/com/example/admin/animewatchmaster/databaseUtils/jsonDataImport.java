@@ -35,6 +35,15 @@ public class jsonDataImport {
     public static JSONArray getAnimeultimaData(String base_db_url){
         return getData(base_db_url+"/animedraw/drawclasses/animeultima.php");
     }
+    public static JSONArray getAllanimeDataByVersion(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawallanimebyversion.php?version="+version);
+    }
+    public static JSONArray getAnimeinfoDataByVersion(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfobyversion.php?version="+version);
+    }
+    public static JSONArray getAnimeultimaDataByVersion(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimultimabyversion.php?version="+version);
+    }
 
     private static JSONArray getData(String db_url){
         final String TAG = CLASS_TAG+"getData";
