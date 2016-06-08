@@ -100,16 +100,16 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_ANIMEINFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         onCreate(db);
     }
 
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_ANIMEINFO);
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_WATCHLIST);
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_WATCHLATER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_VERSION);
         onCreate(db);
     }
@@ -132,7 +132,7 @@ public class DBHelper extends SQLiteOpenHelper{
             Log.i(TAG,"insert of anime with title "+title+" failed");
             return false;
         }
-        Log.d(TAG,"inserted anime "+title);
+        Log.d(TAG, "inserted anime " + title);
         return true;
     }
 
@@ -167,17 +167,51 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public Cursor getVersion(){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+TABLE_VERSION, null );
+        Cursor res =  db.rawQuery("select * from " + TABLE_VERSION, null);
         return res;
     }
 
-    public Cursor getAnimeinfo(int id){
+    public Anime getAnimeinfo(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from "+TABLE_ANIMEINFO+" where "+COLUMN_ID+"="+id+"", null );
-        return res;
+        Cursor res =  db.rawQuery("select * from " + TABLE_ANIMEINFO + " where " + COLUMN_ID + "=" + id + "", null);
+        Anime anime = new Anime();
+
+        if(res.moveToFirst()) {
+            anime.setId(res.getInt(0));
+            anime.setTitle(res.getString(1));
+            anime.setImgurl(res.getString(2));
+            anime.setGenre(res.getString(3));
+            anime.setEpisodes(res.getString(4));
+            anime.setAnimetype(res.getString(5));
+            anime.setAgerating(res.getString(6));
+            anime.setDescription(res.getString(7));
+        }
+        return anime;
     }
 
-    public Cursor getAnimeinfo(String title){
+    public Anime getAnimeInfo(int id) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        String projection[] = {COLUMN_ID,COLUMN_TITLE,COLUMN_IMGURL,COLUMN_GENRE,COLUMN_EPISODES,COLUMN_ANIMETYPE,COLUMN_AGERATING,COLUMN_DESCRIPTION};
+        Cursor res =  db.query(TABLE_ANIMEINFO,projection,"id = ?",new String[]{String.valueOf(id)},null,null,null);
+
+        Anime anime = new Anime();
+
+        if(res.moveToFirst()) {
+            anime.setId(res.getInt(0));
+            anime.setTitle(res.getString(1));
+            anime.setImgurl(res.getString(2));
+            anime.setGenre(res.getString(3));
+            anime.setEpisodes(res.getString(4));
+            anime.setAnimetype(res.getString(5));
+            anime.setAgerating(res.getString(6));
+            anime.setDescription(res.getString(7));
+        }
+
+        return anime;
+    }
+
+    public Cursor getAnimeTitle(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
@@ -262,7 +296,7 @@ public class DBHelper extends SQLiteOpenHelper{
         ArrayList<Anime> allanime = new ArrayList<>();
 
         SQLiteDatabase db = this.getReadableDatabase();
-        System.out.println("Command: select * from animeinfo where "+COLUMN_TITLE+" like '"+Letter+"%' ");
+        System.out.println("Command: select * from animeinfo where " + COLUMN_TITLE + " like '" + Letter + "%' ");
         Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
         res.moveToFirst();
 

@@ -26,6 +26,8 @@ public class Anime {
         this.description = description;
     }
 
+    public Anime() {}
+
     public int getId() {
         return id;
     }

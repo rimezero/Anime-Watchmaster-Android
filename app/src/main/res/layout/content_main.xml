@@ -18,5 +18,12 @@
         android:onClick="callit"
         android:text="Do the thing!!!"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="getAnimeTest"
+        android:text="get anime test info"
+        />
+
 
 </LinearLayout>

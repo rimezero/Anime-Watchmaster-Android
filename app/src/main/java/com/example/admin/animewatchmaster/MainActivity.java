@@ -7,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
+import com.example.admin.animewatchmaster.model.Anime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
     public void callit(View v){
         new databaseUpdater(this).execute(getString(R.string.base_db_url));
     }
+
+    public void getAnimeTest(View v) {
+        Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(5);
+        System.out.println(anime.toString());
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
