@@ -47,6 +47,7 @@ public class jsonDataImport {
     private static JSONArray getData(String db_url){
         final String TAG = CLASS_TAG+"getData";
         JSONArray jarr=null;
+        //i palia methodos sto api 23 exei katargithei alla den epsaksa na vrw pws na to kanw
         try {
 
             OkHttpClient client = new OkHttpClient();
@@ -60,6 +61,16 @@ public class jsonDataImport {
 
             jarr = new JSONArray(result);
 
+            /*
+            URL url = new URL(db_url);
+            URI uri = url.toURI();
+            DefaultHttpClient httpClient = new DefaultHttpClient();
+            HttpPost httpPost = new HttpPost(uri);
+
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            HttpEntity httpEntity = httpResponse.getEntity();
+            is = httpEntity.getContent();
+            */
 
         }  catch (IOException e) {
             e.printStackTrace();
@@ -68,6 +79,23 @@ public class jsonDataImport {
             e.printStackTrace();
         }
 
+
+        /*
+        StringBuilder sb = new StringBuilder();
+        String line =null;
+        try {
+            BufferedReader br = new BufferedReader(new InputStreamReader(is,"utf-8"),8);
+            while((line=br.readLine())!=null){
+                sb.append(line);
+            }
+            br.close();
+            is.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e(TAG,"IOException on read");
+        }
+        */
 
         return jarr;
     }
