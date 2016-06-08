@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="getAnimeTest"
-        android:text="get anime test info"
+        android:text="Demo. get anime by letter"
         />
 
 

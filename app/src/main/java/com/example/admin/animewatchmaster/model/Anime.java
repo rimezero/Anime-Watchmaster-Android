@@ -1,9 +1,11 @@
 package com.example.admin.animewatchmaster.model;
 
+import java.io.Serializable;
+
 /**
  * Created by admin on 4/11/2016.
  */
-public class Anime {
+public class Anime implements Serializable {
 
     private int id;
     private String title;

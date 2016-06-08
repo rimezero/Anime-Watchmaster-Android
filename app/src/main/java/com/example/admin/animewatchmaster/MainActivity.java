@@ -1,5 +1,6 @@
 package com.example.admin.animewatchmaster;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -7,9 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
-import com.example.admin.animewatchmaster.model.Anime;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,8 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAnimeTest(View v) {
-        Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(5);
-        System.out.println(anime.toString());
+        startActivity(new Intent(this,ActivityLetters.class));
     }
 
 
