@@ -47,10 +47,30 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_WATCHLATER = "watchlaterlist";
     private static final String TABLE_VERSION = "version";
 
+    private static volatile DBHelper dbHelper;
+
+
     public DBHelper(Context context)
     {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
+
+    //double check locking singleton
+    public static DBHelper getInstance(Context context) {
+        if(dbHelper == null) {
+            synchronized (DBHelper.class) {
+                if(dbHelper == null) {
+                    dbHelper = new DBHelper(context);
+                    return dbHelper;
+                }
+            }
+        }
+        return dbHelper;
+    }
+
+
+
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -76,12 +96,14 @@ public class DBHelper extends SQLiteOpenHelper{
         db.insert(TABLE_VERSION, null, contentValues);
     }
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_ANIMEINFO);
         onCreate(db);
     }
+
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
@@ -92,9 +114,11 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertIntoAnimeinfo(String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
+
+    public boolean insertIntoAnimeinfo(Context context,String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
+
         final String TAG = CLASS_TAG+"insertAnime";
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getInstance(context).getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TITLE,title);
         contentValues.put(COLUMN_IMGURL,imgurl);

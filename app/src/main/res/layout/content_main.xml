@@ -10,7 +10,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.admin.animewatchmaster.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <Button
@@ -18,4 +17,6 @@
         android:layout_height="wrap_content"
         android:onClick="callit"
         android:text="Do the thing!!!"/>
+
+
 </LinearLayout>

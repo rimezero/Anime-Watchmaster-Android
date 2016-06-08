@@ -4,6 +4,7 @@ package com.example.admin.animewatchmaster.model;
  * Created by admin on 4/11/2016.
  */
 public class Anime {
+
     private int id;
     private String title;
     private String imgurl;
