@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
+import com.example.admin.animewatchmaster.watchlist.WatchList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,7 +40,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getAnimeTest(View v) {
-        startActivity(new Intent(this,ActivityLetters.class));
+        startActivity(new Intent(this, ActivityLetters.class));
+    }
+
+    public void showWatchlist(View v) {
+        startActivity(new Intent(this, WatchList.class));
     }
 
 

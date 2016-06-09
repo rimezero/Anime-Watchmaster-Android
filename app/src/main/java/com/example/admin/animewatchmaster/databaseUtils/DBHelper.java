@@ -9,8 +9,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.WatchListModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -132,9 +134,9 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID,id);
-        contentValues.put(COLUMN_ANIMEFREAKLINK,frlink);
-        contentValues.put(COLUMN_ANIMEULTIMALINK,ultimalink);
+        contentValues.put(COLUMN_ID, id);
+        contentValues.put(COLUMN_ANIMEFREAKLINK, frlink);
+        contentValues.put(COLUMN_ANIMEULTIMALINK, ultimalink);
         long result = db.insert(TABLE_ANIMELINKS, null, contentValues);
         if(result==-1){
             Log.i(TAG,"insert of links for anime with ID "+id+" failed");
@@ -182,6 +184,30 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         return true;
 
+    }
+
+    public List<WatchListModel> getAllWatchList() {
+
+        List<WatchListModel> models = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String[] projection = {COLUMN_ID,COLUMN_EPISODESWATCHED,COLUMN_CURRENTEPISODE,COLUMN_LASTUPDATED};
+        Cursor c = db.query(TABLE_WATCHLIST,projection,null,null,null,null,null);
+
+        if(c.moveToFirst()) {
+            do {
+
+                WatchListModel watchListModel = new WatchListModel();
+                watchListModel.setId(c.getInt(0));
+                watchListModel.setLastEpisode(c.getInt(1));
+                watchListModel.setCurrentEpisode(c.getInt(2));
+
+                models.add(watchListModel);
+
+            } while (c.moveToNext());
+        }
+
+        return models;
     }
 
     public boolean insertIntoWatchlaterlist(int id){
