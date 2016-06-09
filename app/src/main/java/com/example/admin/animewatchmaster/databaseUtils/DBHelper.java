@@ -290,18 +290,30 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
-    public boolean checkIfExistsInWatchlist(String title){
+    //returns watchlist id or -1 if the anime with this title does not exist in the watchlist or -2 if the anime does not exists in the database at all
+    public int getWatchlistID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+        String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res = db.rawQuery(command, new String[] {title} );
 
-        if(res.getCount()>0) {
+        if(res.moveToFirst()){
+            int id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+            Cursor res2 = db.rawQuery(command, new String[] {String.valueOf(id)});
+
             res.close();
-            return true;
-        }
-        else{
+            if(res2.getCount()>0) {
+                res2.close();
+                return id;
+            }
+            else{
+                res2.close();
+                return -1;
+            }
+        }else{
             res.close();
-            return false;
+            Log.i("DBHelper - ", " checkIfExistsInWatchlist: title - "+title+" does not exists in animeinfo table");
+            return -2;
         }
     }
 
@@ -344,6 +356,24 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         else {
             Log.i(TAG,"update of links for anime with id: "+id+" failed");
+            return false;
+        }
+    }
+
+    public boolean updateWatchlistAnime(int id, int CurrentEpisodes, String lastupdated){
+        final String TAG = CLASS_TAG+"updateWatchlistAnime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_CURRENTEPISODE,CurrentEpisodes);
+        contentValues.put(COLUMN_LASTUPDATED,lastupdated);
+        int rowsaffected = db.update(TABLE_WATCHLIST, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
+
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated watchlist anime data with id: "+id);
+            return true;
+        }
+        else {
+            Log.i(TAG,"update of watchlist anime data with id: "+id+" failed");
             return false;
         }
     }

@@ -53,5 +53,25 @@ public class NetworkUtils {
         return false;
     }
 
+    public static boolean isInternetConnectionActiveAnimeFreak(Object systemService) throws NetworkOnMainThreadException {
+        if(isNetworkAvailable(systemService)) {
+
+            try {
+
+                HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://www.animefreak.tv").openConnection());
+                httpURLConnection.setRequestProperty("User-Agent","Test");
+                httpURLConnection.setRequestProperty("Connection","close");
+                httpURLConnection.setConnectTimeout(2500);
+                httpURLConnection.connect();
+                return (httpURLConnection.getResponseCode() == 200);
+
+            } catch (Throwable th) {
+                th.printStackTrace();
+            }
+        }
+
+        return false;
+    }
+
 
 }

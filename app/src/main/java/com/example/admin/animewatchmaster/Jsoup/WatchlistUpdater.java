@@ -1,7 +1,11 @@
 package com.example.admin.animewatchmaster.Jsoup;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.AsyncTask;
+import android.util.Log;
 
+import com.example.admin.animewatchmaster.NetworkUtils;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 
 import org.jsoup.Jsoup;
@@ -15,15 +19,36 @@ import java.util.ArrayList;
 /**
  * Created by admin on 6/10/2016.
  */
-public class JsoupDataImport {
+public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
 
-    public static ArrayList<Object> getWatchlistInfo(Context context){
+    public Context mainContext;
 
-        DBHelper dbinstance = DBHelper.getInstance(context);
+    public WatchlistUpdater(Context context){
+        mainContext=context;
+    }
 
-        ArrayList<Object> returndata = new ArrayList<>();
+
+    //ProgressDialog dialog;
+    @Override
+    protected void onPreExecute(){
+        //dialog = ProgressDialog.show(mainContext,"Database Update","Updating database",true);
+        Log.d("WatchlistUpdater -"," Starting watchlist update");
+    }
+
+    @Override
+    protected Void doInBackground(String... databaseurl) {
+        if(!NetworkUtils.isInternetConnectionActiveAnimeFreak(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
+            Log.i("WatchlistUpdater -"," No internet connection or cannot connect to animefreak server");
+            return null;
+        }
+
+        DBHelper dbinstance = DBHelper.getInstance(mainContext);
+
+        //palia methodos opws itan apo desktop app
         ArrayList<String> data = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();
+        ArrayList<Integer> idsnew = new ArrayList<>();
+        ArrayList<Integer> ids = new ArrayList<>();
         ArrayList<String> titles = new ArrayList<>();
         ArrayList<Integer> episodes = new ArrayList<>();
         ArrayList<String> lastupdated = new ArrayList<>();
@@ -32,7 +57,6 @@ public class JsoupDataImport {
         ArrayList<String> lastupdatednew = new ArrayList<>();
 
         Document doc = null;
-
         try {
             doc = Jsoup.connect("http://www.animefreak.tv/tracker").timeout(120*1000).get();
             Elements tbody = doc.getElementsByTag("tbody");
@@ -114,8 +138,11 @@ public class JsoupDataImport {
                 String t = titles.get(i);
                 if(t.equals("Gangsta"))
                     t += ".";
-                if(dbinstance.checkIfExistsInWatchlist(t)){
+
+                int id = dbinstance.getWatchlistID(t);
+                if(id>0){
                     titlesnew.add(t);
+                    idsnew.add(id);
                     episodesnew.add(episodes.get(i));
                     lastupdatednew.add(lastupdated.get(i));
                 }
@@ -129,6 +156,7 @@ public class JsoupDataImport {
                 int max=episodesnew.get(i);
                 String ti = titlesnew.get(i);
                 String la = lastupdatednew.get(i);
+                int id = idsnew.get(i);
                 boolean check = false;
                 for(String stt : testti){
                     if(ti.equals(stt))
@@ -143,18 +171,22 @@ public class JsoupDataImport {
                         }
                     }
                     titles.add(ti);
+                    ids.add(id);
                     testti.add(ti);
                     lastupdated.add(la);
                     episodes.add(max);
                 }
             }
-            returndata.add(titles);
-            returndata.add(episodes);
-            returndata.add(lastupdated);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return returndata;
+
+        //telos jsoup arxi SQLite
+        for(int i=0; i<titles.size(); i++){
+            dbinstance.updateWatchlistAnime(ids.get(i),episodes.get(i),lastupdated.get(i));
+        }
+
+        return null;
     }
 }
