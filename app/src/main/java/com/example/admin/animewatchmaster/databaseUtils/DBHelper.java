@@ -165,7 +165,9 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+
     public boolean insertIntoWatchlist(int id, int episodeswatched, int currentepisode, String lastupdated){
+
         final String TAG = CLASS_TAG+"insertIntoWatchlist";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -179,6 +181,7 @@ public class DBHelper extends SQLiteOpenHelper{
             return false;
         }
         return true;
+
     }
 
     public boolean insertIntoWatchlaterlist(int id){

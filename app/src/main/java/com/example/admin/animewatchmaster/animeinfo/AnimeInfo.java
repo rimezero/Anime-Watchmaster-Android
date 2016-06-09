@@ -2,10 +2,13 @@ package com.example.admin.animewatchmaster.animeinfo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.squareup.picasso.Picasso;
 
@@ -14,13 +17,15 @@ import com.squareup.picasso.Picasso;
  */
 public class AnimeInfo extends AppCompatActivity {
 
+    private Anime anime;
+
 
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.layout_animeinfo);
 
-        Anime anime = (Anime) getIntent().getSerializableExtra("anime");
+        anime = (Anime) getIntent().getSerializableExtra("anime");
 
         if(anime != null) {
 
@@ -47,8 +52,26 @@ public class AnimeInfo extends AppCompatActivity {
             finish();
         }
 
+    }
+
+
+
+
+    public void addToWatchlist(View v) {
+
+        if(!DBHelper.getInstance(getApplicationContext()).checkIfExistsInWatchlist(anime.getTitle().trim())) {
+            double d = Double.valueOf(anime.getEpisodes().trim());
+            int ep = (int) d;
+            DBHelper.getInstance(getApplicationContext()).insertIntoWatchlist(anime.getId(),0,ep,"");
+
+        } else {
+            Toast.makeText(getApplicationContext(),"anime already in watchlist",Toast.LENGTH_SHORT).show();
+        }
 
     }
+
+
+
 
 
 }

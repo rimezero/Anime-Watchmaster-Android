@@ -38,6 +38,12 @@
                 android:textColor="#000000"
                 />
 
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="add to watchlist"
+                android:onClick="addToWatchlist"
+                />
 
             <Button
                 android:layout_width="match_parent"

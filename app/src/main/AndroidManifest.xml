@@ -47,6 +47,15 @@
             </intent-filter>
         </activity>
 
+
+        <activity android:name=".watchlist.WatchList"
+            android:label="my watchlist">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>
