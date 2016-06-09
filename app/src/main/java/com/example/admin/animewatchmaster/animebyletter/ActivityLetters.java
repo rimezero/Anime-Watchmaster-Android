@@ -1,5 +1,6 @@
 package com.example.admin.animewatchmaster.animebyletter;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -8,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.twotoasters.jazzylistview.JazzyListView;
@@ -71,9 +73,9 @@ public class ActivityLetters extends AppCompatActivity {
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                             Anime anime = (Anime) parent.getItemAtPosition(position);
-                            
-
-                            //do stuff!
+                            Intent intent = new Intent(ActivityLetters.this, AnimeInfo.class);
+                            intent.putExtra("anime",anime);
+                            startActivity(intent);
 
                         }
                     });
