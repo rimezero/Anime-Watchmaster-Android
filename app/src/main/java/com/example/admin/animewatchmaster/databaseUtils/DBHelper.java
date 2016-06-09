@@ -358,6 +358,47 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+    public ArrayList<Anime> getAllAnimeByLetterWithFilters(String Letter, ArrayList<String> filterslist) {
+        ArrayList<Anime> allanime = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder command = new StringBuilder();
+        command.append("select * from animeinfo where "+COLUMN_TITLE+" like '"+Letter+"%'");
+
+        for(String filter : filterslist){
+            command.append(" and "+COLUMN_GENRE+" like '%"+filter+"%'");
+        }
+
+        //Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
+        Cursor res = db.rawQuery(command.toString(),null);
+        res.moveToFirst();
+
+        int id;
+        String title;
+        String imgurl;
+        String genre;
+        String episodes;
+        String animetype;
+        String agerating;
+        String description;
+
+        while(!res.isAfterLast()){
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            title = res.getString(res.getColumnIndex(COLUMN_TITLE));
+            imgurl = res.getString(res.getColumnIndex(COLUMN_IMGURL));
+            genre = res.getString(res.getColumnIndex(COLUMN_GENRE));
+            episodes = res.getString(res.getColumnIndex(COLUMN_EPISODES));
+            animetype = res.getString(res.getColumnIndex(COLUMN_ANIMETYPE));
+            agerating = res.getString(res.getColumnIndex(COLUMN_AGERATING));
+            description = res.getString(res.getColumnIndex(COLUMN_DESCRIPTION));
+
+            allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
+            res.moveToNext();
+        }
+        return allanime;
+    }
+
     public ArrayList<Anime> getAllAnimeByLetter(String Letter){ //ftiaxnei para polla objects prepei na ginei alliws
         ArrayList<Anime> allanime = new ArrayList<>();
 
@@ -365,6 +406,82 @@ public class DBHelper extends SQLiteOpenHelper{
         System.out.println("Command: select * from animeinfo where " + COLUMN_TITLE + " like '" + Letter + "%' ");
         //Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
         Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '"+Letter+"%'",null);
+        res.moveToFirst();
+
+        int id;
+        String title;
+        String imgurl;
+        String genre;
+        String episodes;
+        String animetype;
+        String agerating;
+        String description;
+
+        while(!res.isAfterLast()){
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            title = res.getString(res.getColumnIndex(COLUMN_TITLE));
+            imgurl = res.getString(res.getColumnIndex(COLUMN_IMGURL));
+            genre = res.getString(res.getColumnIndex(COLUMN_GENRE));
+            episodes = res.getString(res.getColumnIndex(COLUMN_EPISODES));
+            animetype = res.getString(res.getColumnIndex(COLUMN_ANIMETYPE));
+            agerating = res.getString(res.getColumnIndex(COLUMN_AGERATING));
+            description = res.getString(res.getColumnIndex(COLUMN_DESCRIPTION));
+
+            allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
+            res.moveToNext();
+        }
+        return allanime;
+    }
+
+    public ArrayList<Anime> searchForAnimeWithFilters(String searchString, ArrayList<String> filterslist){ //ftiaxnei para polla objects prepei na ginei alliws
+        ArrayList<Anime> allanime = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder command = new StringBuilder();
+        command.append("select * from animeinfo where "+COLUMN_TITLE+" like '%"+searchString+"%'");
+
+        for(String filter : filterslist){
+            command.append(" and "+COLUMN_GENRE+" like '%"+filter+"%'");
+        }
+
+        //Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
+        Cursor res = db.rawQuery(command.toString(),null);
+        res.moveToFirst();
+
+        int id;
+        String title;
+        String imgurl;
+        String genre;
+        String episodes;
+        String animetype;
+        String agerating;
+        String description;
+
+        while(!res.isAfterLast()){
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            title = res.getString(res.getColumnIndex(COLUMN_TITLE));
+            imgurl = res.getString(res.getColumnIndex(COLUMN_IMGURL));
+            genre = res.getString(res.getColumnIndex(COLUMN_GENRE));
+            episodes = res.getString(res.getColumnIndex(COLUMN_EPISODES));
+            animetype = res.getString(res.getColumnIndex(COLUMN_ANIMETYPE));
+            agerating = res.getString(res.getColumnIndex(COLUMN_AGERATING));
+            description = res.getString(res.getColumnIndex(COLUMN_DESCRIPTION));
+
+            allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
+            res.moveToNext();
+        }
+        return allanime;
+    }
+
+
+    public ArrayList<Anime> searchForAnime(String searchString){ //ftiaxnei para polla objects prepei na ginei alliws
+        ArrayList<Anime> allanime = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        System.out.println("Command: select * from animeinfo where " + COLUMN_TITLE + " like '%" + searchString + "%' ");
+        //Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
+        Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+searchString+"%'",null);
         res.moveToFirst();
 
         int id;
