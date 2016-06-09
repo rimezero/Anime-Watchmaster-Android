@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 1;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //animelinks
@@ -128,9 +128,9 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public boolean insertIntoAnimelinks(Context context, int id,String frlink,String ultimalink){
+    public boolean insertIntoAnimelinks(int id,String frlink,String ultimalink){
         final String TAG = CLASS_TAG+"insertAnime";
-        SQLiteDatabase db = getInstance(context).getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_ID,id);
         contentValues.put(COLUMN_ANIMEFREAKLINK,frlink);
@@ -144,10 +144,10 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
-    public boolean insertIntoAnimeinfo(Context context,String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
+    public boolean insertIntoAnimeinfo(String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
 
         final String TAG = CLASS_TAG+"insertAnime";
-        SQLiteDatabase db = getInstance(context).getWritableDatabase();
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COLUMN_TITLE,title);
         contentValues.put(COLUMN_IMGURL,imgurl);

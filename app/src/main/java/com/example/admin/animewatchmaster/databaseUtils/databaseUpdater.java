@@ -33,11 +33,11 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     @Override
     protected Void doInBackground(String... databaseurl) {
 
-
+        DBHelper dbinstance = DBHelper.getInstance(mainContext);
         JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);
         if(versionjob != null) {
 
-            Cursor csvs = DBHelper.getInstance(mainContext).getVersion();
+            Cursor csvs = dbinstance.getVersion();
             csvs.moveToFirst();
             int localversion = csvs.getInt(csvs.getColumnIndex("version"));
             csvs.close();
@@ -63,7 +63,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                         try {
                             job = (JSONObject) jarr.get(i);
                             int id;
-                            if (!DBHelper.getInstance(mainContext).checkIfExistsInAnimeInfo(job.getString("title"))) {
+                            if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
                     /*
                     System.out.println(job.getInt("id"));
                     System.out.println(job.getString("title"));
@@ -73,17 +73,17 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                     System.out.println(job.getString("agerating"));
                     System.out.println(job.getString("animetype"));
                     System.out.println(job.getString("description"));*/
-                                boolean s = DBHelper.getInstance(mainContext).insertIntoAnimeinfo(mainContext, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
-                                id = DBHelper.getInstance(mainContext).getAnimeID(job.getString("title"));
-                                s = DBHelper.getInstance(mainContext).insertIntoAnimelinks(mainContext,id,job.getString("frlink"),job.getString("ultimalink"));
+                                boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                id = dbinstance.getAnimeID(job.getString("title"));
+                                s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
                                 //System.out.println(s);
                             } else {
-                                id = DBHelper.getInstance(mainContext).getAnimeID(job.getString("title"));
-                                boolean s = DBHelper.getInstance(mainContext).updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
-                                if(DBHelper.getInstance(mainContext).checkIfExistsInAnimelinks(id)) {
-                                    s = DBHelper.getInstance(mainContext).updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"));
+                                id = dbinstance.getAnimeID(job.getString("title"));
+                                boolean s = dbinstance.updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                if(dbinstance.checkIfExistsInAnimelinks(id)) {
+                                    s = dbinstance.updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"));
                                 }else{
-                                    s = DBHelper.getInstance(mainContext).insertIntoAnimelinks(mainContext,id,job.getString("frlink"),job.getString("ultimalink"));
+                                    s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
                                 }
                             }
                         } catch (JSONException e) {
@@ -93,7 +93,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                     }
 
 
-                    DBHelper.getInstance(mainContext).updateVersion(onlineversion);
+                    dbinstance.updateVersion(onlineversion);
 
 
                 }
