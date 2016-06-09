@@ -16,8 +16,11 @@ import java.util.ArrayList;
  * Created by admin on 6/10/2016.
  */
 public class JsoupDataImport {
+
     public static ArrayList<Object> getWatchlistInfo(Context context){
+
         DBHelper dbinstance = DBHelper.getInstance(context);
+
         ArrayList<Object> returndata = new ArrayList<>();
         ArrayList<String> data = new ArrayList<>();
         ArrayList<String> data2 = new ArrayList<>();
@@ -29,6 +32,7 @@ public class JsoupDataImport {
         ArrayList<String> lastupdatednew = new ArrayList<>();
 
         Document doc = null;
+
         try {
             doc = Jsoup.connect("http://www.animefreak.tv/tracker").timeout(120*1000).get();
             Elements tbody = doc.getElementsByTag("tbody");
