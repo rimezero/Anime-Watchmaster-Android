@@ -3,17 +3,11 @@ package com.example.admin.animewatchmaster.animebyletter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.model.Anime;
 import com.twotoasters.jazzylistview.JazzyListView;
-import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,41 +40,9 @@ public class ActivityLetters extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
 
-
-                    String listID = "letterlist" + letter;
-                    int resListID = getResources().getIdentifier(listID, "id", getPackageName());
-
-                    List<Anime> animes = DBHelper.getInstance(getApplicationContext()).getAllAnimeByLetter(letter);
-
-                    JazzyListView listView = (JazzyListView) findViewById(resListID);
-                    listView.setTransitionEffect(new SlideInEffect());
-
-                    listView.setOnTouchListener(new View.OnTouchListener() {
-                        // Setting on Touch Listener for handling the touch inside ScrollView
-                        @Override
-                        public boolean onTouch(View v, MotionEvent event) {
-                            // Disallow the touch request for parent scroll on touch of child view
-                            v.getParent().requestDisallowInterceptTouchEvent(true);
-                            return false;
-                        }
-                    });
-
-                    AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(), animes);
-                    listView.setAdapter(animeLetterAdapter);
-
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            Anime anime = (Anime) parent.getItemAtPosition(position);
-                            Intent intent = new Intent(ActivityLetters.this, AnimeInfo.class);
-                            intent.putExtra("anime",anime);
-                            startActivity(intent);
-
-                        }
-                    });
-
-                    animateOpenCloseView(listView);
+                    Intent intent = new Intent(ActivityLetters.this,AnimesByLetter.class);
+                    intent.putExtra("letter",letter);
+                    startActivity(intent);
 
                 }
             });
@@ -151,6 +113,7 @@ public class ActivityLetters extends AppCompatActivity {
     }
 
 
+    //not used
     private void animateOpenCloseView(final JazzyListView jazz) {
 
             //to close views or open views

@@ -39,6 +39,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".animebyletter.AnimesByLetter"
+            android:label="anime by letter">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

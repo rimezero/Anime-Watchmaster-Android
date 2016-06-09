@@ -22,8 +22,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="getAnimeTest"
-        android:text="Demo. get anime by letter"
+        android:text="Demo.A-Z animes"
         />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="my watchlist"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="watch latter list"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Top animes/New animes"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="settings/Share"
+        />
+
+
 
 
 </LinearLayout>
