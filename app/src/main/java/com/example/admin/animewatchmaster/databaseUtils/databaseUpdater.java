@@ -83,11 +83,9 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
                     }
 
-                    try {
-                        DBHelper.getInstance(mainContext).updateVersion(job.getInt("version"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
+                    DBHelper.getInstance(mainContext).updateVersion(onlineversion);
+
 
                 }
 
