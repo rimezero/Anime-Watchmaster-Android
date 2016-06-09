@@ -33,11 +33,11 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     @Override
     protected Void doInBackground(String... databaseurl) {
 
-
+        DBHelper dbinstance = DBHelper.getInstance(mainContext);
         JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);
         if(versionjob != null) {
 
-            Cursor csvs = DBHelper.getInstance(mainContext).getVersion();
+            Cursor csvs = dbinstance.getVersion();
             csvs.moveToFirst();
             int localversion = csvs.getInt(csvs.getColumnIndex("version"));
             csvs.close();
@@ -53,7 +53,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
             if (onlineversion > localversion) {
 
-                jarr = jsonDataImport.getAnimeinfoDataByVersion(databaseurl[0], localversion);
+                jarr = jsonDataImport.getAnimeinfoDataIncludingLinksByVersion(databaseurl[0], localversion);
 
                 if(jarr != null && jarr.length() > 0) {
 
@@ -62,7 +62,8 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                     for (int i = 0; i < jarr.length(); i++) {
                         try {
                             job = (JSONObject) jarr.get(i);
-                            if (!DBHelper.getInstance(mainContext).checkIfExists(job.getString("title"))) {
+                            int id;
+                            if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
                     /*
                     System.out.println(job.getInt("id"));
                     System.out.println(job.getString("title"));
@@ -72,10 +73,18 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                     System.out.println(job.getString("agerating"));
                     System.out.println(job.getString("animetype"));
                     System.out.println(job.getString("description"));*/
-                                boolean s = DBHelper.getInstance(mainContext).insertIntoAnimeinfo(mainContext, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                id = dbinstance.getAnimeID(job.getString("title"));
+                                s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
                                 //System.out.println(s);
                             } else {
-                                boolean s = DBHelper.getInstance(mainContext).updateAnimeinfo(DBHelper.getInstance(mainContext).getAnimeID(job.getString("title")), job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                id = dbinstance.getAnimeID(job.getString("title"));
+                                boolean s = dbinstance.updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                if(dbinstance.checkIfExistsInAnimelinks(id)) {
+                                    s = dbinstance.updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"));
+                                }else{
+                                    s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
+                                }
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -83,11 +92,9 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
                     }
 
-                    try {
-                        DBHelper.getInstance(mainContext).updateVersion(job.getInt("version"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+
+                    dbinstance.updateVersion(onlineversion);
+
 
                 }
 
