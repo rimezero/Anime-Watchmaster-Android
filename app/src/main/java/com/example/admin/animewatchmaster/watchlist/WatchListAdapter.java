@@ -9,7 +9,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchListModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -33,8 +36,16 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
+        Anime anime = DBHelper.getInstance(getContext()).getAnimeInfo(model.getId());
+
+        if(anime != null && !anime.getImgurl().trim().isEmpty()) {
+            Picasso.with(getContext())
+                    .load(anime.getImgurl())
+                    .into(imageView);
+        }
+
         TextView textView = (TextView)convertView.findViewById(R.id.episodes);
-        textView.setText("test");
+        textView.setText("episodes"+model.getCurrentEpisode());
 
         return convertView;
     }
