@@ -405,7 +405,7 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getReadableDatabase();
         System.out.println("Command: select * from animeinfo where " + COLUMN_TITLE + " like '" + Letter + "%' ");
         //Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '%"+Letter+"%'",null);
-        Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '"+Letter+"%'",null);
+        Cursor res = db.rawQuery("select * from animeinfo where "+COLUMN_TITLE+" like '"+Letter+"%' order by "+COLUMN_TITLE+" asc",null);
         res.moveToFirst();
 
         int id;

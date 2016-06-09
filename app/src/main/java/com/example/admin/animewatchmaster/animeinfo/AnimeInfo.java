@@ -43,9 +43,11 @@ public class AnimeInfo extends AppCompatActivity {
             desc.setText(anime.getDescription());
 
 
-
-
+        } else {
+            finish();
         }
+
+
     }
 
 
