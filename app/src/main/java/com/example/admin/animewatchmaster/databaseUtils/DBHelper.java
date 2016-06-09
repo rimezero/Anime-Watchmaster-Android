@@ -223,7 +223,7 @@ public class DBHelper extends SQLiteOpenHelper{
         String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
         res.moveToFirst();
-        int id = res.getInt(res.getColumnIndex("version"));
+        int id = res.getInt(res.getColumnIndex(COLUMN_ID));
         res.close();
         return id;
     }
@@ -258,8 +258,10 @@ public class DBHelper extends SQLiteOpenHelper{
         contentValues.put(COLUMN_DESCRIPTION, description);
         int rowsaffected = db.update(TABLE_ANIMEINFO, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
 
-        if(rowsaffected>0)
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated info of anime: "+title);
             return true;
+        }
         else {
             Log.i(TAG,"update of anime with id: "+id+" and title: "+title+" failed");
             return false;
