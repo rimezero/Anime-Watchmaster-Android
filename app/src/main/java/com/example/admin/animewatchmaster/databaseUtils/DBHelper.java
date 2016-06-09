@@ -290,6 +290,21 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+    public boolean checkIfExistsInWatchlist(String title){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+        Cursor res = db.rawQuery(command, new String[] {title} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+    }
+
     public boolean updateAnimeinfo (Integer id, String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description)
     {
         final String TAG = CLASS_TAG+"updateAnimeinfo";
