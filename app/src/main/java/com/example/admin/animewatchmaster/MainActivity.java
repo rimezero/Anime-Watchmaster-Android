@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
 
 public class MainActivity extends AppCompatActivity {

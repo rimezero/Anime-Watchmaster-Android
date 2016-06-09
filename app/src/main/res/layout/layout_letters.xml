@@ -4,14 +4,865 @@
     android:background="#c0c0fa"
     android:layout_height="match_parent">
 
-    <com.twotoasters.jazzylistview.JazzyListView
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listanimeletter"
+        android:id="@+id/myscroll"
         >
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-    </com.twotoasters.jazzylistview.JazzyListView>
 
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/A"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="A"
+                    />
+
+
+
+                    <com.twotoasters.jazzylistview.JazzyListView
+                        android:layout_width="match_parent"
+                        android:layout_height="fill_parent"
+                        android:id="@+id/letterlistA"
+                        android:visibility="gone"
+                        >
+
+
+                    </com.twotoasters.jazzylistview.JazzyListView>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:id="@+id/B"
+                android:orientation="vertical"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="B"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistB"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:id="@+id/C"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="C"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistC"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/D"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="D"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistD"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/E"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="E"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistE"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/F"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="F"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistF"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/G"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="G"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistG"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/H"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="H"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistH"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/I"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="I"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistI"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/J"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="J"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistJ"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/K"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="K"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistK"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/L"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="L"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistL"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/M"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="M"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistM"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/N"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="N"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistN"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/O"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="O"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistO"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/P"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="P"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistP"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/Q"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="Q"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistQ"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/R"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="R"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistR"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/S"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="S"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistS"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/T"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="T"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistT"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/U"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="U"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistU"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/V"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="V"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistV"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/W"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="W"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistW"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/X"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="X"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistX"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/Y"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="Y"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistY"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/letters"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:id="@+id/Z"
+                android:visibility="gone"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#262525"
+                    android:textStyle="bold"
+                    android:textSize="30sp"
+                    android:layout_gravity="center"
+                    android:text="Z"
+                    />
+
+                <com.twotoasters.jazzylistview.JazzyListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/letterlistZ"
+                    android:visibility="gone"
+                    >
+
+
+                </com.twotoasters.jazzylistview.JazzyListView>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

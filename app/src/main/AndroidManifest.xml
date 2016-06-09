@@ -22,7 +22,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ActivityLetters"
+        <activity android:name=".animebyletter.ActivityLetters"
             android:label="anime by letter">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -30,8 +30,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".animebyletter.AnimeByLetter"
-            android:label="anime letter">
+
+        <activity android:name=".animeinfo.AnimeInfo"
+            android:label="anime info">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

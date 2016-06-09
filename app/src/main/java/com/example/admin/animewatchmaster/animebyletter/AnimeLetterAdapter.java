@@ -38,12 +38,17 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-        Picasso.with(getContext())
-                .load(model.getImgurl())
-                .into(imageView);
 
-        TextView textView = (TextView)convertView.findViewById(R.id.desc);
-        textView.setText(model.getDescription());
+        try {
+            Picasso.with(getContext())
+                    .load(model.getImgurl())
+                    .into(imageView);
+        } catch (Exception ex) {
+
+        }
+
+        TextView textView = (TextView)convertView.findViewById(R.id.type);
+        textView.setText(model.getAnimetype());
 
 
         return convertView;
