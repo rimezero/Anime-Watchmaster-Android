@@ -37,10 +37,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
         JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);
         if(versionjob != null) {
 
-            Cursor csvs = dbinstance.getVersion();
-            csvs.moveToFirst();
-            int localversion = csvs.getInt(csvs.getColumnIndex("version"));
-            csvs.close();
+            int localversion = dbinstance.getVersion();
             int onlineversion = -1;
             try {
                 onlineversion = versionjob.getInt("version");

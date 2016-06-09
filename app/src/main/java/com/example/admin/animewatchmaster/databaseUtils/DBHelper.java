@@ -194,10 +194,15 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
-    public Cursor getVersion(){
+    public int getVersion(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res =  db.rawQuery("select * from " + TABLE_VERSION, null);
-        return res;
+        int version = -1;
+        if(res.moveToFirst()){
+            version = res.getInt(res.getColumnIndex(COLUMN_VERSION));
+        }
+        res.close();
+        return version;
     }
 
     public Anime getAnimeinfo(int id){
@@ -215,6 +220,7 @@ public class DBHelper extends SQLiteOpenHelper{
             anime.setAgerating(res.getString(6));
             anime.setDescription(res.getString(7));
         }
+        res.close();
         return anime;
     }
 
@@ -237,14 +243,9 @@ public class DBHelper extends SQLiteOpenHelper{
             anime.setDescription(res.getString(7));
         }
 
-        return anime;
-    }
+        res.close();
 
-    public Cursor getAnimeTitle(String title){
-        SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
-        Cursor res =  db.rawQuery( command, new String[] {title} );
-        return res;
+        return anime;
     }
 
     public int getAnimeID(String title){
