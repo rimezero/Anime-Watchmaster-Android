@@ -34,7 +34,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
         TextView textView = (TextView)convertView.findViewById(R.id.episodes);
-
+        textView.setText("test");
 
         return convertView;
     }
