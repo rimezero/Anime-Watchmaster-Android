@@ -186,6 +186,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+
     public List<WatchListModel> getAllWatchList() {
 
         List<WatchListModel> models = new ArrayList<>();
@@ -207,8 +208,11 @@ public class DBHelper extends SQLiteOpenHelper{
             } while (c.moveToNext());
         }
 
+        c.close();
+
         return models;
     }
+
 
     public boolean insertIntoWatchlaterlist(int id){
         final String TAG = CLASS_TAG+"insertIntoWatchlaterlist";

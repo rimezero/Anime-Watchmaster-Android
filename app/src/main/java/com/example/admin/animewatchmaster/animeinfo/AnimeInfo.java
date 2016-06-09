@@ -60,6 +60,7 @@ public class AnimeInfo extends AppCompatActivity {
     public void addToWatchlist(View v) {
 
         if(DBHelper.getInstance(getApplicationContext()).getWatchlistID(anime.getTitle().trim()) == -1) {
+
             double d = Double.valueOf(anime.getEpisodes().trim());
             int ep = (int) d;
             DBHelper.getInstance(getApplicationContext()).insertIntoWatchlist(anime.getId(),0,ep,"");
