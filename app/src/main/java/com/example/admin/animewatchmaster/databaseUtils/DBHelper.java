@@ -20,8 +20,12 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 4;
     private static final String CLASS_TAG = "DBHelper - ";
+
+    //animelinks
+    private static final String COLUMN_ANIMEFREAKLINK = "frlink";
+    private static final String COLUMN_ANIMEULTIMALINK = "ultimalink";
 
     //animeinfo
     private static final String COLUMN_ID = "id";
@@ -42,6 +46,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String COLUMN_VERSION = "version";
 
     //tables
+    private static final String TABLE_ANIMELINKS = "animelinks";
     private static final String TABLE_ANIMEINFO = "animeinfo";
     private static final String TABLE_WATCHLIST = "watchlist";
     private static final String TABLE_WATCHLATER = "watchlaterlist";
@@ -76,6 +81,10 @@ public class DBHelper extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
         db.execSQL(
+                "create table if not exists "+TABLE_ANIMELINKS+
+                        "("+COLUMN_ID+" integer primary key, "+COLUMN_ANIMEFREAKLINK+" text, "+COLUMN_ANIMEULTIMALINK+" text)"
+        );
+        db.execSQL(
                 "create table if not exists "+TABLE_ANIMEINFO+
                         "("+COLUMN_ID+" integer primary key, "+COLUMN_TITLE+" text, "+COLUMN_IMGURL+" text, "+COLUMN_GENRE+" text, "+COLUMN_EPISODES+" text, "+COLUMN_ANIMETYPE+" text, "+COLUMN_AGERATING+" text, "+COLUMN_DESCRIPTION+" text)"
         );
@@ -96,24 +105,44 @@ public class DBHelper extends SQLiteOpenHelper{
         db.insert(TABLE_VERSION, null, contentValues);
     }
 
-
+    //kanw drop ta pada gia testing
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
         onCreate(db);
     }
 
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_VERSION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
         onCreate(db);
     }
 
+    public boolean insertIntoAnimelinks(Context context, int id,String frlink,String ultimalink){
+        final String TAG = CLASS_TAG+"insertAnime";
+        SQLiteDatabase db = getInstance(context).getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ID,id);
+        contentValues.put(COLUMN_ANIMEFREAKLINK,frlink);
+        contentValues.put(COLUMN_ANIMEULTIMALINK,ultimalink);
+        long result = db.insert(TABLE_ANIMELINKS, null, contentValues);
+        if(result==-1){
+            Log.i(TAG,"insert of links for anime with ID "+id+" failed");
+            return false;
+        }
+        Log.d(TAG, "inserted links for anime with id: " + id);
+        return true;
+    }
 
     public boolean insertIntoAnimeinfo(Context context,String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description){
 
@@ -228,10 +257,26 @@ public class DBHelper extends SQLiteOpenHelper{
         return id;
     }
 
-    public boolean checkIfExists(String title){
+    public boolean checkIfExistsInAnimeInfo(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+
+    }
+
+    public boolean checkIfExistsInAnimelinks(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ANIMEFREAKLINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
 
         if(res.getCount()>0) {
             res.close();
@@ -264,6 +309,25 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         else {
             Log.i(TAG,"update of anime with id: "+id+" and title: "+title+" failed");
+            return false;
+        }
+    }
+
+    public boolean updateAnimelinks (int id, String frlink, String ultimalink)
+    {
+        final String TAG = CLASS_TAG+"updateAnimelinks";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ANIMEFREAKLINK,frlink);
+        contentValues.put(COLUMN_ANIMEULTIMALINK,ultimalink);
+        int rowsaffected = db.update(TABLE_ANIMELINKS, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
+
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated links of anime with id: "+id);
+            return true;
+        }
+        else {
+            Log.i(TAG,"update of links for anime with id: "+id+" failed");
             return false;
         }
     }
