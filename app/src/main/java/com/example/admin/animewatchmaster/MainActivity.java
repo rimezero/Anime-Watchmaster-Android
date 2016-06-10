@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         },500);
-        
+
         startActivity(new Intent(this, AnimeWatchLater.class));
 
 

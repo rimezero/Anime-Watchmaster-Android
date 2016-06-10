@@ -11,11 +11,46 @@
         android:id="@+id/myscroll"
         >
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             >
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Genres"
+                    />
+
+                <SearchView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/searchquery"
+                    >
+
+
+                </SearchView>
+
+            </LinearLayout>
+
+            <com.twotoasters.jazzylistview.JazzyListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/querylist"
+                android:visibility="gone"
+                >
+
+
+            </com.twotoasters.jazzylistview.JazzyListView>
 
 
 
@@ -341,15 +376,7 @@
                     android:text="N"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistN"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -373,15 +400,7 @@
                     android:text="O"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistO"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -405,15 +424,7 @@
                     android:text="P"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistP"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -437,15 +448,7 @@
                     android:text="Q"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistQ"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -469,15 +472,7 @@
                     android:text="R"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistR"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -501,15 +496,7 @@
                     android:text="S"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistS"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -533,15 +520,6 @@
                     android:text="T"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistT"
-                    android:visibility="gone"
-                    >
-
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -565,15 +543,7 @@
                     android:text="U"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistU"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -597,15 +567,7 @@
                     android:text="V"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistV"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -629,15 +591,6 @@
                     android:text="W"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistW"
-                    android:visibility="gone"
-                    >
-
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -661,15 +614,7 @@
                     android:text="X"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistX"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -693,15 +638,7 @@
                     android:text="Y"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistY"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
@@ -725,15 +662,7 @@
                     android:text="Z"
                     />
 
-                <com.twotoasters.jazzylistview.JazzyListView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/letterlistZ"
-                    android:visibility="gone"
-                    >
 
-
-                </com.twotoasters.jazzylistview.JazzyListView>
 
             </LinearLayout>
 
