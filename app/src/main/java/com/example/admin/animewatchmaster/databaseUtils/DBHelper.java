@@ -188,7 +188,7 @@ public class DBHelper extends SQLiteOpenHelper{
     }
 
 
-    public List<WatchListModel> getAllWatchList() {
+    public List<WatchListModel> getWatchlistData() {
 
         List<WatchListModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();

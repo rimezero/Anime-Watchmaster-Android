@@ -21,7 +21,7 @@ public class WatchList extends AppCompatActivity {
         setContentView(R.layout.layout_watchlist);
 
 
-        List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getAllWatchList();
+        List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
         ListView listView = (ListView)findViewById(R.id.watchlist);
 
         WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(),modelList);

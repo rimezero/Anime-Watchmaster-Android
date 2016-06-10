@@ -191,7 +191,7 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
         }
 
         /* DEBUGGING ON CREATE
-        List<WatchListModel> list = dbinstance.getAllWatchList();
+        List<WatchListModel> list = dbinstance.getWatchlistData();
         for(WatchListModel anime : list){
             Log.d("asynctask debug", String.valueOf(anime.getCurrentEpisode()));
         }*/
