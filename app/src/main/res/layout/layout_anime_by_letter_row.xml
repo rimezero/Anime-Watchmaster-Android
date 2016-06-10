@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical" android:layout_width="fill_parent"
     android:background="#6a6ace"
-    android:layout_height="match_parent">
+    android:layout_height="fill_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:background="@drawable/test"
@@ -14,7 +14,7 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="20sp"
             android:textColor="#FFF"
             android:text="title"
@@ -30,15 +30,22 @@
             android:background="@drawable/loading"
             />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            >
+
+        </View>
 
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textColor="#FFF"
             android:text="title"
             android:id="@+id/type"
-            android:gravity="center"
+            android:gravity="center|bottom"
             />
 
     </LinearLayout>

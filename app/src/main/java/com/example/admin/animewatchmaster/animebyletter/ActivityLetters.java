@@ -3,11 +3,15 @@ package com.example.admin.animewatchmaster.animebyletter;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.model.Anime;
 import com.twotoasters.jazzylistview.JazzyListView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,12 @@ import java.util.TimerTask;
 public class ActivityLetters extends AppCompatActivity {
 
 
+    private List<LinearLayout> linearList;
+    private ArrayList<String> genres = new ArrayList<>();
+    private SearchView searchView;
+
+    private DBHelper dbHelper;
+
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -27,8 +37,8 @@ public class ActivityLetters extends AppCompatActivity {
         setContentView(R.layout.layout_letters);
 
         List<String> letters = getAllLetters();
-        List<LinearLayout> linearLayouts = new ArrayList<>();
 
+        linearList = new ArrayList<>();
 
         for(final String letter : letters) {
 
@@ -65,15 +75,100 @@ public class ActivityLetters extends AppCompatActivity {
             });
 
 
-            linearLayouts.add(linearLayout);
+            linearList.add(linearLayout);
         }
 
-        animateMainChapters(linearLayouts);
+        dbHelper = DBHelper.getInstance(getApplicationContext());
 
+        animateMainChapters(linearList);
+
+
+        searchView = (SearchView)findViewById(R.id.searchquery);
+        searchView.setOnQueryTextListener(new OnChangeListener());
 
 
     }
 
+
+
+    private class OnChangeListener implements SearchView.OnQueryTextListener {
+
+
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            if(query.length() >= 3) {
+
+                makeAllLinearViewGone(linearList);
+
+                List<Anime> animes = dbHelper.getAllAnime(3,query,genres);
+
+                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+                jazzyListView.setVisibility(View.VISIBLE);
+                AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
+                jazzyListView.setTransitionEffect(new SlideInEffect());
+
+                jazzyListView.setAdapter(animeLetterAdapter);
+
+            } else if(query.length() == 0) {
+
+                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+                jazzyListView.setVisibility(View.GONE);
+                makeAllLinearViewVisible(linearList);
+
+            }
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            if(newText.length() >= 3) {
+
+                makeAllLinearViewGone(linearList);
+
+                List<Anime> animes = dbHelper.getAllAnime(2,newText,null);
+                
+                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+                jazzyListView.setVisibility(View.VISIBLE);
+                AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
+                jazzyListView.setTransitionEffect(new SlideInEffect());
+
+                jazzyListView.setAdapter(animeLetterAdapter);
+
+            } else if(newText.length() == 0) {
+
+                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+                jazzyListView.setVisibility(View.GONE);
+                makeAllLinearViewVisible(linearList);
+
+            }
+            return false;
+        }
+    }
+
+
+
+    private void makeAllLinearViewGone(List<LinearLayout> linearLayouts) {
+        if(linearLayouts != null && !linearLayouts.isEmpty()) {
+
+            for(LinearLayout linearLayout : linearLayouts) {
+                linearLayout.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+
+    private void makeAllLinearViewVisible(List<LinearLayout> linearLayouts) {
+
+        if(linearLayouts != null && !linearLayouts.isEmpty()) {
+
+            for(LinearLayout linearLayout : linearLayouts) {
+                linearLayout.setVisibility(View.VISIBLE);
+            }
+
+        }
+
+    }
 
 
 
