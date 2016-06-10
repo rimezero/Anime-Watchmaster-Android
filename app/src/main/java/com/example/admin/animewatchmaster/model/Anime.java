@@ -1,11 +1,13 @@
 package com.example.admin.animewatchmaster.model;
 
+import android.util.Log;
+
 import java.io.Serializable;
 
 /**
  * Created by admin on 4/11/2016.
  */
-public class Anime implements Serializable {
+public class Anime implements Serializable,Comparable {
 
     private int id;
     private String title;
@@ -26,6 +28,17 @@ public class Anime implements Serializable {
         this.animetype = animetype;
         this.agerating = agerating;
         this.description = description;
+    }
+
+    @Override
+    public int compareTo(Object another) {
+        try {
+            return this.title.toLowerCase().compareTo(((Anime) another).getTitle().toLowerCase());
+        }catch (ClassCastException ex){
+            Log.e("Anime - compareTo"," Cannot cast object to Anime");
+            ex.printStackTrace();
+        }
+        return 0;
     }
 
     public Anime() {}

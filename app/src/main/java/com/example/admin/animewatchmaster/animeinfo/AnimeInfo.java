@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -58,12 +59,26 @@ public class AnimeInfo extends AppCompatActivity {
 
 
     public void addToWatchlist(View v) {
+        DBHelper dbinstance = DBHelper.getInstance(getApplicationContext());
+        if(!dbinstance.checkIfExistsInWatchlist(anime.getId())) {
 
-        if(DBHelper.getInstance(getApplicationContext()).getWatchlistID(anime.getTitle().trim()) == -1) {
+            String episodes = anime.getEpisodes();
+            int ep = 0;
+            boolean doUpdateFlag = false;
 
-            double d = Double.valueOf(anime.getEpisodes().trim());
-            int ep = (int) d;
-            DBHelper.getInstance(getApplicationContext()).insertIntoWatchlist(anime.getId(),0,ep,"");
+            if(episodes!=null && episodes.trim().equals("Ongoing")){
+                doUpdateFlag = true;
+            }else if(episodes.trim().isEmpty()){
+                //do nothing
+            }else{
+                double d = Double.valueOf(anime.getEpisodes().trim());
+                ep = (int) d;
+            }
+
+            dbinstance.insertIntoWatchlist(anime.getId(),0,ep,"");
+
+            if(doUpdateFlag)
+                new WatchlistUpdater(getApplicationContext()).execute("");
 
         } else {
             Toast.makeText(getApplicationContext(),"anime already in watchlist",Toast.LENGTH_SHORT).show();

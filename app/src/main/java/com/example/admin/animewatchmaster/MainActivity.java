@@ -38,12 +38,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callit(View v){
-        new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        //new databaseUpdater(this).execute(getString(R.string.base_db_url));
         //DBHelper dbinstance = DBHelper.getInstance(this);
         /*
         dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
         dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"),0,0,"");*/
-        //new WatchlistUpdater(this).execute("");
+        new WatchlistUpdater(this).execute("");
     }
 
     public void getAnimeTest(View v) {

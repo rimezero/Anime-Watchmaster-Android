@@ -13,6 +13,8 @@ import com.example.admin.animewatchmaster.model.Anime;
 import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +30,8 @@ public class AnimesByLetter extends AppCompatActivity {
 
         String letter = (String)getIntent().getSerializableExtra("letter");
 
-        List<Anime> animeList = DBHelper.getInstance(getApplicationContext()).getAllAnimeByLetter(letter);
+        List<Anime> animeList = DBHelper.getInstance(getApplicationContext()).getAllAnime(0,letter,null);
+        //Collections.sort(animeList);
 
         JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
         jazzyListView.setTransitionEffect(new SlideInEffect());
