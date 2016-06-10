@@ -610,7 +610,54 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public boolean incrementEpisodesWatched(int id){
+        synchronized (DBHelper.class){
+            boolean doneFlag = false;
+            SQLiteDatabase db = this.getWritableDatabase();
+            String[] projection = {COLUMN_EPISODESWATCHED,COLUMN_CURRENTEPISODE};
+            Cursor res = db.query(TABLE_WATCHLIST,projection,COLUMN_ID+"=?",new String[] {String.valueOf(id)},null,null,null,null);
+            if(res.moveToFirst()){
+                int episodeswatched = res.getInt(res.getColumnIndex(COLUMN_EPISODESWATCHED));
+                int currentepisode = res.getInt(res.getColumnIndex(COLUMN_CURRENTEPISODE));
+                if(episodeswatched<currentepisode){
+                    episodeswatched++;
+                    ContentValues values = new ContentValues();
+                    values.put(COLUMN_EPISODESWATCHED,episodeswatched);
+                    db.update(TABLE_WATCHLIST,values,COLUMN_ID+"=?",new String[] {String.valueOf(id)});
+                    doneFlag=true;
+                }else{
+                    Log.i("DBHelper-incrWatchl"," for the anime with ID: "+id+" episodeswatched>=currentepisode cant proceed");
+                }
+            }else{
+                Log.i("DBHelper-incrWatchl"," ID: "+id+" not found in watchlist");
+            }
+            return doneFlag;
+        }
+    }
 
+    public boolean decrementEpisodesWatched(int id){
+        synchronized (DBHelper.class){
+            boolean doneFlag = false;
+            SQLiteDatabase db = this.getWritableDatabase();
+            String[] projection = {COLUMN_EPISODESWATCHED};
+            Cursor res = db.query(TABLE_WATCHLIST,projection,COLUMN_ID+"=?",new String[] {String.valueOf(id)},null,null,null,null);
+            if(res.moveToFirst()){
+                int episodeswatched = res.getInt(res.getColumnIndex(COLUMN_EPISODESWATCHED));
+                if(episodeswatched>0){
+                    episodeswatched--;
+                    ContentValues values = new ContentValues();
+                    values.put(COLUMN_EPISODESWATCHED,episodeswatched);
+                    db.update(TABLE_WATCHLIST,values,COLUMN_ID+"=?",new String[] {String.valueOf(id)});
+                    doneFlag=true;
+                }else{
+                    Log.i("DBHelper-decrWatchl"," for the anime with ID: "+id+" episodeswatched<=0 cant proceed");
+                }
+            }else{
+                Log.i("DBHelper-decrWatchl"," ID: "+id+" not found in watchlist");
+            }
+            return doneFlag;
+        }
+    }
 
     public int numberOfAnime(){
         SQLiteDatabase db = this.getReadableDatabase();
