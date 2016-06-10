@@ -60,7 +60,6 @@ public class AnimeInfo extends AppCompatActivity {
 
 
 
-
     public void addToWatchlist(final View v) {
 
         v.setEnabled(false);
