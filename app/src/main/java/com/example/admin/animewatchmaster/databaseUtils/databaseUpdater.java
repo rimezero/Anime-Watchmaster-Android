@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.example.admin.animewatchmaster.NetworkUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +34,11 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
     @Override
     protected Void doInBackground(String... databaseurl) {
+
+        if(!NetworkUtils.isInternetConnectionActiveAnimeFreak(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
+            Log.i("databaseUpdater -"," No internet connection or cannot connect to animefreak server");
+            return null;
+        }
 
         DBHelper dbinstance = DBHelper.getInstance(mainContext);
         JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);

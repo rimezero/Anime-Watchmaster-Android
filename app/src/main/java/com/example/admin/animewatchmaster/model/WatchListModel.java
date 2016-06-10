@@ -7,13 +7,40 @@ public class WatchListModel {
 
 
     private int id;
+    private String title;
+    private String imgurl;
+    private int episodeswatched;
     private int currentEpisode;
-    private int lastEpisode;
-    private String date;
+    private String lastupdated;
 
 
     public WatchListModel() {
 
+    }
+
+    public WatchListModel(int id, String title, String imgurl, int currentEpisode, int episodeswatched, String lastupdated) {
+        this.id = id;
+        this.title = title;
+        this.imgurl = imgurl;
+        this.currentEpisode = currentEpisode;
+        this.episodeswatched = episodeswatched;
+        this.lastupdated = lastupdated;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public int getId() {
@@ -32,19 +59,19 @@ public class WatchListModel {
         this.currentEpisode = currentEpisode;
     }
 
-    public int getLastEpisode() {
-        return lastEpisode;
+    public int getEpisodeswatched() {
+        return episodeswatched;
     }
 
-    public void setLastEpisode(int lastEpisode) {
-        this.lastEpisode = lastEpisode;
+    public void setEpisodeswatched(int episodeswatched) {
+        this.episodeswatched = episodeswatched;
     }
 
-    public String getDate() {
-        return date;
+    public String getLastupdated() {
+        return lastupdated;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setLastupdated(String lastupdated) {
+        this.lastupdated = lastupdated;
     }
 }

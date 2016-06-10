@@ -1,6 +1,5 @@
 package com.example.admin.animewatchmaster.Jsoup;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -139,8 +138,6 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
             }
             for(int i=0;i<titles.size();i++){
                 String t = titles.get(i);
-                if(t.equals("Gangsta"))
-                    t += ".";
 
                 int id = dbinstance.getWatchlistID(t);
                 if(id>0){

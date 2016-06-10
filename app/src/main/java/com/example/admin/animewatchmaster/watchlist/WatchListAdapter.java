@@ -36,11 +36,10 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-        Anime anime = DBHelper.getInstance(getContext()).getAnimeInfo(model.getId());
 
-        if(anime != null && !anime.getImgurl().trim().isEmpty()) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
-                    .load(anime.getImgurl())
+                    .load(model.getImgurl())
                     .into(imageView);
         }
 
