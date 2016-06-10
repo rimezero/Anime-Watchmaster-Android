@@ -21,7 +21,7 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="getAnimeTest"
+        android:onClick="getAnimeAZ"
         android:text="Demo.A-Z animes"
         />
 
