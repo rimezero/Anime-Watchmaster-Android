@@ -38,7 +38,24 @@ public class ActivityLetters extends AppCompatActivity {
 
             linearLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClick(final View v) {
+
+                    v.setEnabled(false);
+
+                    Timer timer = new Timer();
+                    timer.schedule(new TimerTask() {
+                        @Override
+                        public void run() {
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    v.setEnabled(true);
+                                }
+                            });
+
+                        }
+                    },500);
 
                     Intent intent = new Intent(ActivityLetters.this,AnimesByLetter.class);
                     intent.putExtra("letter",letter);

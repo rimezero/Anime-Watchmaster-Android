@@ -14,6 +14,8 @@ import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by abraham on 10/6/2016.
@@ -30,7 +32,7 @@ public class AnimesByLetter extends AppCompatActivity {
 
         List<Anime> animeList = DBHelper.getInstance(getApplicationContext()).getAllAnimeByLetter(letter);
 
-        JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
+        final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
         jazzyListView.setTransitionEffect(new SlideInEffect());
 
         AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animeList);
@@ -38,7 +40,24 @@ public class AnimesByLetter extends AppCompatActivity {
 
         jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent,View v, int position, long id) {
+
+                jazzyListView.setEnabled(false);
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                jazzyListView.setEnabled(true);
+                            }
+                        });
+
+                    }
+                },500);
 
                 Anime anime = (Anime) parent.getItemAtPosition(position);
                 Intent intent = new Intent(AnimesByLetter.this, AnimeInfo.class);

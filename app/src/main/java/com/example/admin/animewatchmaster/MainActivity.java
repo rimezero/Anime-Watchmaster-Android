@@ -10,9 +10,11 @@ import android.view.View;
 
 import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,10 +23,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        new WatchlistUpdater(getApplicationContext()).execute();
 
     }
 
@@ -46,11 +48,46 @@ public class MainActivity extends AppCompatActivity {
         //new WatchlistUpdater(this).execute("");
     }
 
-    public void getAnimeTest(View v) {
+    public void getAnimeAZ(final View v) {
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },500);
+
         startActivity(new Intent(this, ActivityLetters.class));
     }
 
-    public void showWatchlist(View v) {
+    public void showWatchlist(final View v) {
+
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },500);
+
         startActivity(new Intent(this, WatchList.class));
     }
 
