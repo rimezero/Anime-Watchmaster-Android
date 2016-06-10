@@ -5,52 +5,55 @@
     android:layout_height="match_parent">
 
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Genres"
+            />
+
+        <android.support.v7.widget.SearchView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/searchquery"
+            />
+
+    </LinearLayout>
+
+
+    <com.twotoasters.jazzylistview.JazzyListView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/querylist"
+        android:visibility="gone"
+        >
+
+
+    </com.twotoasters.jazzylistview.JazzyListView>
+
+
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:id="@+id/myscroll"
         >
 
 
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="fill_parent"
             android:orientation="vertical"
             >
 
 
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Genres"
-                    />
-
-                <SearchView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/searchquery"
-                    >
-
-
-                </SearchView>
-
-            </LinearLayout>
-
-            <com.twotoasters.jazzylistview.JazzyListView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/querylist"
-                android:visibility="gone"
-                >
-
-
-            </com.twotoasters.jazzylistview.JazzyListView>
 
 
 
