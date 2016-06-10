@@ -13,6 +13,9 @@ import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.squareup.picasso.Picasso;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by abraham on 9/6/2016.
  */
@@ -58,8 +61,27 @@ public class AnimeInfo extends AppCompatActivity {
 
 
 
-    public void addToWatchlist(View v) {
+    public void addToWatchlist(final View v) {
+
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },500);
+
         DBHelper dbinstance = DBHelper.getInstance(getApplicationContext());
+
         if(!dbinstance.checkIfExistsInWatchlist(anime.getId())) {
 
             String episodes = anime.getEpisodes();
@@ -75,7 +97,7 @@ public class AnimeInfo extends AppCompatActivity {
                 ep = (int) d;
             }
 
-            dbinstance.insertIntoWatchlist(anime.getId(),0,ep,"");
+            dbinstance.insertIntoWatchlist(anime.getId(), 0, ep, "");
 
             if(doUpdateFlag)
                 new WatchlistUpdater(getApplicationContext()).execute("");
