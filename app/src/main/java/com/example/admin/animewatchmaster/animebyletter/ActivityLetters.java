@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.Utils;
 import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -96,12 +95,8 @@ public class ActivityLetters extends AppCompatActivity {
         searchView.setOnQueryTextListener(new OnChangeListener());
 
 
-        mPlanetTitles = Utils.getAllGenresArr();
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
-        
 
 
     }
