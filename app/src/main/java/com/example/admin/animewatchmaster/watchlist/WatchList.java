@@ -21,6 +21,7 @@ import java.util.concurrent.ExecutionException;
 public class WatchList extends AppCompatActivity {
 
     private ListView listView;
+    private static Thread updateThread;
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -35,35 +36,45 @@ public class WatchList extends AppCompatActivity {
 
     }
 
+
+
     public void updateWatchlist(View v){
-        final Button btn = (Button) findViewById(R.id.ButtonUpdate);
-        btn.setEnabled(false);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-                Log.d("updateWatchlist","Starting watchlist update");
-                try {
-                    new WatchlistUpdater(getApplicationContext()).execute("").get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
+        if(updateThread == null || !updateThread.isAlive()) {
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
+            final Button btn = (Button) findViewById(R.id.ButtonUpdate);
+            btn.setEnabled(false);
 
-                        WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(),modelList);
-                        listView.setAdapter(watchListAdapter);
+            updateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
 
-                        btn.setEnabled(true);
+                    Log.d("updateWatchlist", "Starting watchlist update");
+                    try {
+                        new WatchlistUpdater(getApplicationContext()).execute("").get();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
                     }
-                });
-            }
-        }).start();
+
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
+
+                            WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(), modelList);
+                            listView.setAdapter(watchListAdapter);
+
+                            btn.setEnabled(true);
+                        }
+                    });
+                }
+            });
+            updateThread.setName("watchlistThread!!!!!");
+            updateThread.start();
+
+        }
     }
 
 
