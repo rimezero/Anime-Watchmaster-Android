@@ -178,6 +178,7 @@ public class DBHelper extends SQLiteOpenHelper{
         contentValues.put(COLUMN_CURRENTEPISODE,currentepisode);
         contentValues.put(COLUMN_LASTUPDATED, lastupdated);
         long result = db.insert(TABLE_WATCHLIST, null, contentValues);
+        Log.d("dbhelper - inswatchl", "inserted anime with id: "+id+" in the watchlist");
         if(result==-1){
             Log.i(TAG,"insert of anime with id "+id+" into Watchlist failed");
             return false;

@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.example.admin.animewatchmaster.NetworkUtils;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.model.WatchListModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,6 +16,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by admin on 6/10/2016.
@@ -37,6 +39,7 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
 
     @Override
     protected Void doInBackground(String... databaseurl) {
+
         if(!NetworkUtils.isInternetConnectionActiveAnimeFreak(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
             Log.i("WatchlistUpdater -"," No internet connection or cannot connect to animefreak server");
             return null;
@@ -186,6 +189,12 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
         for(int i=0; i<titles.size(); i++){
             dbinstance.updateWatchlistAnime(ids.get(i),episodes.get(i),lastupdated.get(i));
         }
+
+        /* DEBUGGING ON CREATE
+        List<WatchListModel> list = dbinstance.getAllWatchList();
+        for(WatchListModel anime : list){
+            Log.d("asynctask debug", String.valueOf(anime.getCurrentEpisode()));
+        }*/
 
         return null;
     }
