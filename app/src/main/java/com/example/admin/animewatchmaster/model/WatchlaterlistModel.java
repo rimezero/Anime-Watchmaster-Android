@@ -7,13 +7,23 @@ public class WatchlaterlistModel {
     int id;
     String title;
     String imgurl;
+    String genre;
 
     public WatchlaterlistModel(){}
 
-    public WatchlaterlistModel(int id, String title, String imgurl) {
+    public WatchlaterlistModel(int id, String title, String imgurl,String genre) {
         this.id = id;
         this.title = title;
         this.imgurl = imgurl;
+        this.genre=genre;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
     public String getImgurl() {

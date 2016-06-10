@@ -44,6 +44,10 @@ public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
         TextView textView = (TextView)convertView.findViewById(R.id.txtTitle);
         textView.setText(model.getTitle());
 
+        TextView txtGenre = (TextView)convertView.findViewById(R.id.txtGenre);
+        if(model.getGenre()!=null && !model.getGenre().trim().isEmpty())
+            txtGenre.setText(model.getGenre());
+
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));
 
