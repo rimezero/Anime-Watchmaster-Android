@@ -2,12 +2,17 @@ package com.example.admin.animewatchmaster.animebyletter;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.Utils;
+import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.twotoasters.jazzylistview.JazzyListView;
@@ -29,6 +34,11 @@ public class ActivityLetters extends AppCompatActivity {
     private SearchView searchView;
 
     private DBHelper dbHelper;
+
+    private String[] mPlanetTitles;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+
 
 
     @Override
@@ -82,9 +92,16 @@ public class ActivityLetters extends AppCompatActivity {
 
         animateMainChapters(linearList);
 
-
         searchView = (SearchView)findViewById(R.id.searchquery);
         searchView.setOnQueryTextListener(new OnChangeListener());
+
+
+        mPlanetTitles = Utils.getAllGenresArr();
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        
 
 
     }
@@ -102,12 +119,41 @@ public class ActivityLetters extends AppCompatActivity {
 
                 List<Anime> animes = dbHelper.getAllAnime(3,query,genres);
 
-                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+                final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
                 jazzyListView.setVisibility(View.VISIBLE);
                 AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
                 jazzyListView.setTransitionEffect(new SlideInEffect());
 
                 jazzyListView.setAdapter(animeLetterAdapter);
+
+                jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                        jazzyListView.setEnabled(false);
+
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        jazzyListView.setEnabled(true);
+                                    }
+                                });
+
+                            }
+                        }, 500);
+
+                        Anime anime = (Anime) parent.getItemAtPosition(position);
+                        Intent intent = new Intent(ActivityLetters.this, AnimeInfo.class);
+                        intent.putExtra("anime", anime);
+                        startActivity(intent);
+
+                    }
+                });
 
             } else if(query.length() == 0) {
 
@@ -126,13 +172,42 @@ public class ActivityLetters extends AppCompatActivity {
                 makeAllLinearViewGone(linearList);
 
                 List<Anime> animes = dbHelper.getAllAnime(2,newText,null);
-                
-                JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
+
+                final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.querylist);
                 jazzyListView.setVisibility(View.VISIBLE);
                 AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
                 jazzyListView.setTransitionEffect(new SlideInEffect());
 
                 jazzyListView.setAdapter(animeLetterAdapter);
+
+                jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                        jazzyListView.setEnabled(false);
+
+                        Timer timer = new Timer();
+                        timer.schedule(new TimerTask() {
+                            @Override
+                            public void run() {
+
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        jazzyListView.setEnabled(true);
+                                    }
+                                });
+
+                            }
+                        }, 500);
+
+                        Anime anime = (Anime) parent.getItemAtPosition(position);
+                        Intent intent = new Intent(ActivityLetters.this, AnimeInfo.class);
+                        intent.putExtra("anime", anime);
+                        startActivity(intent);
+
+                    }
+                });
 
             } else if(newText.length() == 0) {
 

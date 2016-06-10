@@ -59,5 +59,17 @@ public class Utils {
     }
 
 
+    public static String[] getAllGenresArr() {
+        List<String> genres = getAllGenres();
+        String[] genresArr = new String[genres.size()];
+
+        for(int i =0; i < genres.size(); i++) {
+            genresArr[i]  = genres.get(i);
+        }
+
+        return genresArr;
+    }
+
+
 
 }

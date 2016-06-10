@@ -1,29 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#c0c0fa"
     android:layout_height="match_parent">
 
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_height="wrap_content">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Genres"
-            />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.SearchView
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/searchquery"
-            />
+            android:orientation="horizontal"
+            android:id="@+id/topLinear"
+            >
 
-    </LinearLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genres"
+                />
+
+            <android.support.v7.widget.SearchView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchquery"
+                />
+
+        </LinearLayout>
+
 
 
     <com.twotoasters.jazzylistview.JazzyListView
@@ -31,19 +43,19 @@
         android:layout_height="fill_parent"
         android:id="@+id/querylist"
         android:visibility="gone"
+        android:layout_below="@+id/topLinear"
         >
 
 
     </com.twotoasters.jazzylistview.JazzyListView>
 
 
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/myscroll"
+        android:layout_below="@+id/topLinear"
         >
-
 
 
         <LinearLayout
@@ -51,10 +63,6 @@
             android:layout_height="fill_parent"
             android:orientation="vertical"
             >
-
-
-
-
 
 
             <LinearLayout
@@ -670,7 +678,21 @@
             </LinearLayout>
 
 
-        </LinearLayout>
-    </ScrollView>
+            </LinearLayout>
+        </ScrollView>
 
-</LinearLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <ListView android:id="@+id/left_drawer"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:background="#111"/>
+
+
+</android.support.v4.widget.DrawerLayout>
