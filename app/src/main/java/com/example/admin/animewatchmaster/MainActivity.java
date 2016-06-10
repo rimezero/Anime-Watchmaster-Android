@@ -10,7 +10,6 @@ import android.view.View;
 
 import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
-import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
 
 import java.util.Timer;
@@ -89,6 +88,28 @@ public class MainActivity extends AppCompatActivity {
         },500);
 
         startActivity(new Intent(this, WatchList.class));
+    }
+
+
+    public void watchLaterList(final View v) {
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },500);
+
+
     }
 
 
