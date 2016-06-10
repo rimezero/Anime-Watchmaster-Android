@@ -11,7 +11,7 @@ import com.example.admin.animewatchmaster.R;
 public class AnimeWatchLater extends AppCompatActivity {
 
 
-    
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);

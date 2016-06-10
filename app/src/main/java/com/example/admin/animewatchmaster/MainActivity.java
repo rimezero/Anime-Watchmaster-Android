@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
+import com.example.admin.animewatchmaster.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
 
 import java.util.Timer;
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         },500);
+        
+        startActivity(new Intent(this, AnimeWatchLater.class));
 
 
     }
