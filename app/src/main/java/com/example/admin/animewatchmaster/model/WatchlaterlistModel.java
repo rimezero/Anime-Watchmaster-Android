@@ -6,10 +6,22 @@ package com.example.admin.animewatchmaster.model;
 public class WatchlaterlistModel {
     int id;
     String title;
+    String imgurl;
 
-    public WatchlaterlistModel(int id, String title) {
+    public WatchlaterlistModel(){}
+
+    public WatchlaterlistModel(int id, String title, String imgurl) {
         this.id = id;
         this.title = title;
+        this.imgurl = imgurl;
+    }
+
+    public String getImgurl() {
+        return imgurl;
+    }
+
+    public void setImgurl(String imgurl) {
+        this.imgurl = imgurl;
     }
 
     public int getId() {
