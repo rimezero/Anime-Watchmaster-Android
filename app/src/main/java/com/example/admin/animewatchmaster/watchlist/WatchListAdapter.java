@@ -1,6 +1,7 @@
 package com.example.admin.animewatchmaster.watchlist;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +45,49 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
                     .into(imageView);
         }
 
-        TextView textView = (TextView)convertView.findViewById(R.id.episodes);
-        textView.setText("episodes"+model.getCurrentEpisode());
+        final TextView textView = (TextView)convertView.findViewById(R.id.episodes);
+
+        textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+
+        if(model.getCurrentEpisode() > model.getEpisodeswatched())
+            textView.setTextColor(Color.RED);
+        else
+            textView.setTextColor(Color.BLACK);
+
 
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));
+
+        Button btninc = (Button)convertView.findViewById(R.id.btnIncrement);
+        Button btndec = (Button)convertView.findViewById(R.id.btnDecrement);
+        btninc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!DBHelper.getInstance(getContext()).incrementEpisodesWatched(model.getId()))
+                    return;
+
+                model.setEpisodeswatched(model.getEpisodeswatched()+1);
+                textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+                if(model.getCurrentEpisode() > model.getEpisodeswatched())
+                    textView.setTextColor(Color.RED);
+                else
+                    textView.setTextColor(Color.BLACK);
+            }
+        });
+        btndec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!DBHelper.getInstance(getContext()).decrementEpisodesWatched(model.getId()))
+                    return;
+
+                model.setEpisodeswatched(model.getEpisodeswatched()-1);
+                textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+                if(model.getCurrentEpisode() > model.getEpisodeswatched())
+                    textView.setTextColor(Color.RED);
+                else
+                    textView.setTextColor(Color.BLACK);
+            }
+        });
 
         return convertView;
     }
