@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.watchlist;
+package com.example.admin.animewatchmaster.watchlater;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,25 +11,22 @@ import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.model.Anime;
-import com.example.admin.animewatchmaster.model.WatchListModel;
+import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 /**
- * Created by abraham on 10/6/2016.
+ * Created by admin on 6/10/2016.
  */
-public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
-
-
-    public WatchListAdapter(Context context,List<WatchListModel> models) {
+public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
+    public WatchLaterAdapter(Context context, List<WatchlaterlistModel> models) {
         super(context,0,models);
     }
 
     @Override
-    public View getView(int position,View convertView,ViewGroup parent) {
-        final WatchListModel model = getItem(position);
+    public View getView(int position, View convertView, ViewGroup parent) {
+        final WatchlaterlistModel model = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_watchlist_row,parent,false);
@@ -45,7 +42,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         }
 
         TextView textView = (TextView)convertView.findViewById(R.id.episodes);
-        textView.setText("episodes"+model.getCurrentEpisode());
+        textView.setText(model.getTitle());
 
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));
@@ -54,18 +51,16 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
     }
 
     private class RemoveOnClick implements View.OnClickListener{
-        private WatchListModel model;
+        private WatchlaterlistModel model;
 
-        public RemoveOnClick(WatchListModel model) {
+        public RemoveOnClick(WatchlaterlistModel model) {
             this.model = model;
         }
 
         @Override
         public void onClick(View v) {
-            DBHelper.getInstance(getContext()).deleteWatchlistAnime(model.getId());
+            DBHelper.getInstance(getContext()).deleteWatchlaterlistAnime(model.getId());
             remove(model);
         }
     }
-
-
 }

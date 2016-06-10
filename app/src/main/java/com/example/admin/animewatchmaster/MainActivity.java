@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
+import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
 
@@ -41,11 +42,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void callit(View v){
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        //DBHelper dbinstance = DBHelper.getInstance(this);
+        DBHelper dbinstance = DBHelper.getInstance(this);
         /*
         dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
         dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"),0,0,"");*/
-        new WatchlistUpdater(this).execute("");
+        dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Sousei no Onmyouji"));
+        dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"));
+        //new WatchlistUpdater(this).execute("");
     }
 
     public void getAnimeAZ(final View v) {

@@ -238,13 +238,17 @@ public class DBHelper extends SQLiteOpenHelper{
         List<WatchlaterlistModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
+        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
             do {
 
-                WatchlaterlistModel watchlaterlistModel = new WatchlaterlistModel(c.getInt(c.getColumnIndex(COLUMN_ID)),c.getString(c.getColumnIndex(COLUMN_TITLE)));
+                WatchlaterlistModel watchlaterlistModel = new WatchlaterlistModel();
+
+                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
+                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(COLUMN_TITLE)));
+                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(COLUMN_IMGURL)));
 
                 models.add(watchlaterlistModel);
 
