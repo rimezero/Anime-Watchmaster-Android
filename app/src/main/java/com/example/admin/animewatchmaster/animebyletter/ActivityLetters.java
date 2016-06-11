@@ -63,7 +63,6 @@ public class ActivityLetters extends AppCompatActivity {
     private String queryText = "";
 
 
-
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
@@ -120,7 +119,6 @@ public class ActivityLetters extends AppCompatActivity {
 
         mTitle = mDrawerTitle = getTitle();
 
-        //no scan no wifi network just show contacts from sqlite
         //mDrawerLayout.openDrawer(Gravity.LEFT);
         //clean drawer and show already saved contacts from sqlite while scanning for new
         List<String> genreslist = Utils.getAllGenres();
