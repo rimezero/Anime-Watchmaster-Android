@@ -26,6 +26,10 @@ public class jsonDataImport {
         return getData(base_db_url+"/animedraw/drawclasses/drawallanime.php",version);
     }
 
+    public static JSONArray getHotanimeData(String base_db_url){
+        return getData(base_db_url+"/animedraw/drawclasses/drawhotanime.php",0);
+    }
+
     public static JSONArray getAnimeinfoData(String base_db_url, int version){
         return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfo.php",version);
     }
