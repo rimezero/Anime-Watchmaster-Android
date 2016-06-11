@@ -23,7 +23,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //animelinks
