@@ -8,8 +8,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -20,48 +22,59 @@ public class jsonDataImport {
 
     private static final String CLASS_TAG = "jsonDataImport - ";
 
-    public static JSONArray getAllanimeData(String base_db_url){
-        return getData(base_db_url+"/animedraw/drawclasses/drawallanime.php");
+    public static JSONArray getAllanimeData(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawallanime.php",version);
     }
 
-    public static JSONArray getAnimeinfoData(String base_db_url){
-        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfo.php");
+    public static JSONArray getAnimeinfoData(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfo.php",version);
     }
 
-    public static JSONArray getAnimeultimaData(String base_db_url){
-        return getData(base_db_url+"/animedraw/drawclasses/animeultima.php");
+    public static JSONArray getAnimeultimaData(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/animeultima.php",version);
     }
 
     public static JSONArray getAnimeinfoDataIncludingLinksByVersion(String base_db_url, int version){
-        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfoandlinksbyversion.php?version="+version);
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfoandlinksbyversion.php",version);
     }
 
     public static JSONArray getAllanimeDataByVersion(String base_db_url, int version){
-        return getData(base_db_url+"/animedraw/drawclasses/drawallanimebyversion.php?version="+version);
+        return getData(base_db_url+"/animedraw/drawclasses/drawallanimebyversion.php",version);
     }
 
     public static JSONArray getAnimeinfoDataByVersion(String base_db_url, int version){
-        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfobyversion.php?version="+version);
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimeinfobyversion.php",version);
     }
 
     public static JSONArray getAnimeultimaDataByVersion(String base_db_url, int version){
-        return getData(base_db_url+"/animedraw/drawclasses/drawanimultimabyversion.php?version="+version);
+        return getData(base_db_url+"/animedraw/drawclasses/drawanimultimabyversion.php",version);
     }
 
-    private static JSONArray getData(String db_url){
+    private static JSONArray getData(String db_url, int version){
         final String TAG = CLASS_TAG+"getData";
         JSONArray jarr=null;
         //i palia methodos sto api 23 exei katargithei alla den epsaksa na vrw pws na to kanw
         try {
+            JSONObject obj = new JSONObject();
+            obj.put("usr","gd4#DpxKli");
+            obj.put("pss","pw2hT#S%g#");
+            obj.put("vrs",version);
 
             OkHttpClient client = new OkHttpClient();
 
+            RequestBody formBody = new FormBody.Builder()
+                    .add("sinfo",obj.toString())
+                    .build();
+
             Request request = new Request.Builder()
                     .url(db_url)
+                    .post(formBody)
                     .build();
 
             Response response = client.newCall(request).execute();
             String result = response.body().string();
+
+            Log.d("http request",result);
 
             jarr = new JSONArray(result);
 
@@ -110,10 +123,19 @@ public class jsonDataImport {
         db_url+="/animedraw/drawclasses/drawversion.php";
         try {
 
+            JSONObject obj = new JSONObject();
+            obj.put("usr","gd4#DpxKli");
+            obj.put("pss","pw2hT#S%g#");
+
             OkHttpClient client = new OkHttpClient();
+
+            RequestBody formBody = new FormBody.Builder()
+                    .add("sinfo",obj.toString())
+                    .build();
 
             Request request = new Request.Builder()
                     .url(db_url)
+                    .post(formBody)
                     .build();
 
             Response response = client.newCall(request).execute();

@@ -29,7 +29,7 @@ public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
         final WatchlaterlistModel model = getItem(position);
 
         if(convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_watchlist_row,parent,false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_watchlaterlist_row,parent,false);
         }
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
@@ -41,8 +41,12 @@ public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
                     .into(imageView);
         }
 
-        TextView textView = (TextView)convertView.findViewById(R.id.episodes);
+        TextView textView = (TextView)convertView.findViewById(R.id.txtTitle);
         textView.setText(model.getTitle());
+
+        TextView txtGenre = (TextView)convertView.findViewById(R.id.txtGenre);
+        if(model.getGenre()!=null && !model.getGenre().trim().isEmpty())
+            txtGenre.setText(model.getGenre());
 
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));

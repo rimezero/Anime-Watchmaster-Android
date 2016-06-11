@@ -35,7 +35,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     @Override
     protected Void doInBackground(String... databaseurl) {
 
-        if(!NetworkUtils.isInternetConnectionActiveAnimeFreak(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
+        if(!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
             Log.i("databaseUpdater -"," No internet connection or cannot connect to animefreak server");
             return null;
         }
