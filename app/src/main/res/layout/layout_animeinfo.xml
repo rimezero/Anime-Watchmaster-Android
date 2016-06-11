@@ -48,7 +48,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="not implemented yet"
+                android:text="add to watchLater list"
+                android:onClick="addToWatchlaterlist"
                 />
 
             <Button

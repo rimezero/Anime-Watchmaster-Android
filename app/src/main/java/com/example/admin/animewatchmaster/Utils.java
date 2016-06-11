@@ -1,6 +1,7 @@
 package com.example.admin.animewatchmaster;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -54,6 +55,8 @@ public class Utils {
         genres.add("Slice of Life");
         genres.add("Vampire");
 
+        Collections.sort(genres);
+
         return genres;
 
     }
@@ -66,6 +69,8 @@ public class Utils {
         for(int i =0; i < genres.size(); i++) {
             genresArr[i]  = genres.get(i);
         }
+
+        Collections.sort(genres);
 
         return genresArr;
     }

@@ -108,6 +108,39 @@ public class AnimeInfo extends AppCompatActivity {
     }
 
 
+    public void addToWatchlaterlist(final View v) {
+
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },500);
+
+        DBHelper dbinstance = DBHelper.getInstance(getApplicationContext());
+
+        if(!dbinstance.checkIfExistsInWatchLaterList(anime.getId())) {
+
+            dbinstance.insertIntoWatchlaterlist(anime.getId());
+
+        } else {
+            Toast.makeText(getApplicationContext(),"anime already in watch later list",Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
 
 
 

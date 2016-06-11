@@ -210,7 +210,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
         String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", W."+COLUMN_EPISODESWATCHED+", W."+COLUMN_CURRENTEPISODE+", W."+COLUMN_LASTUPDATED+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
-        Cursor c = db.rawQuery(command,null);
+        Cursor c = db.rawQuery(command, null);
 
         if(c.moveToFirst()) {
             do {
@@ -297,7 +297,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
         SQLiteDatabase db = this.getReadableDatabase();
         String projection[] = {COLUMN_ID,COLUMN_TITLE,COLUMN_IMGURL,COLUMN_GENRE,COLUMN_EPISODES,COLUMN_ANIMETYPE,COLUMN_AGERATING,COLUMN_DESCRIPTION};
-        Cursor res =  db.query(TABLE_ANIMEINFO,projection,"id = ?",new String[]{String.valueOf(id)},null,null,null);
+        Cursor res =  db.query(TABLE_ANIMEINFO, projection, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         Anime anime = new Anime();
 
@@ -320,7 +320,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public int getAnimeID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
-        Cursor res =  db.rawQuery( command, new String[] {title} );
+        Cursor res =  db.rawQuery(command, new String[]{title});
         res.moveToFirst();
         int id = res.getInt(res.getColumnIndex(COLUMN_ID));
         res.close();
@@ -389,6 +389,21 @@ public class DBHelper extends SQLiteOpenHelper{
     public boolean checkIfExistsInWatchlist(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+        Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+    }
+
+    public boolean checkIfExistsInWatchLaterList(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLATER+" where "+COLUMN_ID+"=?";
         Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
 
         if(res.getCount()>0) {
