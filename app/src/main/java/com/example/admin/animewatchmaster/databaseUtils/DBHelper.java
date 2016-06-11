@@ -53,6 +53,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_ANIMEINFO = "animeinfo";
     private static final String TABLE_WATCHLIST = "watchlist";
     private static final String TABLE_WATCHLATER = "watchlaterlist";
+    private static final String TABLE_HOTANIME = "hotanime";
     private static final String TABLE_VERSION = "version";
 
     private static volatile DBHelper dbHelper;
@@ -100,6 +101,10 @@ public class DBHelper extends SQLiteOpenHelper{
                         "("+COLUMN_ID+" integer primary key)"
         );
         db.execSQL(
+                "create table if not exists "+TABLE_HOTANIME+
+                        "("+COLUMN_ID+" integer primary key)"
+        );
+        db.execSQL(
                 "create table if not exists "+TABLE_VERSION+
                         "("+COLUMN_VERSION+" integer primary key)"
         );
@@ -112,23 +117,31 @@ public class DBHelper extends SQLiteOpenHelper{
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
+        /*
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
-        onCreate(db);
+        onCreate(db);*/
+        db.execSQL(
+                "create table if not exists "+TABLE_HOTANIME+
+                        "("+COLUMN_ID+" integer primary key)"
+        );
     }
 
 
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
+        /*
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
-        onCreate(db);
+        onCreate(db);*/
     }
 
     public boolean insertIntoAnimelinks(int id,String frlink,String ultimalink){
@@ -202,6 +215,20 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public boolean insertIntoHotanime(int id){
+        final String TAG = CLASS_TAG+"insertIntoHotanime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_ID,id);
+        long result = db.insert(TABLE_HOTANIME, null, contentValues);
+        Log.d("dbhelper - inshotanime", "inserted anime with id: "+id+" in hotanime");
+        if(result==-1){
+            Log.i(TAG,"insert of anime with id "+id+" into hotanime failed");
+            return false;
+        }
+        return true;
+    }
+
 
     public List<WatchListModel> getWatchlistData() {
 
@@ -239,6 +266,35 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
         String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", Info."+COLUMN_GENRE+" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
+        Cursor c = db.rawQuery(command,null);
+
+        if(c.moveToFirst()) {
+            do {
+
+                WatchlaterlistModel watchlaterlistModel = new WatchlaterlistModel();
+
+                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
+                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(COLUMN_TITLE)));
+                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(COLUMN_IMGURL)));
+                watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(COLUMN_GENRE)));
+
+                models.add(watchlaterlistModel);
+
+            } while (c.moveToNext());
+        }
+
+        c.close();
+
+        return models;
+    }
+
+    //returns the hot anime data including title imgurl and genre as WatchlaterlistModels
+    public List<WatchlaterlistModel> getHotAnimeData() {
+
+        List<WatchlaterlistModel> models = new ArrayList<>();
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", Info."+COLUMN_GENRE+" from "+TABLE_HOTANIME+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
@@ -317,12 +373,19 @@ public class DBHelper extends SQLiteOpenHelper{
         return anime;
     }
 
+    /**
+     *
+     * @param title The title of the anime
+     * @return the id of the anime or -1 if the anime does not exist in the database
+     */
     public int getAnimeID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
         Cursor res =  db.rawQuery(command, new String[]{title});
-        res.moveToFirst();
-        int id = res.getInt(res.getColumnIndex(COLUMN_ID));
+        int id=-1;
+        if(res.moveToFirst()) {
+            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+        }
         res.close();
         return id;
     }
@@ -626,6 +689,20 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public boolean deleteHotAnime (Integer id)
+    {
+        final String TAG = CLASS_TAG+"deleteHotAnime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_HOTANIME,
+                COLUMN_ID+" = ? ",
+                new String[] { Integer.toString(id) });
+        if(res==0) {
+            Log.i(TAG, "delete of anime with id: " + id + " has failed");
+            return false;
+        }
+        return true;
+    }
+
     public boolean incrementEpisodesWatched(int id){
         synchronized (DBHelper.class){
             boolean doneFlag = false;
@@ -672,6 +749,50 @@ public class DBHelper extends SQLiteOpenHelper{
                 Log.i("DBHelper-decrWatchl"," ID: "+id+" not found in watchlist");
             }
             return doneFlag;
+        }
+    }
+
+    /**
+     *
+     * @param titlestrings A list with the anime title strings of the online hotanime table
+     */
+    public void handleNewHotanimeUpdate(List<String> titlestrings){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res2 = db.query(TABLE_HOTANIME, new String[]{COLUMN_ID},null,null,null,null,null);
+        ArrayList<Integer> hotanimeids = new ArrayList<>();
+        ArrayList<Integer> jsoupids = new ArrayList<>();
+        ArrayList<Integer> idstodelete = new ArrayList<>();
+        ArrayList<Integer> idstoinsert = new ArrayList<>();
+        while(res2.moveToNext()){
+            hotanimeids.add(res2.getInt(res2.getColumnIndex(COLUMN_ID)));
+        }
+        res2.close();
+        Cursor res;
+        for(String titlestring : titlestrings) {
+            res = db.query(TABLE_ANIMEINFO, new String[]{COLUMN_ID}, COLUMN_TITLE + "=?", new String[]{titlestring}, null, null, null);
+            if (res.moveToFirst()) {
+                jsoupids.add(res.getInt(res.getColumnIndex(COLUMN_ID)));
+            } else {
+                Log.d("dbhelper -handlehotanim"," title: "+titlestring+ " not found in animeinfo");
+            }
+            res.close();
+        }
+
+        for(int id : jsoupids){
+            if(!hotanimeids.contains(id)){
+                idstoinsert.add(id);
+            }
+        }
+        for(int id : hotanimeids){
+            if(!jsoupids.contains(id)){
+                idstodelete.add(id);
+            }
+        }
+        for(int id : idstoinsert){
+            this.insertIntoHotanime(id);
+        }
+        for(int id : idstodelete){
+            this.deleteHotAnime(id);
         }
     }
 

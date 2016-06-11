@@ -12,6 +12,7 @@ import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
+import com.example.admin.animewatchmaster.databaseUtils.hotanimeUpdater;
 import com.example.admin.animewatchmaster.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
 
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callit(View v){
-        new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        //new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
         //DBHelper dbinstance = DBHelper.getInstance(this);
 
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
