@@ -9,6 +9,7 @@ public class NavDrawerItem {
     private String subtitle;
     private int icon;
     private int chooseicon = 0;
+    private boolean isChecked = false;
 
 
     public NavDrawerItem(String title){
@@ -16,22 +17,10 @@ public class NavDrawerItem {
     }
 
     public NavDrawerItem(String title,int icon) {
-        this.subtitle = title;
-        this.icon = icon;
+        this.title = title;
+        this.chooseicon = icon;
     }
 
-    public NavDrawerItem(String title,String subtitle,int icon) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.icon = icon;
-    }
-
-    public NavDrawerItem(String title,String subtitle,int icon,int chooseIcon) {
-        this.title = title;
-        this.subtitle = subtitle;
-        this.icon = icon;
-        this.chooseicon = chooseIcon;
-    }
 
     public int getIcon() {
         return icon;
@@ -65,4 +54,11 @@ public class NavDrawerItem {
     }
 
 
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setIsChecked(boolean isChecked) {
+        this.isChecked = isChecked;
+    }
 }

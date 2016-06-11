@@ -27,26 +27,17 @@
             android:layout_toRightOf="@+id/profile_image"
             >
 
-            <me.grantland.widget.AutofitTextView
-                android:id="@+id/lowtext"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:gravity="center_vertical"
-                android:textSize="18sp"
-                android:maxLines="1"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#FFFFFF"
-                android:textStyle="bold" />
+
 
             <me.grantland.widget.AutofitTextView
                 android:id="@+id/az"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="5dp"
+                android:paddingTop="15dp"
                 android:gravity="center_vertical"
                 android:textSize="17sp"
-                android:text="back to A-Z"
+                android:text="Clear"
                 android:maxLines="1"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#FFFFFF"

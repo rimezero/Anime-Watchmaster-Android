@@ -50,9 +50,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.drawer_drawer_list_item, null);
         }
 
-        ImageView imageViewIcon = (ImageView)convertView.findViewById(R.id.icon);
-        imageViewIcon.setImageResource(navDrawerItems.get(position).getIcon());
-
         int icon = navDrawerItems.get(position).getChooseicon();
         if(icon != 0) {
             ImageView chooseIcon = (ImageView) convertView.findViewById(R.id.checkicon);
@@ -61,9 +58,6 @@ public class NavDrawerListAdapter extends BaseAdapter {
 
         TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
         txtTitle.setText(navDrawerItems.get(position).getTitle());
-
-        TextView txtsubtutle = (TextView)convertView.findViewById(R.id.subtitle);
-        txtsubtutle.setText(navDrawerItems.get(position).getSubtitle());
 
         convertView.setAlpha(0f);
         convertView.animate()
