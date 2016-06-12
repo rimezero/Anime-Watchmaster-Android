@@ -54,7 +54,7 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
         } else {
             text.setText(model.getTitle());
         }
-        
+
         final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.loading);
         imageView.setImageBitmap(bitmap);
