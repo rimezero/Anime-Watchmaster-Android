@@ -2,7 +2,7 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#c0c0fa"
+    android:background="#6a6ace"
     android:layout_height="match_parent">
 
 
@@ -22,11 +22,20 @@
             android:id="@+id/topLinear"
             >
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Genres"
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginRight="10dp"
                 android:onClick="showGenreDrawer"
+                android:background="@drawable/ic_settings_white_24dp"
+                />
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="28dp"
+                android:layout_marginTop="5dp"
+                android:onClick="listgridswitch"
+                android:id="@+id/imagebtnswitch"
                 />
 
             <android.support.v7.widget.SearchView
@@ -49,6 +58,21 @@
 
 
     </com.twotoasters.jazzylistview.JazzyListView>
+
+
+
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/gridview"
+                android:numColumns="2"
+                android:gravity="center"
+                android:columnWidth="90dp"
+                android:scrollbars="vertical"
+                android:visibility="gone"
+                android:layout_below="@+id/topLinear"
+                >
+            </GridView>
 
 
     <ScrollView

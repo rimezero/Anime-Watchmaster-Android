@@ -7,15 +7,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
+import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.databaseUtils.databaseUpdater;
 import com.example.admin.animewatchmaster.databaseUtils.hotanimeUpdater;
+import com.example.admin.animewatchmaster.hotanime.AnimeHotAdapter;
+import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.watchlist.WatchList;
 
+import org.lucasr.twowayview.TwoWayView;
+
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +37,32 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         new WatchlistUpdater(getApplicationContext()).execute();
+
+
+        TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);
+
+        List<WatchlaterlistModel> animes = DBHelper.getInstance(getApplicationContext()).getHotAnimeData();
+        AnimeHotAdapter animeHotAdapter = new AnimeHotAdapter(getApplicationContext(),animes);
+        twoWayView.setAdapter(animeHotAdapter);
+
+        twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                WatchlaterlistModel watchlaterlistModel = (WatchlaterlistModel)parent.getItemAtPosition(position);
+
+                Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(watchlaterlistModel.getId());
+
+                if(anime != null) {
+                    Intent intent = new Intent(MainActivity.this, AnimeInfo.class);
+                    intent.putExtra("anime",anime);
+                    startActivity(intent);
+                }
+
+            }
+        });
+
+
 
     }
 

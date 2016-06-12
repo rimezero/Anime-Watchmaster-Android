@@ -38,5 +38,6 @@ dependencies {
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
+    compile 'org.lucasr.twowayview:twowayview:0.1.4'
 
 }

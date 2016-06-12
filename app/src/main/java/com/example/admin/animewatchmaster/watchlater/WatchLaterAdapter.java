@@ -20,6 +20,7 @@ import java.util.List;
  * Created by admin on 6/10/2016.
  */
 public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
+
     public WatchLaterAdapter(Context context, List<WatchlaterlistModel> models) {
         super(context,0,models);
     }
