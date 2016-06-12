@@ -400,6 +400,34 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
+    public String getAnimefreakLink(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ANIMEFREAKLINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        Cursor res =  db.rawQuery(command, new String[]{String.valueOf(id)});
+        String link = "na";
+        if(res.moveToFirst()){
+            link = res.getString(res.getColumnIndex(COLUMN_ANIMEFREAKLINK));
+        }else{
+            Log.i("dbhelper - animefrlink","Could not find a link for the anime with id: "+id);
+        }
+        res.close();
+        return link;
+    }
+
+    public String getAnimeultimaLink(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+COLUMN_ANIMEULTIMALINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        Cursor res =  db.rawQuery(command, new String[]{String.valueOf(id)});
+        String link = "na";
+        if(res.moveToFirst()){
+            link = res.getString(res.getColumnIndex(COLUMN_ANIMEULTIMALINK));
+        }else{
+            Log.i("dbhelper - animeultlink","Could not find a link for the anime with id: "+id);
+        }
+        res.close();
+        return link;
+    }
+
     public boolean checkIfExistsInAnimeInfo(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
