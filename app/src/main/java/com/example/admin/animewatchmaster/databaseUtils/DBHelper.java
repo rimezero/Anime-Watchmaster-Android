@@ -659,6 +659,7 @@ public class DBHelper extends SQLiteOpenHelper{
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
             return false;
         }
+        Log.d(TAG,"deleted anime with id: "+id);
         return true;
     }
 

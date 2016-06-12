@@ -77,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void callit(View v){
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
-        //DBHelper dbinstance = DBHelper.getInstance(this);
-
+        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        DBHelper dbinstance = DBHelper.getInstance(this);
+        dbinstance.insertIntoAnimeinfo("$:)';;;sdasd$@#!^&*(){}","adasdasd","agaeghaegaeg","arharh","ahaerhaha","aehahaeh","erhaerhaeh");
+        int id = dbinstance.getAnimeID("$:)';;;sdasd$@#!^&*(){}");
+        dbinstance.deleteAnime(id);
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"),0,0,"");
         //dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Sousei no Onmyouji"));
