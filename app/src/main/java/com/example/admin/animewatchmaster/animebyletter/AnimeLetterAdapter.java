@@ -25,8 +25,14 @@ import me.grantland.widget.AutofitTextView;
  */
 public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
 
+    private String queryText;
+
     public AnimeLetterAdapter(Context context, List<Anime> models) {
         super(context, 0, models);
+    }
+
+    public void setQueryText(String qt) {
+        this.queryText = qt;
     }
 
 
@@ -40,7 +46,15 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
         }
 
         AutofitTextView text = (AutofitTextView)convertView.findViewById(R.id.title);
-        text.setText(model.getTitle());
+
+        //tha to sinexisw ali fora
+        //einai gia na fenete sto title to komati pou ekane query o xristis
+        if(queryText != null && !queryText.isEmpty()) {
+            text.setText(model.getTitle());
+        } else {
+            text.setText(model.getTitle());
+        }
+
 
         final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.loading);

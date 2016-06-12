@@ -279,6 +279,8 @@ public class ActivityLetters extends AppCompatActivity {
             gridView.setNumColumns(1);
         } else if(cols == 2) {
             gridView.setNumColumns(2);
+        } else if(cols == 3) {
+            gridView.setNumColumns(3);
         }
 
         gridView.setLayoutAnimation(getgridlayoutAnim());
@@ -344,10 +346,16 @@ public class ActivityLetters extends AppCompatActivity {
 
             ImageView imageView = (ImageView) findViewById(R.id.imagebtnswitch);
 
-
             Bitmap bitmap;
 
-            if (gridView.getNumColumns() == 2) {
+            if(gridView.getNumColumns() == 3) {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                setupGridView(animeListState, 2);
+
+            } else if (gridView.getNumColumns() == 2) {
 
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
                 imageView.setImageBitmap(bitmap);
@@ -359,7 +367,7 @@ public class ActivityLetters extends AppCompatActivity {
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_white_24dp);
                 imageView.setImageBitmap(bitmap);
 
-                setupGridView(animeListState,2);
+                setupGridView(animeListState,3);
 
             }
 
