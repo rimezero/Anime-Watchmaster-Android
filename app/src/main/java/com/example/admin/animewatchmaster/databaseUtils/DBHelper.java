@@ -548,12 +548,14 @@ public class DBHelper extends SQLiteOpenHelper{
 
         StringBuilder command = new StringBuilder();
 
+        searchparam = searchparam+"%";
+
         switch (commandType){
             case 0:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like '"+searchparam+"%' order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
                 break;
             case 1:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like '"+searchparam+"%'");
+                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ?");
 
                 if(filterslist!=null) {
                     for (String filter : filterslist) {
@@ -566,10 +568,11 @@ public class DBHelper extends SQLiteOpenHelper{
                 command.append(" order by "+COLUMN_TITLE+" collate nocase asc");
                 break;
             case 2:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like '%"+searchparam+"%' order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
+                searchparam = "%"+searchparam;
                 break;
             case 3:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like '%"+searchparam+"%'");
+                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ?");
 
                 if(filterslist!=null) {
                     for (String filter : filterslist) {
@@ -580,15 +583,16 @@ public class DBHelper extends SQLiteOpenHelper{
                 }
 
                 command.append(" order by "+COLUMN_TITLE+" collate nocase asc");
+                searchparam = "%"+searchparam;
                 break;
             default:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like '%"+searchparam+"%' order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
                 Log.i(CLASS_TAG+"getAllAnime"," commandType is out of bounds executing search with parameter as default method");
 
         }
 
         Log.d(CLASS_TAG+"getAllAnime","executing command: "+command.toString());
-        Cursor res = db.rawQuery(command.toString(),null);
+        Cursor res = db.rawQuery(command.toString(),new String[] {searchparam});
         res.moveToFirst();
 
         int id;
