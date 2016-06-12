@@ -338,10 +338,12 @@ public class ActivityLetters extends AppCompatActivity {
 
     public void listgridswitch(View v) {
 
-        if(!animeListState.isEmpty()) {
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+
+        if(!animeListState.isEmpty() && gridView.getVisibility() == View.VISIBLE) {
 
             ImageView imageView = (ImageView) findViewById(R.id.imagebtnswitch);
-            GridView gridView = (GridView) findViewById(R.id.gridview);
+
 
             Bitmap bitmap;
 
