@@ -97,6 +97,7 @@ public class AnimeInfo extends AppCompatActivity {
             }
 
             dbinstance.insertIntoWatchlist(anime.getId(), 0, ep, "");
+            dbinstance.deleteWatchlaterlistAnime(anime.getId());
 
             if(doUpdateFlag)
                 new WatchlistUpdater(getApplicationContext()).execute("");
