@@ -26,27 +26,29 @@ public class DBHelper extends SQLiteOpenHelper{
     public static final int DATABASE_VERSION = 1;
     private static final String CLASS_TAG = "DBHelper - ";
 
+    //genaral
+    private static final String GENERAL_COLUMN_ID = "id";
+
     //animelinks
-    private static final String COLUMN_ANIMEFREAKLINK = "frlink";
-    private static final String COLUMN_ANIMEULTIMALINK = "ultimalink";
+    private static final String ANIMELINKS_COLUMN_ANIMEFREAKLINK = "frlink";
+    private static final String ANIMELINKS_COLUMN_ANIMEULTIMALINK = "ultimalink";
 
     //animeinfo
-    private static final String COLUMN_ID = "id";
-    private static final String COLUMN_TITLE = "title";
-    private static final String COLUMN_IMGURL = "imgurl";
-    private static final String COLUMN_GENRE = "genre";
-    private static final String COLUMN_EPISODES = "episodes";
-    private static final String COLUMN_ANIMETYPE = "animetype";
-    private static final String COLUMN_AGERATING = "agerating";
-    private static final String COLUMN_DESCRIPTION = "description";
+    private static final String ANIMEINFO_COLUMN_TITLE = "title";
+    private static final String ANIMEINFO_COLUMN_IMGURL = "imgurl";
+    private static final String ANIMEINFO_COLUMN_GENRE = "genre";
+    private static final String ANIMEINFO_COLUMN_EPISODES = "episodes";
+    private static final String ANIMEINFO_COLUMN_ANIMETYPE = "animetype";
+    private static final String ANIMEINFO_COLUMN_AGERATING = "agerating";
+    private static final String ANIMEINFO_COLUMN_DESCRIPTION = "description";
 
     //watchlist
-    private static final String COLUMN_EPISODESWATCHED = "episodeswatched";
-    private static final String COLUMN_CURRENTEPISODE = "currentepisode";
-    private static final String COLUMN_LASTUPDATED = "lastupdated";
+    private static final String WATCHLIST_COLUMN_EPISODESWATCHED = "episodeswatched";
+    private static final String WATCHLIST_COLUMN_CURRENTEPISODE = "currentepisode";
+    private static final String WATCHLIST_COLUMN_LASTUPDATED = "lastupdated";
 
     //version
-    private static final String COLUMN_VERSION = "version";
+    private static final String VERSION_COLUMN_VERSION = "version";
 
     //tables
     private static final String TABLE_ANIMELINKS = "animelinks";
@@ -86,30 +88,30 @@ public class DBHelper extends SQLiteOpenHelper{
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table if not exists "+TABLE_ANIMELINKS+
-                        "("+COLUMN_ID+" integer primary key, "+COLUMN_ANIMEFREAKLINK+" text, "+COLUMN_ANIMEULTIMALINK+" text)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" text, "+ ANIMELINKS_COLUMN_ANIMEULTIMALINK +" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_ANIMEINFO+
-                        "("+COLUMN_ID+" integer primary key, "+COLUMN_TITLE+" text, "+COLUMN_IMGURL+" text, "+COLUMN_GENRE+" text, "+COLUMN_EPISODES+" text, "+COLUMN_ANIMETYPE+" text, "+COLUMN_AGERATING+" text, "+COLUMN_DESCRIPTION+" text)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMEINFO_COLUMN_TITLE +" text, "+ ANIMEINFO_COLUMN_IMGURL +" text, "+ ANIMEINFO_COLUMN_GENRE +" text, "+ ANIMEINFO_COLUMN_EPISODES +" text, "+ ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ ANIMEINFO_COLUMN_AGERATING +" text, "+ ANIMEINFO_COLUMN_DESCRIPTION +" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_WATCHLIST+
-                        "("+COLUMN_ID+" integer primary key, "+COLUMN_EPISODESWATCHED+" integer, "+COLUMN_CURRENTEPISODE+" integer, "+COLUMN_LASTUPDATED+" text)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ WATCHLIST_COLUMN_EPISODESWATCHED +" integer, "+ WATCHLIST_COLUMN_CURRENTEPISODE +" integer, "+ WATCHLIST_COLUMN_LASTUPDATED +" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_WATCHLATER+
-                        "("+COLUMN_ID+" integer primary key)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_HOTANIME+
-                        "("+COLUMN_ID+" integer primary key)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_VERSION+
-                        "("+COLUMN_VERSION+" integer primary key)"
+                        "("+ VERSION_COLUMN_VERSION +" integer primary key)"
         );
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_VERSION, 0);
+        contentValues.put(VERSION_COLUMN_VERSION, 0);
         db.insert(TABLE_VERSION, null, contentValues);
     }
 
@@ -127,7 +129,7 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);*/
         db.execSQL(
                 "create table if not exists "+TABLE_HOTANIME+
-                        "("+COLUMN_ID+" integer primary key)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key)"
         );
     }
 
@@ -148,9 +150,9 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID, id);
-        contentValues.put(COLUMN_ANIMEFREAKLINK, frlink);
-        contentValues.put(COLUMN_ANIMEULTIMALINK, ultimalink);
+        contentValues.put(GENERAL_COLUMN_ID, id);
+        contentValues.put(ANIMELINKS_COLUMN_ANIMEFREAKLINK, frlink);
+        contentValues.put(ANIMELINKS_COLUMN_ANIMEULTIMALINK, ultimalink);
         long result = db.insert(TABLE_ANIMELINKS, null, contentValues);
         if(result==-1){
             Log.i(TAG,"insert of links for anime with ID "+id+" failed");
@@ -165,13 +167,13 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TITLE,title);
-        contentValues.put(COLUMN_IMGURL,imgurl);
-        contentValues.put(COLUMN_GENRE,genre);
-        contentValues.put(COLUMN_EPISODES, episodes);
-        contentValues.put(COLUMN_ANIMETYPE, animetype);
-        contentValues.put(COLUMN_AGERATING, agerating);
-        contentValues.put(COLUMN_DESCRIPTION, description);
+        contentValues.put(ANIMEINFO_COLUMN_TITLE,title);
+        contentValues.put(ANIMEINFO_COLUMN_IMGURL,imgurl);
+        contentValues.put(ANIMEINFO_COLUMN_GENRE,genre);
+        contentValues.put(ANIMEINFO_COLUMN_EPISODES, episodes);
+        contentValues.put(ANIMEINFO_COLUMN_ANIMETYPE, animetype);
+        contentValues.put(ANIMEINFO_COLUMN_AGERATING, agerating);
+        contentValues.put(ANIMEINFO_COLUMN_DESCRIPTION, description);
         long result = db.insert(TABLE_ANIMEINFO, null, contentValues);
         if(result==-1){
             Log.i(TAG,"insert of anime with title "+title+" failed");
@@ -187,10 +189,10 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertIntoWatchlist";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID,id);
-        contentValues.put(COLUMN_EPISODESWATCHED,episodeswatched);
-        contentValues.put(COLUMN_CURRENTEPISODE,currentepisode);
-        contentValues.put(COLUMN_LASTUPDATED, lastupdated);
+        contentValues.put(GENERAL_COLUMN_ID,id);
+        contentValues.put(WATCHLIST_COLUMN_EPISODESWATCHED,episodeswatched);
+        contentValues.put(WATCHLIST_COLUMN_CURRENTEPISODE,currentepisode);
+        contentValues.put(WATCHLIST_COLUMN_LASTUPDATED, lastupdated);
         long result = db.insert(TABLE_WATCHLIST, null, contentValues);
         Log.d("dbhelper - inswatchl", "inserted anime with id: "+id+" in the watchlist");
         if(result==-1){
@@ -205,7 +207,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertIntoWatchlist";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID,id);
+        contentValues.put(GENERAL_COLUMN_ID,id);
         long result = db.insert(TABLE_WATCHLATER, null, contentValues);
         Log.d("dbhelper - inswatchlt", "inserted anime with id: "+id+" in the watchlaterlist");
         if(result==-1){
@@ -219,7 +221,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"insertIntoHotanime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ID,id);
+        contentValues.put(GENERAL_COLUMN_ID,id);
         long result = db.insert(TABLE_HOTANIME, null, contentValues);
         Log.d("dbhelper - inshotanime", "inserted anime with id: "+id+" in hotanime");
         if(result==-1){
@@ -236,19 +238,19 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
 
 
-        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", W."+COLUMN_EPISODESWATCHED+", W."+COLUMN_CURRENTEPISODE+", W."+COLUMN_LASTUPDATED+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
+        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", W."+ WATCHLIST_COLUMN_EPISODESWATCHED +", W."+ WATCHLIST_COLUMN_CURRENTEPISODE +", W."+ WATCHLIST_COLUMN_LASTUPDATED +" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID;
         Cursor c = db.rawQuery(command, null);
 
         if(c.moveToFirst()) {
             do {
 
                 WatchListModel watchListModel = new WatchListModel();
-                watchListModel.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
-                watchListModel.setTitle(c.getString(c.getColumnIndex(COLUMN_TITLE)));
-                watchListModel.setImgurl(c.getString(c.getColumnIndex(COLUMN_IMGURL)));
-                watchListModel.setCurrentEpisode(c.getInt(c.getColumnIndex(COLUMN_CURRENTEPISODE)));
-                watchListModel.setEpisodeswatched(c.getInt(c.getColumnIndex(COLUMN_EPISODESWATCHED)));
-                watchListModel.setLastupdated(c.getString(c.getColumnIndex(COLUMN_LASTUPDATED)));
+                watchListModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
+                watchListModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+                watchListModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                watchListModel.setCurrentEpisode(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_CURRENTEPISODE)));
+                watchListModel.setEpisodeswatched(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_EPISODESWATCHED)));
+                watchListModel.setLastupdated(c.getString(c.getColumnIndex(WATCHLIST_COLUMN_LASTUPDATED)));
 
                 models.add(watchListModel);
 
@@ -265,7 +267,7 @@ public class DBHelper extends SQLiteOpenHelper{
         List<WatchlaterlistModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", Info."+COLUMN_GENRE+" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
+        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID;
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
@@ -273,10 +275,10 @@ public class DBHelper extends SQLiteOpenHelper{
 
                 WatchlaterlistModel watchlaterlistModel = new WatchlaterlistModel();
 
-                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
-                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(COLUMN_TITLE)));
-                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(COLUMN_IMGURL)));
-                watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(COLUMN_GENRE)));
+                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
+                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                 models.add(watchlaterlistModel);
 
@@ -294,7 +296,7 @@ public class DBHelper extends SQLiteOpenHelper{
         List<WatchlaterlistModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String command = "select W."+COLUMN_ID+", Info."+COLUMN_TITLE+", Info."+COLUMN_IMGURL+", Info."+COLUMN_GENRE+" from "+TABLE_HOTANIME+" W inner join "+TABLE_ANIMEINFO+" Info on W."+COLUMN_ID+"=Info."+COLUMN_ID;
+        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_HOTANIME+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID;
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
@@ -302,10 +304,10 @@ public class DBHelper extends SQLiteOpenHelper{
 
                 WatchlaterlistModel watchlaterlistModel = new WatchlaterlistModel();
 
-                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(COLUMN_ID)));
-                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(COLUMN_TITLE)));
-                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(COLUMN_IMGURL)));
-                watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(COLUMN_GENRE)));
+                watchlaterlistModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
+                watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+                watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                 models.add(watchlaterlistModel);
 
@@ -324,7 +326,7 @@ public class DBHelper extends SQLiteOpenHelper{
         Cursor res =  db.rawQuery("select * from " + TABLE_VERSION, null);
         int version = -1;
         if(res.moveToFirst()){
-            version = res.getInt(res.getColumnIndex(COLUMN_VERSION));
+            version = res.getInt(res.getColumnIndex(VERSION_COLUMN_VERSION));
         }
         res.close();
         return version;
@@ -335,7 +337,7 @@ public class DBHelper extends SQLiteOpenHelper{
     public Anime getAnimeInfo(int id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
-        String projection[] = {COLUMN_ID,COLUMN_TITLE,COLUMN_IMGURL,COLUMN_GENRE,COLUMN_EPISODES,COLUMN_ANIMETYPE,COLUMN_AGERATING,COLUMN_DESCRIPTION};
+        String projection[] = {GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_IMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION};
         Cursor res =  db.query(TABLE_ANIMEINFO, projection, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         Anime anime = new Anime();
@@ -363,11 +365,11 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public int getAnimeID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
         Cursor res =  db.rawQuery(command, new String[]{title});
         int id=-1;
         if(res.moveToFirst()) {
-            id = res.getInt(res.getColumnIndex(COLUMN_ID));
+            id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
         }
         res.close();
         return id;
@@ -376,12 +378,12 @@ public class DBHelper extends SQLiteOpenHelper{
     //returns watchlist id or -1 if the anime with this title does not exist in the watchlist or -2 if the anime does not exists in the database at all
     public int getWatchlistID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ID+" from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
         Cursor res = db.rawQuery(command, new String[] {title} );
 
         if(res.moveToFirst()){
-            int id = res.getInt(res.getColumnIndex(COLUMN_ID));
-            command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+            int id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
+            command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_WATCHLIST+" where "+ GENERAL_COLUMN_ID +"=?";
             Cursor res2 = db.rawQuery(command, new String[] {String.valueOf(id)});
 
             res.close();
@@ -402,11 +404,11 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public String getAnimefreakLink(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ANIMEFREAKLINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        String command = "select "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" from "+TABLE_ANIMELINKS+" where "+ GENERAL_COLUMN_ID +"=?";
         Cursor res =  db.rawQuery(command, new String[]{String.valueOf(id)});
         String link = "na";
         if(res.moveToFirst()){
-            link = res.getString(res.getColumnIndex(COLUMN_ANIMEFREAKLINK));
+            link = res.getString(res.getColumnIndex(ANIMELINKS_COLUMN_ANIMEFREAKLINK));
         }else{
             Log.i("dbhelper - animefrlink","Could not find a link for the anime with id: "+id);
         }
@@ -416,11 +418,11 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public String getAnimeultimaLink(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ANIMEULTIMALINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        String command = "select "+ ANIMELINKS_COLUMN_ANIMEULTIMALINK +" from "+TABLE_ANIMELINKS+" where "+ GENERAL_COLUMN_ID +"=?";
         Cursor res =  db.rawQuery(command, new String[]{String.valueOf(id)});
         String link = "na";
         if(res.moveToFirst()){
-            link = res.getString(res.getColumnIndex(COLUMN_ANIMEULTIMALINK));
+            link = res.getString(res.getColumnIndex(ANIMELINKS_COLUMN_ANIMEULTIMALINK));
         }else{
             Log.i("dbhelper - animeultlink","Could not find a link for the anime with id: "+id);
         }
@@ -430,7 +432,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public boolean checkIfExistsInAnimeInfo(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select title from "+TABLE_ANIMEINFO+" where "+COLUMN_TITLE+"=?";
+        String command = "select title from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
         Cursor res =  db.rawQuery( command, new String[] {title} );
 
         if(res.getCount()>0) {
@@ -446,7 +448,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public boolean checkIfExistsInAnimelinks(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ANIMEFREAKLINK+" from "+TABLE_ANIMELINKS+" where "+COLUMN_ID+"=?";
+        String command = "select "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" from "+TABLE_ANIMELINKS+" where "+ GENERAL_COLUMN_ID +"=?";
         Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
 
         if(res.getCount()>0) {
@@ -462,7 +464,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public boolean checkIfExistsInWatchlist(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLIST+" where "+COLUMN_ID+"=?";
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_WATCHLIST+" where "+ GENERAL_COLUMN_ID +"=?";
         Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
 
         if(res.getCount()>0) {
@@ -477,7 +479,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     public boolean checkIfExistsInWatchLaterList(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+COLUMN_ID+" from "+TABLE_WATCHLATER+" where "+COLUMN_ID+"=?";
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_WATCHLATER+" where "+ GENERAL_COLUMN_ID +"=?";
         Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
 
         if(res.getCount()>0) {
@@ -495,14 +497,14 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"updateAnimeinfo";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_TITLE,title);
-        contentValues.put(COLUMN_IMGURL,imgurl);
-        contentValues.put(COLUMN_GENRE,genre);
-        contentValues.put(COLUMN_EPISODES, episodes);
-        contentValues.put(COLUMN_ANIMETYPE, animetype);
-        contentValues.put(COLUMN_AGERATING, agerating);
-        contentValues.put(COLUMN_DESCRIPTION, description);
-        int rowsaffected = db.update(TABLE_ANIMEINFO, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
+        contentValues.put(ANIMEINFO_COLUMN_TITLE,title);
+        contentValues.put(ANIMEINFO_COLUMN_IMGURL,imgurl);
+        contentValues.put(ANIMEINFO_COLUMN_GENRE,genre);
+        contentValues.put(ANIMEINFO_COLUMN_EPISODES, episodes);
+        contentValues.put(ANIMEINFO_COLUMN_ANIMETYPE, animetype);
+        contentValues.put(ANIMEINFO_COLUMN_AGERATING, agerating);
+        contentValues.put(ANIMEINFO_COLUMN_DESCRIPTION, description);
+        int rowsaffected = db.update(TABLE_ANIMEINFO, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
 
         if(rowsaffected>0) {
             Log.d(TAG,"updated info of anime: "+title);
@@ -519,9 +521,9 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"updateAnimelinks";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_ANIMEFREAKLINK,frlink);
-        contentValues.put(COLUMN_ANIMEULTIMALINK,ultimalink);
-        int rowsaffected = db.update(TABLE_ANIMELINKS, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
+        contentValues.put(ANIMELINKS_COLUMN_ANIMEFREAKLINK,frlink);
+        contentValues.put(ANIMELINKS_COLUMN_ANIMEULTIMALINK,ultimalink);
+        int rowsaffected = db.update(TABLE_ANIMELINKS, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
 
         if(rowsaffected>0) {
             Log.d(TAG,"updated links of anime with id: "+id);
@@ -537,9 +539,9 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"updateWatchlistAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COLUMN_CURRENTEPISODE,CurrentEpisodes);
-        contentValues.put(COLUMN_LASTUPDATED,lastupdated);
-        int rowsaffected = db.update(TABLE_WATCHLIST, contentValues, COLUMN_ID+" = ? ", new String[]{Integer.toString(id)});
+        contentValues.put(WATCHLIST_COLUMN_CURRENTEPISODE,CurrentEpisodes);
+        contentValues.put(WATCHLIST_COLUMN_LASTUPDATED,lastupdated);
+        int rowsaffected = db.update(TABLE_WATCHLIST, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
 
         if(rowsaffected>0) {
             Log.d(TAG,"updated watchlist anime data with id: "+id);
@@ -556,7 +558,7 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_VERSION,version);
-        db.execSQL("update version set "+COLUMN_VERSION+"="+version);
+        db.execSQL("update version set "+ VERSION_COLUMN_VERSION +"="+version);
         Log.d(TAG,"updated version to: "+version);
         return true;
     }
@@ -580,41 +582,41 @@ public class DBHelper extends SQLiteOpenHelper{
 
         switch (commandType){
             case 0:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
                 break;
             case 1:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ?");
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
 
                 if(filterslist!=null) {
                     for (String filter : filterslist) {
-                        command.append(" and " + COLUMN_GENRE + " like '%" + filter + "%'");
+                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
                     }
                 }else{
                     Log.i(CLASS_TAG+"getAllAnime"," commandType is search by letter WITH FILTERS but filterslist is null");
                 }
 
-                command.append(" order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
                 break;
             case 2:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
                 searchparam = "%"+searchparam;
                 break;
             case 3:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ?");
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
 
                 if(filterslist!=null) {
                     for (String filter : filterslist) {
-                        command.append(" and " + COLUMN_GENRE + " like '%" + filter + "%'");
+                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
                     }
                 }else{
                     Log.i(CLASS_TAG+"getAllAnime"," commandType is search WITH FILTERS but filterslist is null");
                 }
 
-                command.append(" order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
                 searchparam = "%"+searchparam;
                 break;
             default:
-                command.append("select * from animeinfo where "+COLUMN_TITLE+" like ? order by "+COLUMN_TITLE+" collate nocase asc");
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
                 Log.i(CLASS_TAG+"getAllAnime"," commandType is out of bounds executing search with parameter as default method");
 
         }
@@ -633,14 +635,14 @@ public class DBHelper extends SQLiteOpenHelper{
         String description;
 
         while(!res.isAfterLast()){
-            id = res.getInt(res.getColumnIndex(COLUMN_ID));
-            title = res.getString(res.getColumnIndex(COLUMN_TITLE));
-            imgurl = res.getString(res.getColumnIndex(COLUMN_IMGURL));
-            genre = res.getString(res.getColumnIndex(COLUMN_GENRE));
-            episodes = res.getString(res.getColumnIndex(COLUMN_EPISODES));
-            animetype = res.getString(res.getColumnIndex(COLUMN_ANIMETYPE));
-            agerating = res.getString(res.getColumnIndex(COLUMN_AGERATING));
-            description = res.getString(res.getColumnIndex(COLUMN_DESCRIPTION));
+            id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
+            title = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE));
+            imgurl = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL));
+            genre = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_GENRE));
+            episodes = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES));
+            animetype = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANIMETYPE));
+            agerating = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_AGERATING));
+            description = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_DESCRIPTION));
 
             allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
             res.moveToNext();
@@ -653,7 +655,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_ANIMEINFO,
-                COLUMN_ID+" = ? ",
+                GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
@@ -668,7 +670,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_ANIMELINKS,
-                COLUMN_ID+" = ? ",
+                GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime links with id: " + id + " has failed");
@@ -682,7 +684,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteWatchlistAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_WATCHLIST,
-                COLUMN_ID+" = ? ",
+                GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
@@ -696,7 +698,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteWatchlaterlistAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_WATCHLATER,
-                COLUMN_ID+" = ? ",
+                GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
@@ -710,7 +712,7 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteHotAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_HOTANIME,
-                COLUMN_ID+" = ? ",
+                GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
@@ -723,16 +725,16 @@ public class DBHelper extends SQLiteOpenHelper{
         synchronized (DBHelper.class){
             boolean doneFlag = false;
             SQLiteDatabase db = this.getWritableDatabase();
-            String[] projection = {COLUMN_EPISODESWATCHED,COLUMN_CURRENTEPISODE};
-            Cursor res = db.query(TABLE_WATCHLIST,projection,COLUMN_ID+"=?",new String[] {String.valueOf(id)},null,null,null,null);
+            String[] projection = {WATCHLIST_COLUMN_EPISODESWATCHED, WATCHLIST_COLUMN_CURRENTEPISODE};
+            Cursor res = db.query(TABLE_WATCHLIST,projection, GENERAL_COLUMN_ID +"=?",new String[] {String.valueOf(id)},null,null,null,null);
             if(res.moveToFirst()){
-                int episodeswatched = res.getInt(res.getColumnIndex(COLUMN_EPISODESWATCHED));
-                int currentepisode = res.getInt(res.getColumnIndex(COLUMN_CURRENTEPISODE));
+                int episodeswatched = res.getInt(res.getColumnIndex(WATCHLIST_COLUMN_EPISODESWATCHED));
+                int currentepisode = res.getInt(res.getColumnIndex(WATCHLIST_COLUMN_CURRENTEPISODE));
                 if(episodeswatched<currentepisode){
                     episodeswatched++;
                     ContentValues values = new ContentValues();
-                    values.put(COLUMN_EPISODESWATCHED,episodeswatched);
-                    db.update(TABLE_WATCHLIST,values,COLUMN_ID+"=?",new String[] {String.valueOf(id)});
+                    values.put(WATCHLIST_COLUMN_EPISODESWATCHED,episodeswatched);
+                    db.update(TABLE_WATCHLIST,values, GENERAL_COLUMN_ID +"=?",new String[] {String.valueOf(id)});
                     doneFlag=true;
                 }else{
                     Log.i("DBHelper-incrWatchl"," for the anime with ID: "+id+" episodeswatched>=currentepisode cant proceed");
@@ -748,15 +750,15 @@ public class DBHelper extends SQLiteOpenHelper{
         synchronized (DBHelper.class){
             boolean doneFlag = false;
             SQLiteDatabase db = this.getWritableDatabase();
-            String[] projection = {COLUMN_EPISODESWATCHED};
-            Cursor res = db.query(TABLE_WATCHLIST,projection,COLUMN_ID+"=?",new String[] {String.valueOf(id)},null,null,null,null);
+            String[] projection = {WATCHLIST_COLUMN_EPISODESWATCHED};
+            Cursor res = db.query(TABLE_WATCHLIST,projection, GENERAL_COLUMN_ID +"=?",new String[] {String.valueOf(id)},null,null,null,null);
             if(res.moveToFirst()){
-                int episodeswatched = res.getInt(res.getColumnIndex(COLUMN_EPISODESWATCHED));
+                int episodeswatched = res.getInt(res.getColumnIndex(WATCHLIST_COLUMN_EPISODESWATCHED));
                 if(episodeswatched>0){
                     episodeswatched--;
                     ContentValues values = new ContentValues();
-                    values.put(COLUMN_EPISODESWATCHED,episodeswatched);
-                    db.update(TABLE_WATCHLIST,values,COLUMN_ID+"=?",new String[] {String.valueOf(id)});
+                    values.put(WATCHLIST_COLUMN_EPISODESWATCHED,episodeswatched);
+                    db.update(TABLE_WATCHLIST,values, GENERAL_COLUMN_ID +"=?",new String[] {String.valueOf(id)});
                     doneFlag=true;
                 }else{
                     Log.i("DBHelper-decrWatchl"," for the anime with ID: "+id+" episodeswatched<=0 cant proceed");
@@ -774,20 +776,20 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public void handleNewHotanimeUpdate(List<String> titlestrings){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res2 = db.query(TABLE_HOTANIME, new String[]{COLUMN_ID},null,null,null,null,null);
+        Cursor res2 = db.query(TABLE_HOTANIME, new String[]{GENERAL_COLUMN_ID},null,null,null,null,null);
         ArrayList<Integer> hotanimeids = new ArrayList<>();
         ArrayList<Integer> jsoupids = new ArrayList<>();
         ArrayList<Integer> idstodelete = new ArrayList<>();
         ArrayList<Integer> idstoinsert = new ArrayList<>();
         while(res2.moveToNext()){
-            hotanimeids.add(res2.getInt(res2.getColumnIndex(COLUMN_ID)));
+            hotanimeids.add(res2.getInt(res2.getColumnIndex(GENERAL_COLUMN_ID)));
         }
         res2.close();
         Cursor res;
         for(String titlestring : titlestrings) {
-            res = db.query(TABLE_ANIMEINFO, new String[]{COLUMN_ID}, COLUMN_TITLE + "=?", new String[]{titlestring}, null, null, null);
+            res = db.query(TABLE_ANIMEINFO, new String[]{GENERAL_COLUMN_ID}, ANIMEINFO_COLUMN_TITLE + "=?", new String[]{titlestring}, null, null, null);
             if (res.moveToFirst()) {
-                jsoupids.add(res.getInt(res.getColumnIndex(COLUMN_ID)));
+                jsoupids.add(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
             } else {
                 Log.d("dbhelper -handlehotanim"," title: "+titlestring+ " not found in animeinfo");
             }
