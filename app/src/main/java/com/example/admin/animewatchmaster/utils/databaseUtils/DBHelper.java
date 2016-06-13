@@ -814,7 +814,7 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
-    public int numberOfAnime(){
+    public int numberOfAnimeInAnimeinfo(){
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_ANIMEINFO);
         return numRows;
