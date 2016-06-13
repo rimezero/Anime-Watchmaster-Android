@@ -3,6 +3,8 @@ package com.example.admin.animewatchmaster.animebyletter;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
@@ -10,9 +12,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -21,15 +20,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.EffectUtils;
-import com.example.admin.animewatchmaster.utils.Utils;
 import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.drawer.NavDrawerItem;
 import com.example.admin.animewatchmaster.drawer.NavDrawerListAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
-import com.twotoasters.jazzylistview.JazzyListView;
-import com.twotoasters.jazzylistview.effects.SlideInEffect;
+import com.example.admin.animewatchmaster.utils.EffectUtils;
+import com.example.admin.animewatchmaster.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -201,7 +198,7 @@ public class AnimesByLetter extends AppCompatActivity {
 
     private void loadGridView(List<Anime> animeList, int colsNum){
     
-    animeListState = animes;
+    animeListState = animeList;
 
         final GridView gridView = (GridView) findViewById(R.id.gridview);
 
@@ -281,24 +278,24 @@ public class AnimesByLetter extends AppCompatActivity {
 
             if(gridView.getNumColumns() == 3) {
 
-                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
+                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_apps_white_24dp);
                 imageView.setImageBitmap(bitmap);
 
-                setupGridView(animeListState, 2);
+                loadGridView(animeListState, 2);
 
             } else if (gridView.getNumColumns() == 2) {
 
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
                 imageView.setImageBitmap(bitmap);
 
-                setupGridView(animeListState, 1);
+                loadGridView(animeListState, 1);
 
             } else {
 
                 bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_white_24dp);
                 imageView.setImageBitmap(bitmap);
 
-                setupGridView(animeListState,3);
+                loadGridView(animeListState,3);
 
             }
 
