@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".animebyletter.ActivityLetters"
+        <activity android:name=".activities.animebyletter.ActivityLetters"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="anime by letter">
             <intent-filter>
@@ -33,7 +33,7 @@
         </activity>
 
 
-        <activity android:name=".animeinfo.AnimeInfo"
+        <activity android:name=".activities.animeinfo.AnimeInfo"
             android:label="anime info">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -42,7 +42,7 @@
         </activity>
 
 
-        <activity android:name=".animebyletter.AnimesByLetter"
+        <activity android:name=".activities.animebyletter.AnimesByLetter"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="anime by letter">
             <intent-filter>
@@ -52,7 +52,7 @@
         </activity>
 
 
-        <activity android:name=".watchlist.WatchList"
+        <activity android:name=".activities.watchlist.WatchList"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="my watchlist">
             <intent-filter>
@@ -61,7 +61,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".watchlater.AnimeWatchLater"
+        <activity android:name=".activities.watchlater.AnimeWatchLater"
             android:label="watch later">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

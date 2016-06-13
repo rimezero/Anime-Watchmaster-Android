@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.drawer;
+package com.example.admin.animewatchmaster.activities.drawer;
 
 import android.app.Activity;
 import android.content.Context;

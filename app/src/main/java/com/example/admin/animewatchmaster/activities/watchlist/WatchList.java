@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.watchlist;
+package com.example.admin.animewatchmaster.activities.watchlist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +7,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Jsoup.WatchlistUpdater;
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 
 import java.util.List;

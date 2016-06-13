@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.databaseUtils;
+package com.example.admin.animewatchmaster.utils.databaseUtils;
 
 import android.util.Log;
 

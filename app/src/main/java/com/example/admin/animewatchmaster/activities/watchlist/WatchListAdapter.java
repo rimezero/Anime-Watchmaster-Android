@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.watchlist;
+package com.example.admin.animewatchmaster.activities.watchlist;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,8 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.squareup.picasso.Picasso;
 

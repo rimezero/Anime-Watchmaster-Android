@@ -1,11 +1,11 @@
-package com.example.admin.animewatchmaster.Jsoup;
+package com.example.admin.animewatchmaster.utils.Jsoup;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.utils.NetworkUtils;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

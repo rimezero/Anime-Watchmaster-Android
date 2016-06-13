@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.drawer;
+package com.example.admin.animewatchmaster.activities.drawer;
 
 /**
  * Created by abraham on 11/6/2016.

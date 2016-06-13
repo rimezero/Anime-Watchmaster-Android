@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.watchlater;
+package com.example.admin.animewatchmaster.activities.watchlater;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.squareup.picasso.Picasso;
 

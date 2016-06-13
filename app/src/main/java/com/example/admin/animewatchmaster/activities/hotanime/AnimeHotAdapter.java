@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.hotanime;
+package com.example.admin.animewatchmaster.activities.hotanime;
 
 import android.content.Context;
 import android.view.LayoutInflater;

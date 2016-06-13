@@ -1,11 +1,11 @@
-package com.example.admin.animewatchmaster.watchlater;
+package com.example.admin.animewatchmaster.activities.watchlater;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 
 import java.util.List;

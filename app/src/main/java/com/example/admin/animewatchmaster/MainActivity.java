@@ -9,16 +9,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.admin.animewatchmaster.Jsoup.WatchlistUpdater;
-import com.example.admin.animewatchmaster.animebyletter.ActivityLetters;
-import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.databaseUtils.hotanimeUpdater;
-import com.example.admin.animewatchmaster.hotanime.AnimeHotAdapter;
+import com.example.admin.animewatchmaster.utils.Jsoup.WatchlistUpdater;
+import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
+import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
-import com.example.admin.animewatchmaster.watchlater.AnimeWatchLater;
-import com.example.admin.animewatchmaster.watchlist.WatchList;
+import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
+import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
+import com.example.admin.animewatchmaster.utils.databaseUtils.hotanimeUpdater;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -77,11 +77,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void callit(View v){
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        /*
         DBHelper dbinstance = DBHelper.getInstance(this);
         dbinstance.insertIntoAnimeinfo("$:)';;;sdasd$@#!^&*(){}","adasdasd","agaeghaegaeg","arharh","ahaerhaha","aehahaeh","erhaerhaeh");
         int id = dbinstance.getAnimeID("$:)';;;sdasd$@#!^&*(){}");
-        dbinstance.deleteAnime(id);
+        dbinstance.deleteAnime(id);*/
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"),0,0,"");
         //dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Sousei no Onmyouji"));

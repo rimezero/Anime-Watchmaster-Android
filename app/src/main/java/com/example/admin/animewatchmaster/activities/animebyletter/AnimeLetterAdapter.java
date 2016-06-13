@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.animebyletter;
+package com.example.admin.animewatchmaster.activities.animebyletter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

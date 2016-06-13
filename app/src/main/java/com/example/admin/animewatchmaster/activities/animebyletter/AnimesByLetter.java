@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.animebyletter;
+package com.example.admin.animewatchmaster.activities.animebyletter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.LayoutAnimationController;
-import android.view.animation.RotateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -23,13 +20,11 @@ import android.widget.TextView;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.utils.EffectUtils;
 import com.example.admin.animewatchmaster.utils.Utils;
-import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.drawer.NavDrawerItem;
-import com.example.admin.animewatchmaster.drawer.NavDrawerListAdapter;
+import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.activities.drawer.NavDrawerItem;
+import com.example.admin.animewatchmaster.activities.drawer.NavDrawerListAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
-import com.twotoasters.jazzylistview.JazzyListView;
-import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.ArrayList;
 import java.util.List;
