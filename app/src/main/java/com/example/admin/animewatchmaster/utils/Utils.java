@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster;
+package com.example.admin.animewatchmaster.utils;
 
 import java.util.ArrayList;
 import java.util.Collections;

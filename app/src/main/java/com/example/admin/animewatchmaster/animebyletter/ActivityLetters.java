@@ -25,7 +25,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.Utils;
+import com.example.admin.animewatchmaster.utils.EffectUtils;
+import com.example.admin.animewatchmaster.utils.Utils;
 import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.drawer.NavDrawerItem;
@@ -283,7 +284,7 @@ public class ActivityLetters extends AppCompatActivity {
             gridView.setNumColumns(3);
         }
 
-        gridView.setLayoutAnimation(getgridlayoutAnim());
+        gridView.setLayoutAnimation(EffectUtils.getgridlayoutAnim());
         AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
 
         gridView.setAdapter(animeLetterAdapter);
@@ -396,18 +397,6 @@ public class ActivityLetters extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-
-    private static LayoutAnimationController getgridlayoutAnim()
-    {
-        LayoutAnimationController controller;
-        Animation anim = new RotateAnimation(90f,0f,0,0.5f,0,0.5f);
-        anim.setDuration(500);
-        controller=new LayoutAnimationController(anim,0.1f);
-        controller.setOrder(LayoutAnimationController.ORDER_NORMAL);
-        return controller;
-    }
-
 
 
     public void showGenreDrawer(View v) {

@@ -5,8 +5,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.admin.animewatchmaster.NetworkUtils;
-import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;

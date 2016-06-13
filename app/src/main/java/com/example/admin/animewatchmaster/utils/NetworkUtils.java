@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster;
+package com.example.admin.animewatchmaster.utils;
 
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;

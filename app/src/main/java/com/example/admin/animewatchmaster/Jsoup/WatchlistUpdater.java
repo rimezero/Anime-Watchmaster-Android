@@ -4,9 +4,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.admin.animewatchmaster.NetworkUtils;
+import com.example.admin.animewatchmaster.utils.NetworkUtils;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
-import com.example.admin.animewatchmaster.model.WatchListModel;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -15,7 +14,6 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by admin on 6/10/2016.

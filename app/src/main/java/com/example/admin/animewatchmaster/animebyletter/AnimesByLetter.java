@@ -1,5 +1,6 @@
 package com.example.admin.animewatchmaster.animebyletter;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.os.Bundle;
@@ -7,14 +8,21 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.LayoutAnimationController;
+import android.view.animation.RotateAnimation;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.Utils;
+import com.example.admin.animewatchmaster.utils.EffectUtils;
+import com.example.admin.animewatchmaster.utils.Utils;
 import com.example.admin.animewatchmaster.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.drawer.NavDrawerItem;
@@ -63,47 +71,14 @@ public class AnimesByLetter extends AppCompatActivity {
         super.onCreate(bundle);
         setContentView(R.layout.layout_anime_by_letter);
 
+        dbHelper = DBHelper.getInstance(getApplicationContext());
+
         letter = (String)getIntent().getSerializableExtra("letter");
 
-        List<Anime> animeList = DBHelper.getInstance(getApplicationContext()).getAllAnime(0,letter,null);
+        final List<Anime> animeList = dbHelper.getAllAnime(0,letter,null);
         //Collections.sort(animeList);
 
-        final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
-        jazzyListView.setTransitionEffect(new SlideInEffect());
-
-        AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animeList);
-        jazzyListView.setAdapter(animeLetterAdapter);
-
-        jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                jazzyListView.setEnabled(false);
-
-                Timer timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                jazzyListView.setEnabled(true);
-                            }
-                        });
-
-                    }
-                }, 500);
-
-                Anime anime = (Anime) parent.getItemAtPosition(position);
-                Intent intent = new Intent(AnimesByLetter.this, AnimeInfo.class);
-                intent.putExtra("anime", anime);
-                startActivity(intent);
-
-            }
-        });
-
-        dbHelper = DBHelper.getInstance(getApplicationContext());
+        loadGridView(animeList,-1);
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -178,43 +153,9 @@ public class AnimesByLetter extends AppCompatActivity {
                             navDrawerItems);
                     mDrawerList.setAdapter(adapter);
 
-                        List<Anime> animes = dbHelper.getAllAnime(1,letter,genres);
+                        List<Anime> animeList = dbHelper.getAllAnime(1,letter,genres);
 
-                        final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
-                        AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
-                        jazzyListView.setTransitionEffect(new SlideInEffect());
-
-                        jazzyListView.setAdapter(animeLetterAdapter);
-
-                        jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                                jazzyListView.setEnabled(false);
-
-                                Timer timer = new Timer();
-                                timer.schedule(new TimerTask() {
-                                    @Override
-                                    public void run() {
-
-                                        runOnUiThread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                jazzyListView.setEnabled(true);
-                                            }
-                                        });
-
-                                    }
-                                }, 500);
-
-                                Anime anime = (Anime) parent.getItemAtPosition(position);
-                                Intent intent = new Intent(AnimesByLetter.this, AnimeInfo.class);
-                                intent.putExtra("anime", anime);
-                                startActivity(intent);
-
-                            }
-                        });
-
+                        loadGridView(animeList,-1);
 
                 } else if(position >= 1 && position <= navDrawerItems.size()) {
 
@@ -245,42 +186,9 @@ public class AnimesByLetter extends AppCompatActivity {
 
                     }
 
-                    List<Anime> animes = dbHelper.getAllAnime(1,letter,genres);
+                    List<Anime> animeList = dbHelper.getAllAnime(1,letter,genres);
 
-                    final JazzyListView jazzyListView = (JazzyListView)findViewById(R.id.letterlist);
-                    AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
-                    jazzyListView.setTransitionEffect(new SlideInEffect());
-
-                    jazzyListView.setAdapter(animeLetterAdapter);
-
-                    jazzyListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-
-                            jazzyListView.setEnabled(false);
-
-                            Timer timer = new Timer();
-                            timer.schedule(new TimerTask() {
-                                @Override
-                                public void run() {
-
-                                    runOnUiThread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            jazzyListView.setEnabled(true);
-                                        }
-                                    });
-
-                                }
-                            }, 500);
-
-                            Anime anime = (Anime) parent.getItemAtPosition(position);
-                            Intent intent = new Intent(AnimesByLetter.this, AnimeInfo.class);
-                            intent.putExtra("anime", anime);
-                            startActivity(intent);
-
-                        }
-                    });
+                    loadGridView(animeList,-1);
 
                 }
 
@@ -289,7 +197,72 @@ public class AnimesByLetter extends AppCompatActivity {
 
     }
 
+    private void loadGridView(List<Anime> animeList, int colsNum){
 
+        final GridView gridView = (GridView) findViewById(R.id.gridview);
+
+        if(colsNum == 1) {
+            gridView.setNumColumns(1);
+        } else if(colsNum == 2) {
+            gridView.setNumColumns(2);
+        } else if(colsNum == 3) {
+            gridView.setNumColumns(3);
+        }
+
+        gridView.setLayoutAnimation(EffectUtils.getgridlayoutAnim());
+        AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animeList);
+
+        gridView.setAdapter(animeLetterAdapter);
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+
+                gridView.setEnabled(false);
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                gridView.setEnabled(true);
+                            }
+                        });
+
+                    }
+                }, 500);
+
+                Anime anime = (Anime) parent.getItemAtPosition(position);
+                Intent intent = new Intent(AnimesByLetter.this, AnimeInfo.class);
+                intent.putExtra("anime", anime);
+                startActivity(intent);
+
+            }
+        });
+
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                try {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    if(imm.isActive()) {
+                        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                return false;
+            }
+        });
+
+
+    }
 
     public void showGenreDrawer(View v) {
 

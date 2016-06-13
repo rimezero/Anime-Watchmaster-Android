@@ -2,11 +2,10 @@ package com.example.admin.animewatchmaster.databaseUtils;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.database.Cursor;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.admin.animewatchmaster.NetworkUtils;
+import com.example.admin.animewatchmaster.utils.NetworkUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
