@@ -52,8 +52,6 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
                 //temporal fix gia 2 anime theloume prolog giati einai pithikoi xd
                 if(title.equals("Netoge no Yome wa Onnanoko ja Nai to Omotta?"))
                     title = "Netoge no Yome wa Onnanoko ja Nai to Omotta";
-                if(title.equals("Kiznaiver"))
-                    title = "Kiznavier";
 
                 titlelist.add(title);
             } catch (JSONException e) {

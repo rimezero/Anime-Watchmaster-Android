@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
+import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -36,7 +37,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        new WatchlistUpdater(getApplicationContext()).execute();
+        //removed for testing enable afterwards
+        //new WatchlistUpdater(getApplicationContext()).execute();
 
 
         TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);

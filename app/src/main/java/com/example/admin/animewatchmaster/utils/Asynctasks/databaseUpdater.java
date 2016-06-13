@@ -68,6 +68,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                         try {
                             job = (JSONObject) jarr.get(i);
                             int id;
+                            Log.d("asd",job.getString("title"));
                             if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
                     /*
                     System.out.println(job.getInt("id"));
