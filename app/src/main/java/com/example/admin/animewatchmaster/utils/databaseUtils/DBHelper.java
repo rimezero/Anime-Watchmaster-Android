@@ -430,6 +430,36 @@ public class DBHelper extends SQLiteOpenHelper{
         return link;
     }
 
+    /**
+     *
+     * @param tableNum - 1.animeinfo/2.animelinks/3.hotanime/4.watchlist/5.watchlater/defalt.animeinfo
+     * @return - the number of rows of the table
+     */
+    public int getNumberOfAnime(int tableNum){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String tablename;
+        switch (tableNum){
+            case 0:
+                tablename = TABLE_ANIMEINFO;
+                break;
+            case 1:
+                tablename = TABLE_ANIMELINKS;
+                break;
+            case 2:
+                tablename = TABLE_HOTANIME;
+                break;
+            case 3:
+                tablename = TABLE_WATCHLIST;
+                break;
+            case 4:
+                tablename = TABLE_WATCHLATER;
+                break;
+            default:
+                tablename = TABLE_ANIMEINFO;
+        }
+        return (int) DatabaseUtils.queryNumEntries(db, tablename);
+    }
+
     public boolean checkIfExistsInAnimeInfo(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select title from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
@@ -812,12 +842,6 @@ public class DBHelper extends SQLiteOpenHelper{
         for(int id : idstodelete){
             this.deleteHotAnime(id);
         }
-    }
-
-    public int numberOfAnimeInAnimeinfo(){
-        SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, TABLE_ANIMEINFO);
-        return numRows;
     }
 
 
