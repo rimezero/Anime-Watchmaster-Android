@@ -64,6 +64,8 @@ public class AnimesByLetter extends AppCompatActivity {
     private String letter = "";
 
     private ArrayList<String> genres = new ArrayList<>();
+    
+    private List<Anime> animeListState = new ArrayList<>();
 
 
     @Override
@@ -198,6 +200,8 @@ public class AnimesByLetter extends AppCompatActivity {
     }
 
     private void loadGridView(List<Anime> animeList, int colsNum){
+    
+    animeListState = animes;
 
         final GridView gridView = (GridView) findViewById(R.id.gridview);
 
@@ -263,6 +267,46 @@ public class AnimesByLetter extends AppCompatActivity {
 
 
     }
+    
+    
+    public void listgridswitch(View v) {
+
+        GridView gridView = (GridView) findViewById(R.id.gridview);
+
+        if(!animeListState.isEmpty() && gridView.getVisibility() == View.VISIBLE) {
+
+            ImageView imageView = (ImageView) findViewById(R.id.imagebtnswitch);
+
+            Bitmap bitmap;
+
+            if(gridView.getNumColumns() == 3) {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                setupGridView(animeListState, 2);
+
+            } else if (gridView.getNumColumns() == 2) {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_white_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                setupGridView(animeListState, 1);
+
+            } else {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_white_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                setupGridView(animeListState,3);
+
+            }
+
+        }
+
+
+    }
+
 
     public void showGenreDrawer(View v) {
 
