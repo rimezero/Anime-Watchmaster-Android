@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.admin.animewatchmaster.utils.Jsoup.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
@@ -18,7 +18,7 @@ import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
-import com.example.admin.animewatchmaster.utils.databaseUtils.hotanimeUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 
 import org.lucasr.twowayview.TwoWayView;
 

@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.utils.databaseUtils;
+package com.example.admin.animewatchmaster.utils.Asynctasks;
 
 //import android.app.ProgressDialog;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.utils.NetworkUtils;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.jsonDataImport;
 
 import org.json.JSONArray;
 import org.json.JSONException;

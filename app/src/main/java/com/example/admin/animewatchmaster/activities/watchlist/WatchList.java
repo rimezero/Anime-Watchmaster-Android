@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
-import com.example.admin.animewatchmaster.utils.Jsoup.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchListModel;
