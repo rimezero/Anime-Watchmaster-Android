@@ -63,22 +63,24 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                 if(jarr != null && jarr.length() > 0) {
 
                     JSONObject job = null;
+                    try {
+                        int lastVersion = ((JSONObject)jarr.get(0)).getInt("version");
+                        int currentVersion = 0;
 
-                    for (int i = 0; i < jarr.length(); i++) {
-                        try {
+
+                        for (int i = 0; i < jarr.length(); i++) {
+
                             job = (JSONObject) jarr.get(i);
                             int id;
-                            Log.d("asd",job.getString("title"));
+
+                            currentVersion=job.getInt("version");
+                            if(currentVersion>lastVersion) {
+                                dbinstance.updateVersion(lastVersion);
+                                lastVersion=currentVersion;
+                            }
+
+
                             if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
-                    /*
-                    System.out.println(job.getInt("id"));
-                    System.out.println(job.getString("title"));
-                    System.out.println(job.getString("imgurl"));
-                    System.out.println(job.getString("genre"));
-                    System.out.println(job.getString("episodes"));
-                    System.out.println(job.getString("agerating"));
-                    System.out.println(job.getString("animetype"));
-                    System.out.println(job.getString("description"));*/
                                 boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
                                 id = dbinstance.getAnimeID(job.getString("title"));
                                 s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
@@ -92,10 +94,10 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                                     s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
                                 }
                             }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
 
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
 
 

@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callit(View v){
-        //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
         /*
         DBHelper dbinstance = DBHelper.getInstance(this);
         dbinstance.insertIntoAnimeinfo("$:)';;;sdasd$@#!^&*(){}","adasdasd","agaeghaegaeg","arharh","ahaerhaha","aehahaeh","erhaerhaeh");
