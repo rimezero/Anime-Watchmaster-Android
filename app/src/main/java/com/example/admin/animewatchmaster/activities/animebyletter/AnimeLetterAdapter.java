@@ -3,6 +3,7 @@ package com.example.admin.animewatchmaster.activities.animebyletter;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -25,7 +27,7 @@ import me.grantland.widget.AutofitTextView;
  */
 public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
 
-    private String queryText;
+    private String queryText = ActivityLetters.queryText;
 
     public AnimeLetterAdapter(Context context, List<Anime> models) {
         super(context, 0, models);
@@ -45,15 +47,66 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_anime_by_letter_row,parent,false);
         }
 
-        AutofitTextView text = (AutofitTextView)convertView.findViewById(R.id.title);
+        TextView titlestart = (TextView)convertView.findViewById(R.id.titlestart);
+        TextView titlemiddle = (TextView)convertView.findViewById(R.id.titlemiddle);
+        TextView titleend = (TextView)convertView.findViewById(R.id.titleend);
 
-        //tha to sinexisw ali fora
-        //einai gia na fenete sto title to komati pou ekane query o xristis
+
+        String temptitle = model.getTitle().toLowerCase();
+        String title = model.getTitle();
         if(queryText != null && !queryText.isEmpty()) {
-            text.setText(model.getTitle());
+            String tempqueryText = queryText;
+            tempqueryText = tempqueryText.toLowerCase();
+
+            if(temptitle.contains(tempqueryText) && (title.length() > queryText.length())) {
+                //begin
+                if(temptitle.startsWith(tempqueryText)) {
+
+                    String sub = title.substring(queryText.length(),title.length());
+
+                    titlestart.setText(queryText);
+                    titlestart.setTextColor(Color.YELLOW);
+                    titleend.setText(sub);
+                    titleend.setTextColor(Color.WHITE);
+
+                    titlemiddle.setText("");
+
+
+                //end
+                } else if(temptitle.endsWith(tempqueryText)) {
+
+                    String sub = title.substring(0,(title.length()-queryText.length()));
+
+                    titlestart.setText(sub);
+                    titlestart.setTextColor(Color.WHITE);
+
+                    titleend.setText(queryText);
+                    titleend.setTextColor(Color.YELLOW);
+
+                    titlemiddle.setText("");
+
+                //middle
+                } else {
+
+                    String substart = title.substring(0,temptitle.lastIndexOf(tempqueryText));
+                    String subend = title.substring(substart.length()+queryText.length(),title.length());
+
+                    titlestart.setText(substart);
+                    titlestart.setTextColor(Color.WHITE);
+
+                    titlemiddle.setText(queryText);
+                    titlemiddle.setTextColor(Color.YELLOW);
+
+                    titleend.setText(subend);
+                    titleend.setTextColor(Color.WHITE);
+                }
+            }
         } else {
-            text.setText(model.getTitle());
+            titlestart.setText(model.getTitle());
         }
+
+
+
 
         final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
         Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.loading);

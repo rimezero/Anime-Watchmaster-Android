@@ -15,17 +15,43 @@
         android:background="@drawable/test"
         >
 
-        <me.grantland.widget.AutofitTextView
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:paddingTop="5dp"
-            android:maxLines="1"
-            android:textColor="#FFF"
-            android:text="title"
-            android:id="@+id/title"
-            android:gravity="center"
-            />
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="20sp"
+                   android:paddingTop="5dp"
+                   android:maxLines="1"
+                   android:id="@+id/titlestart"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="20sp"
+                   android:paddingTop="5dp"
+                   android:maxLines="1"
+                   android:id="@+id/titlemiddle"
+                   />
+
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:textSize="20sp"
+                   android:paddingTop="5dp"
+                   android:maxLines="1"
+                   android:id="@+id/titleend"
+                   />
+
+        </LinearLayout>
+
+
 
         <ImageView
             android:layout_width="180dp"
@@ -44,7 +70,6 @@
             android:textSize="18sp"
             android:maxLines="1"
             android:textColor="#FFF"
-            android:text="title"
             android:id="@+id/type"
             android:gravity="center|bottom"
             />

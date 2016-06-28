@@ -66,7 +66,7 @@ public class ActivityLetters extends AppCompatActivity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    private String queryText = "";
+    public static String queryText = "";
 
     private List<Anime> animeListState = new ArrayList<>();
 
