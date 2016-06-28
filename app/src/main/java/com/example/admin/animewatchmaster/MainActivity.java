@@ -4,28 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 
-import com.example.admin.animewatchmaster.model.WatchListModel;
-import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
-import com.example.admin.animewatchmaster.model.Anime;
-import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
-import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
+import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -107,70 +102,22 @@ public class MainActivity extends AppCompatActivity {
         //new WatchlistUpdater(this).execute("");
     }
 
+
     public void getAnimeAZ(final View v) {
-        v.setEnabled(false);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.setEnabled(true);
-                    }
-                });
-
-            }
-        },500);
-
+        tempDisableView(v,500);
         startActivity(new Intent(this, ActivityLetters.class));
     }
 
+
     public void showWatchlist(final View v) {
-
-        v.setEnabled(false);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.setEnabled(true);
-                    }
-                });
-
-            }
-        },500);
-
+        tempDisableView(v,500);
         startActivity(new Intent(this, WatchList.class));
     }
 
 
     public void watchLaterList(final View v) {
-        v.setEnabled(false);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.setEnabled(true);
-                    }
-                });
-
-            }
-        },500);
-
+        tempDisableView(v,500);
         startActivity(new Intent(this, AnimeWatchLater.class));
-
 
     }
 
@@ -189,4 +136,28 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+
+    private void tempDisableView(final View v,int milli) {
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },milli);
+
+    }
+
+
 }

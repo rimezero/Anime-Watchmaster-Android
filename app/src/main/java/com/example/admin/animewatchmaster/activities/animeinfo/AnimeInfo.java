@@ -62,22 +62,7 @@ public class AnimeInfo extends AppCompatActivity {
 
     public void addToWatchlist(final View v) {
 
-        v.setEnabled(false);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.setEnabled(true);
-                    }
-                });
-
-            }
-        },500);
+        tempDisableView(v,500);
 
         DBHelper dbinstance = DBHelper.getInstance(getApplicationContext());
 
@@ -111,22 +96,7 @@ public class AnimeInfo extends AppCompatActivity {
 
     public void addToWatchlaterlist(final View v) {
 
-        v.setEnabled(false);
-
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        v.setEnabled(true);
-                    }
-                });
-
-            }
-        },500);
+        tempDisableView(v,500);
 
         DBHelper dbinstance = DBHelper.getInstance(getApplicationContext());
 
@@ -142,6 +112,27 @@ public class AnimeInfo extends AppCompatActivity {
     }
 
 
+
+
+    private void tempDisableView(final View v,int milli) {
+        v.setEnabled(false);
+
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        v.setEnabled(true);
+                    }
+                });
+
+            }
+        },milli);
+
+    }
 
 
 
