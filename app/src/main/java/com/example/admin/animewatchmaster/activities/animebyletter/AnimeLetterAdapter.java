@@ -33,9 +33,6 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
         super(context, 0, models);
     }
 
-    public void setQueryText(String qt) {
-        this.queryText = qt;
-    }
 
 
     @Override
