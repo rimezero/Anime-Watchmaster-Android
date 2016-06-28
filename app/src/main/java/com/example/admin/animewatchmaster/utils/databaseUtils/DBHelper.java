@@ -849,26 +849,14 @@ public class DBHelper extends SQLiteOpenHelper{
      *
      * @param ids the anime ids list that watchlistUpdater found as ongoing
      */
-    public void handleWatchlistRemainingUpdate(ArrayList<Integer> ids){ //den tin exw testarei akoma o skopos tis einai na kanei update ta oipoloipa apo auta pou vriskei to watchlistUpdater diladi auta pou einai sto watchlist alla den einai ongoing
+    public void handleWatchlistRemainingUpdate(ArrayList<Integer> ids){
         SQLiteDatabase db = this.getWritableDatabase();
-        /*
-        StringBuilder command1 = new StringBuilder();
-        StringBuilder command2 = new StringBuilder();
-        db.update()
-        command2.append("select W."+GENERAL_COLUMN_ID+", Info."+ANIMEINFO_COLUMN_EPISODES+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID);
-        if(ids.size()>0) {
-            command2.append(" where W.id not in(" + ids.get(0));
-            for(int i=1; i<ids.size(); i++){
-                command2.append(","+ids.get(i));
-            }
-            command2.append(")");
-        }
-        Log.d("DBHelper - handleWUpd"," executing command2: "+command2.toString());
-        Cursor res = db.rawQuery(command2.toString(),null);*/
+        Log.d("DBHelper - handleWRupd"," Starting");
+
         String whereClause = null;
         String whereArgs[] = null;
         if(ids.size()>0){
-            whereClause = GENERAL_COLUMN_ID+" not in (?";
+            whereClause = "W."+GENERAL_COLUMN_ID+" not in (?";
             whereArgs =  new String[ids.size()];
             whereArgs[0] = String.valueOf(ids.get(0));
             for(int i=1; i<ids.size(); i++){
@@ -878,14 +866,11 @@ public class DBHelper extends SQLiteOpenHelper{
             whereClause+=")";
         }
 
-
-        /*
-        ContentValues values = new ContentValues();
-        values.put(WATCHLIST_COLUMN_LASTUPDATED,"");
-        db.update(TABLE_WATCHLIST,values,whereClause,whereArgs);*/
+        //Log.d("DBHelper - handleWRupd"," whereClause: "+whereClause);
 
         ContentValues values;
         Cursor res = db.query(TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID, new String[] {"W."+GENERAL_COLUMN_ID,"W."+WATCHLIST_COLUMN_CURRENTEPISODE,"Info."+ANIMEINFO_COLUMN_EPISODES},whereClause,whereArgs,null,null,null);
+        //Log.d("DBHelper - handleWRupd", "resCount: "+res.getCount());
         while (res.moveToNext()){
             values = new ContentValues();
             values.put(WATCHLIST_COLUMN_LASTUPDATED,"");

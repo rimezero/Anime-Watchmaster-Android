@@ -50,6 +50,8 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
             dbinstance.updateWatchlistAnime(ids.get(i),episodes.get(i),lastupdated.get(i));
         }
 
+        dbinstance.handleWatchlistRemainingUpdate(ids);
+
         /* DEBUGGING ON CREATE
         List<WatchListModel> list = dbinstance.getWatchlistData();
         for(WatchListModel anime : list){
