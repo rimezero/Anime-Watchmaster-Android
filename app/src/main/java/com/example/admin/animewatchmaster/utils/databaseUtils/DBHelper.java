@@ -14,6 +14,7 @@ import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
 
 
 /**
@@ -844,6 +845,63 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
+    /**
+     *
+     * @param ids the anime ids list that watchlistUpdater found as ongoing
+     */
+    public void handleWatchlistRemainingUpdate(ArrayList<Integer> ids){ //den tin exw testarei akoma o skopos tis einai na kanei update ta oipoloipa apo auta pou vriskei to watchlistUpdater diladi auta pou einai sto watchlist alla den einai ongoing
+        SQLiteDatabase db = this.getWritableDatabase();
+        /*
+        StringBuilder command1 = new StringBuilder();
+        StringBuilder command2 = new StringBuilder();
+        db.update()
+        command2.append("select W."+GENERAL_COLUMN_ID+", Info."+ANIMEINFO_COLUMN_EPISODES+" from "+TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID);
+        if(ids.size()>0) {
+            command2.append(" where W.id not in(" + ids.get(0));
+            for(int i=1; i<ids.size(); i++){
+                command2.append(","+ids.get(i));
+            }
+            command2.append(")");
+        }
+        Log.d("DBHelper - handleWUpd"," executing command2: "+command2.toString());
+        Cursor res = db.rawQuery(command2.toString(),null);*/
+        String whereClause = null;
+        String whereArgs[] = null;
+        if(ids.size()>0){
+            whereClause = GENERAL_COLUMN_ID+" not in (?";
+            whereArgs =  new String[ids.size()];
+            whereArgs[0] = String.valueOf(ids.get(0));
+            for(int i=1; i<ids.size(); i++){
+                whereClause+=",?";
+                whereArgs[i] = String.valueOf(ids.get(i));
+            }
+            whereClause+=")";
+        }
 
+
+        /*
+        ContentValues values = new ContentValues();
+        values.put(WATCHLIST_COLUMN_LASTUPDATED,"");
+        db.update(TABLE_WATCHLIST,values,whereClause,whereArgs);*/
+
+        ContentValues values;
+        Cursor res = db.query(TABLE_WATCHLIST+" W inner join "+TABLE_ANIMEINFO+" Info on W."+GENERAL_COLUMN_ID+"=Info."+GENERAL_COLUMN_ID, new String[] {"W."+GENERAL_COLUMN_ID,"W."+WATCHLIST_COLUMN_CURRENTEPISODE,"Info."+ANIMEINFO_COLUMN_EPISODES},whereClause,whereArgs,null,null,null);
+        while (res.moveToNext()){
+            values = new ContentValues();
+            values.put(WATCHLIST_COLUMN_LASTUPDATED,"");
+            if(res.getInt(res.getColumnIndex(WATCHLIST_COLUMN_CURRENTEPISODE))==0) {
+                try {
+                    values.put(WATCHLIST_COLUMN_CURRENTEPISODE, Integer.valueOf(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES))));
+                } catch (NumberFormatException ex) {
+                    //do nothing
+                }
+            }
+            db.update(TABLE_WATCHLIST,values,GENERAL_COLUMN_ID+"=?",new String[] {String.valueOf(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)))});
+        }
+
+
+
+
+    }
 
 }
