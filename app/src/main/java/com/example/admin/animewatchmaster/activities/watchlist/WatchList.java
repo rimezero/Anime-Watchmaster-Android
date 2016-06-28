@@ -71,7 +71,6 @@ public class WatchList extends AppCompatActivity {
                     });
                 }
             });
-            updateThread.setName("watchlistThread!!!!!");
             updateThread.start();
 
         }
