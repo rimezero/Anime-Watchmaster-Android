@@ -653,6 +653,40 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    /**
+     *
+     * @param anime The anime to search for anime with same genres
+     * @return An arraylist of anime that contain all of the genres of the parameter anime (results may have more genres)
+     */
+    public ArrayList<Anime> getAnimeWithSameGenre(Anime anime){
+        ArrayList<Anime> animelist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder whereClause = new StringBuilder();
+        whereClause.append(ANIMEINFO_COLUMN_GENRE+ " like ?");
+        StringTokenizer animegenres = new StringTokenizer(anime.getGenre(),", ");
+        String[] whereArgs = new String[animegenres.countTokens()];
+        for(int i=0; i<whereArgs.length; i++){
+            whereClause.append(" and "+ANIMEINFO_COLUMN_GENRE+ " like ?");
+            whereArgs[i] = animegenres.nextToken();
+        }
+
+        Cursor res = db.query(TABLE_ANIMEINFO,new String[] {GENERAL_COLUMN_ID,ANIMEINFO_COLUMN_TITLE,ANIMEINFO_COLUMN_IMGURL,ANIMEINFO_COLUMN_GENRE,ANIMEINFO_COLUMN_EPISODES,ANIMEINFO_COLUMN_ANIMETYPE,ANIMEINFO_COLUMN_AGERATING,ANIMEINFO_COLUMN_DESCRIPTION},whereClause.toString(),whereArgs,null,null,null);
+        while(res.moveToNext()){
+            Anime newAnime = new Anime();
+            newAnime.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
+            newAnime.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setAgerating(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            animelist.add(newAnime);
+        }
+
+        return animelist;
+    }
 
     /**
      *
