@@ -5,12 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 
-import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchListModel;
+import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.twotoasters.jazzylistview.JazzyListView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -20,7 +21,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class WatchList extends AppCompatActivity {
 
-    private ListView listView;
+    private JazzyListView listView;
     private static Thread updateThread;
     @Override
     protected void onCreate(Bundle bundle) {
@@ -29,7 +30,8 @@ public class WatchList extends AppCompatActivity {
 
 
         List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
-        listView = (ListView)findViewById(R.id.watchlist);
+        listView = (JazzyListView)findViewById(R.id.watchlist);
+        listView.setTransitionEffect(new SlideInEffect());
 
         WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(),modelList);
         listView.setAdapter(watchListAdapter);

@@ -2,11 +2,12 @@ package com.example.admin.animewatchmaster.activities.watchlater;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ListView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.twotoasters.jazzylistview.JazzyListView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 
@@ -16,14 +17,15 @@ import java.util.List;
 public class AnimeWatchLater extends AppCompatActivity {
 
 
-    private ListView listView;
+    private JazzyListView listView;
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.layout_watchlaterlist);
 
         List<WatchlaterlistModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlaterlistData();
-        listView = (ListView)findViewById(R.id.watchlaterlist);
+        listView = (JazzyListView)findViewById(R.id.watchlaterlist);
+        listView.setTransitionEffect(new SlideInEffect());
 
         WatchLaterAdapter watchListAdapter = new WatchLaterAdapter(getApplicationContext(),modelList);
         listView.setAdapter(watchListAdapter);

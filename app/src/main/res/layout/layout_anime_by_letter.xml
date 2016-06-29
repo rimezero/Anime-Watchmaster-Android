@@ -53,7 +53,7 @@
             </com.twotoasters.jazzylistview.JazzyListView>
             -->
 
-            <GridView
+            <com.twotoasters.jazzylistview.JazzyGridView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/gridview"
@@ -63,7 +63,7 @@
                 android:scrollbars="vertical"
                 android:layout_below="@+id/topLinear"
                 >
-            </GridView>
+            </com.twotoasters.jazzylistview.JazzyGridView>
 
         </RelativeLayout>
 

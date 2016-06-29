@@ -14,19 +14,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.EffectUtils;
-import com.example.admin.animewatchmaster.utils.Utils;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.activities.drawer.NavDrawerItem;
 import com.example.admin.animewatchmaster.activities.drawer.NavDrawerListAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.utils.EffectUtils;
+import com.example.admin.animewatchmaster.utils.Utils;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.twotoasters.jazzylistview.JazzyGridView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -199,7 +200,7 @@ public class AnimesByLetter extends AppCompatActivity {
     private void loadGridView(List<Anime> animeList, int colsNum){
         animeListState = animeList;
 
-        final GridView gridView = (GridView) findViewById(R.id.gridview);
+        final JazzyGridView gridView = (JazzyGridView) findViewById(R.id.gridview);
 
         if(colsNum == 1) {
             gridView.setNumColumns(1);
@@ -210,6 +211,7 @@ public class AnimesByLetter extends AppCompatActivity {
         }
 
         gridView.setLayoutAnimation(EffectUtils.getgridlayoutAnim());
+        gridView.setTransitionEffect(new SlideInEffect());
         AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animeList);
 
         gridView.setAdapter(animeLetterAdapter);
@@ -266,7 +268,7 @@ public class AnimesByLetter extends AppCompatActivity {
 
     public void listgridswitch(View v) {
 
-        GridView gridView = (GridView) findViewById(R.id.gridview);
+        JazzyGridView gridView = (JazzyGridView) findViewById(R.id.gridview);
 
         if(!animeListState.isEmpty() && gridView.getVisibility() == View.VISIBLE) {
 

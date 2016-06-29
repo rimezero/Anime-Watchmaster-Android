@@ -15,21 +15,22 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.EffectUtils;
-import com.example.admin.animewatchmaster.utils.Utils;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.activities.drawer.NavDrawerItem;
 import com.example.admin.animewatchmaster.activities.drawer.NavDrawerListAdapter;
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.utils.EffectUtils;
+import com.example.admin.animewatchmaster.utils.Utils;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.JazzyListView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -183,7 +184,7 @@ public class ActivityLetters extends AppCompatActivity {
 
                 if (position == 0) {
 
-                    GridView gridView = (GridView) findViewById(R.id.gridview);
+                    JazzyGridView gridView = (JazzyGridView) findViewById(R.id.gridview);
                     gridView.setVisibility(View.GONE);
                     makeAllLinearViewVisible(linearList);
 
@@ -270,7 +271,7 @@ public class ActivityLetters extends AppCompatActivity {
 
         animeListState = animes;
 
-        final GridView gridView = (GridView)findViewById(R.id.gridview);
+        final JazzyGridView gridView = (JazzyGridView)findViewById(R.id.gridview);
         gridView.setVisibility(View.VISIBLE);
 
         if(cols == 1) {
@@ -282,6 +283,7 @@ public class ActivityLetters extends AppCompatActivity {
         }
 
         gridView.setLayoutAnimation(EffectUtils.getgridlayoutAnim());
+        gridView.setTransitionEffect(new SlideInEffect());
         AnimeLetterAdapter animeLetterAdapter = new AnimeLetterAdapter(getApplicationContext(),animes);
 
         gridView.setAdapter(animeLetterAdapter);
@@ -340,7 +342,7 @@ public class ActivityLetters extends AppCompatActivity {
 
     public void listgridswitch(View v) {
 
-        GridView gridView = (GridView) findViewById(R.id.gridview);
+        JazzyGridView gridView = (JazzyGridView) findViewById(R.id.gridview);
 
         if(!animeListState.isEmpty() && gridView.getVisibility() == View.VISIBLE) {
 
@@ -424,7 +426,7 @@ public class ActivityLetters extends AppCompatActivity {
 
                 queryText = "";
 
-                GridView gridView = (GridView)findViewById(R.id.gridview);
+                JazzyGridView gridView = (JazzyGridView)findViewById(R.id.gridview);
                 gridView.setVisibility(View.GONE);
                 makeAllLinearViewVisible(linearList);
 
@@ -448,7 +450,7 @@ public class ActivityLetters extends AppCompatActivity {
 
                 queryText = "";
 
-                GridView gridView = (GridView)findViewById(R.id.gridview);
+                JazzyGridView gridView = (JazzyGridView)findViewById(R.id.gridview);
                 gridView.setVisibility(View.GONE);
                 makeAllLinearViewVisible(linearList);
 
