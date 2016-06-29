@@ -659,7 +659,7 @@ public class DBHelper extends SQLiteOpenHelper{
      * @param commandType - 0 ByLetter, 1 ByLetter with filters, 2 search, 3, search with filters
      * @param searchparam - either the letter or the string to search for
      * @param filterslist - either null or a list with the filters as Strings of this type "Action"
-     * @return
+     * @return An arraylist with Anime objects according to the parameters above
      */
     public ArrayList<Anime> getAllAnime(int commandType, String searchparam, ArrayList<String> filterslist){
         ArrayList<Anime> allanime = new ArrayList<>();
