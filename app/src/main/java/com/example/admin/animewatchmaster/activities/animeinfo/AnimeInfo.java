@@ -169,6 +169,13 @@ public class AnimeInfo extends AppCompatActivity {
     }
 
 
+    public void shareAnime(View v) {
+        tempDisableView(v,1000);
+
+        //share...
+    }
+
+
     public void addToWatchlaterlist(final View v) {
 
 
@@ -195,6 +202,12 @@ public class AnimeInfo extends AppCompatActivity {
 
     }
 
+
+    public void addToWatched(View v) {
+        tempDisableView(v,500);
+
+
+    }
 
 
     private void animateView(View v) {
