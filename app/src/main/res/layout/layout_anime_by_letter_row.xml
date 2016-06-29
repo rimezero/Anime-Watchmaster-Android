@@ -88,8 +88,9 @@
             android:layout_width="fill_parent"
             android:layout_height="65dp"
             android:orientation="horizontal"
-            android:background="@drawable/anime_back_gradient"
+            android:background="@drawable/yellow_animeletter_list_back"
             android:gravity="center"
+            android:layout_marginTop="4dp"
             >
 
             <me.grantland.widget.AutofitTextView
