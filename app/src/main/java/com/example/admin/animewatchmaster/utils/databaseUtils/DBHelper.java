@@ -664,11 +664,19 @@ public class DBHelper extends SQLiteOpenHelper{
 
         StringBuilder whereClause = new StringBuilder();
         whereClause.append(ANIMEINFO_COLUMN_GENRE+ " like ?");
-        StringTokenizer animegenres = new StringTokenizer(anime.getGenre(),", ");
+        StringTokenizer animegenres = new StringTokenizer(anime.getGenre().replace(" ",""),",");
+
+        if(animegenres.countTokens()<1){
+            Log.i("DBHelper - getAnmGnr", " Anime with id: "+anime.getId()+" has no genres");
+            return animelist;
+        }
+
         String[] whereArgs = new String[animegenres.countTokens()];
-        for(int i=0; i<whereArgs.length; i++){
+        whereArgs[0] = "%"+animegenres.nextToken()+"%";
+
+        for(int i=1; i<whereArgs.length; i++){
             whereClause.append(" and "+ANIMEINFO_COLUMN_GENRE+ " like ?");
-            whereArgs[i] = animegenres.nextToken();
+            whereArgs[i] = "%"+animegenres.nextToken()+"%";
         }
 
         Cursor res = db.query(TABLE_ANIMEINFO,new String[] {GENERAL_COLUMN_ID,ANIMEINFO_COLUMN_TITLE,ANIMEINFO_COLUMN_IMGURL,ANIMEINFO_COLUMN_GENRE,ANIMEINFO_COLUMN_EPISODES,ANIMEINFO_COLUMN_ANIMETYPE,ANIMEINFO_COLUMN_AGERATING,ANIMEINFO_COLUMN_DESCRIPTION},whereClause.toString(),whereArgs,null,null,null);
@@ -684,6 +692,7 @@ public class DBHelper extends SQLiteOpenHelper{
             newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
             animelist.add(newAnime);
         }
+        res.close();
 
         return animelist;
     }

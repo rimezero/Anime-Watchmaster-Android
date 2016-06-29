@@ -21,6 +21,7 @@ import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,10 +77,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callit(View v){
+        //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
+
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
         //DBHelper dbinstance = DBHelper.getInstance(this);
+        /*
+        ArrayList<Anime> animelist = dbinstance.getAnimeWithSameGenre(anime);
+        for(Anime anim : animelist){
+            System.out.println(anim.getTitle());
+        }*/
        // dbinstance.deleteWatchlistAnime(83);
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("009-1"),0,0,"vaggelis");
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("11eyes"),0,0,"gamidia");
