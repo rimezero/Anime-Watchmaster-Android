@@ -4,9 +4,14 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.admin.animewatchmaster.utils.Jsoup.JsoupToAnimefreak;
+import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.utils.NetworkUtils;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.utils.databaseUtils.jsonDataImport;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -39,11 +44,29 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
 
         DBHelper dbinstance = DBHelper.getInstance(mainContext);
 
-        ArrayList<Object> data = JsoupToAnimefreak.getWatchlistData(mainContext);
+        JSONArray jarr = jsonDataImport.getWatchlistData(mainContext.getString(R.string.base_db_url));
 
-        ArrayList<Integer> ids = (ArrayList<Integer>)data.get(0);
-        ArrayList<Integer> episodes = (ArrayList<Integer>)data.get(1);
-        ArrayList<String> lastupdated = (ArrayList<String>)data.get(2);
+        ArrayList<Integer> ids = new ArrayList<>();
+        ArrayList<Integer> episodes = new ArrayList<>();
+        ArrayList<String> lastupdated = new ArrayList<>();
+
+        for(int i=0; i<jarr.length(); i++){
+            try {
+                JSONObject job = jarr.getJSONObject(i);
+                int id = dbinstance.getAnimeID(job.getString("title"));
+                if(id!=-1){
+                    if(dbinstance.checkIfExistsInWatchlist(id)){
+                        ids.add(id);
+                        episodes.add(job.getInt("currentepisode"));
+                        lastupdated.add(job.getString("lastupdated"));
+                    }
+                }
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("WatchlistUpdater"," JSON exception trying to parse array index to json object");
+            }
+        }
 
         //telos jsoup arxi SQLite
         for(int i=0; i<ids.size(); i++){
