@@ -76,10 +76,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void callit(View v){
-        new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        //new databaseUpdater(this).execute(getString(R.string.base_db_url));
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
-        //DBHelper dbinstance = DBHelper.getInstance(this);
+        DBHelper dbinstance = DBHelper.getInstance(this);
+        dbinstance.deleteWatchlistAnime(83);
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("009-1"),0,0,"vaggelis");
         //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("11eyes"),0,0,"gamidia");
         /*

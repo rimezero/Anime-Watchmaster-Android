@@ -2,6 +2,7 @@ package com.example.admin.animewatchmaster.activities.animeinfo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -15,6 +16,7 @@ import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
+import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -129,9 +131,22 @@ public class AnimeInfo extends AppCompatActivity {
                 doUpdateFlag = true;
             }else if(episodes.trim().isEmpty()){
                 //do nothing
-            }else{
-                double d = Double.valueOf(anime.getEpisodes().trim());
-                ep = (int) d;
+            }else if(episodes.contains("+")){
+                StringTokenizer eps = new StringTokenizer(episodes.trim(),"+");
+                try {
+                    double d = Double.valueOf(eps.nextToken());
+                    ep = (int) d;
+                }catch (NumberFormatException e){
+                    Log.e("AnimeInfo - addToWlist"," Add to watchlist - Number format exception trying to parse string to double / episodes contains '+'");
+                }
+            }
+            else{
+                try {
+                    double d = Double.valueOf(episodes.trim());
+                    ep = (int) d;
+                }catch (NumberFormatException e){
+                    Log.e("AnimeInfo - addToWlist"," Add to watchlist - Number format exception trying to parse string to double");
+                }
             }
 
             dbHelper.insertIntoWatchlist(anime.getId(), 0, ep, "");
