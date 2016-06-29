@@ -3,10 +3,12 @@ package com.example.admin.animewatchmaster.activities.animeinfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dd.CircularProgressButton;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
@@ -16,6 +18,8 @@ import com.squareup.picasso.Picasso;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import me.grantland.widget.AutofitTextView;
+
 /**
  * Created by abraham on 9/6/2016.
  */
@@ -23,12 +27,17 @@ public class AnimeInfo extends AppCompatActivity {
 
     private Anime anime;
     private DBHelper dbHelper;
-    private CircularProgressButton watchlistbtn;
-    private CircularProgressButton watchlaterbtn;
+    private LinearLayout watchlistlinear;
+    private TextView watchlisttext;
+
+    private LinearLayout watchlaterlinear;
+    private TextView watchlatertext;
 
 
     @Override
     protected void onCreate(Bundle bundle) {
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(bundle);
         setContentView(R.layout.layout_animeinfo);
 
@@ -36,13 +45,12 @@ public class AnimeInfo extends AppCompatActivity {
 
         if(anime != null) {
 
-            watchlistbtn = (CircularProgressButton)findViewById(R.id.watchlistbtn);
-            watchlaterbtn = (CircularProgressButton)findViewById(R.id.watchlaterbtn);
 
             dbHelper = DBHelper.getInstance(getApplicationContext());
 
             TextView title = (TextView)findViewById(R.id.title);
             title.setText(anime.getTitle());
+
 
             ImageView imageView = (ImageView)findViewById(R.id.image);
 
@@ -56,27 +64,34 @@ public class AnimeInfo extends AppCompatActivity {
 
             }
 
+
+            AutofitTextView autofitTextView = (AutofitTextView)findViewById(R.id.genrestext);
+            autofitTextView.setText(anime.getGenre());
+
             TextView desc = (TextView)findViewById(R.id.desc);
             desc.setText(anime.getDescription());
 
 
-            if(dbHelper.getInstance(getApplicationContext()).checkIfExistsInWatchlist(anime.getId())) {
+            if(dbHelper.checkIfExistsInWatchlist(anime.getId())) {
 
-                watchlistbtn.setIndeterminateProgressMode(true);
-                watchlistbtn.setProgress(0);
-                watchlistbtn.setProgress(100);
+                watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
+                animateView(watchlistlinear);
+
+                watchlisttext = (TextView)findViewById(R.id.watchlisttext);
+                watchlisttext.setText("WatchList");
 
             } else {
 
             }
 
+            if(dbHelper.checkIfExistsInWatchLaterList(anime.getId())) {
 
-            if(dbHelper.getInstance(getApplicationContext()).checkIfExistsInWatchLaterList(anime.getId())) {
+                watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
+                animateView(watchlaterlinear);
 
+                watchlatertext = (TextView)findViewById(R.id.watchlatertext);
+                watchlatertext.setText("WatchLater");
 
-                watchlaterbtn.setIndeterminateProgressMode(true);
-                watchlaterbtn.setProgress(0);
-                watchlaterbtn.setProgress(100);
 
             } else {
 
@@ -98,13 +113,13 @@ public class AnimeInfo extends AppCompatActivity {
 
     public void addToWatchlist(final View v) {
 
-        watchlistbtn = (CircularProgressButton)findViewById(R.id.watchlistbtn);
 
         tempDisableView(v,500);
 
         dbHelper = DBHelper.getInstance(getApplicationContext());
 
         if(!dbHelper.checkIfExistsInWatchlist(anime.getId())) {
+
 
             String episodes = anime.getEpisodes();
             int ep = 0;
@@ -125,10 +140,12 @@ public class AnimeInfo extends AppCompatActivity {
             if(doUpdateFlag)
                 new WatchlistUpdater(getApplicationContext()).execute("");
 
+            watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
+            animateView(watchlistlinear);
 
-            watchlistbtn.setIndeterminateProgressMode(true);
-            watchlistbtn.setProgress(0);
-            watchlistbtn.setProgress(100);
+            watchlisttext = (TextView)findViewById(R.id.watchlisttext);
+            watchlisttext.setText("WatchList");
+
 
         } else {
             //Toast.makeText(getApplicationContext(),"anime already in watchlist",Toast.LENGTH_SHORT).show();
@@ -139,7 +156,6 @@ public class AnimeInfo extends AppCompatActivity {
 
     public void addToWatchlaterlist(final View v) {
 
-        watchlaterbtn = (CircularProgressButton)findViewById(R.id.watchlaterbtn);
 
         tempDisableView(v,500);
 
@@ -147,12 +163,15 @@ public class AnimeInfo extends AppCompatActivity {
 
         if(!dbHelper.checkIfExistsInWatchLaterList(anime.getId())) {
 
+
             dbHelper.insertIntoWatchlaterlist(anime.getId());
 
+            watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
+            animateView(watchlaterlinear);
 
-            watchlaterbtn.setIndeterminateProgressMode(true);
-            watchlaterbtn.setProgress(0);
-            watchlaterbtn.setProgress(100);
+            watchlatertext = (TextView)findViewById(R.id.watchlatertext);
+            watchlatertext.setText("WatchLater");
+
 
         } else {
             //Toast.makeText(getApplicationContext(),"anime already in watch later list",Toast.LENGTH_SHORT).show();
@@ -162,6 +181,16 @@ public class AnimeInfo extends AppCompatActivity {
     }
 
 
+
+    private void animateView(View v) {
+        v.setAlpha(0f);
+        v.setVisibility(View.VISIBLE);
+
+        v.animate()
+                .alpha(1f)
+                .setDuration(1000)
+                .start();
+    }
 
 
     private void tempDisableView(final View v,int milli) {
