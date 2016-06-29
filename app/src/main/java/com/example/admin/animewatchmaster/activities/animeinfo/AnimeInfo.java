@@ -29,11 +29,15 @@ public class AnimeInfo extends AppCompatActivity {
 
     private Anime anime;
     private DBHelper dbHelper;
+
     private LinearLayout watchlistlinear;
-    private TextView watchlisttext;
+    private ImageView watchlistplusbtn;
 
     private LinearLayout watchlaterlinear;
-    private TextView watchlatertext;
+    private ImageView watchlaterplusbtn;
+
+    private LinearLayout watchedlinear;
+    private ImageView watchedplusbtn;
 
 
     @Override
@@ -79,10 +83,8 @@ public class AnimeInfo extends AppCompatActivity {
                 watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
                 animateView(watchlistlinear);
 
-                watchlisttext = (TextView)findViewById(R.id.watchlisttext);
-                watchlisttext.setText("WatchList");
-
-            } else {
+                watchlistplusbtn = (ImageView)findViewById(R.id.watchlistplusbtn);
+                watchlistplusbtn.setVisibility(View.GONE);
 
             }
 
@@ -91,14 +93,21 @@ public class AnimeInfo extends AppCompatActivity {
                 watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
                 animateView(watchlaterlinear);
 
-                watchlatertext = (TextView)findViewById(R.id.watchlatertext);
-                watchlatertext.setText("WatchLater");
+                watchlaterplusbtn = (ImageView)findViewById(R.id.watchlaterplusbtn);
+                watchlaterplusbtn.setVisibility(View.GONE);
 
-
-            } else {
 
             }
 
+            if(dbHelper.checkIfExistsInWatchedList(anime.getId())) {
+
+                watchedlinear = (LinearLayout)findViewById(R.id.watched);
+                animateView(watchedlinear);
+
+                watchedplusbtn = (ImageView)findViewById(R.id.watchedplusbtn);
+                watchedplusbtn.setVisibility(View.GONE);
+
+            }
 
 
         } else {
@@ -158,8 +167,8 @@ public class AnimeInfo extends AppCompatActivity {
             watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
             animateView(watchlistlinear);
 
-            watchlisttext = (TextView)findViewById(R.id.watchlisttext);
-            watchlisttext.setText("WatchList");
+            watchlistplusbtn = (ImageView)findViewById(R.id.watchlistplusbtn);
+            watchlistplusbtn.setVisibility(View.GONE);
 
 
         } else {
@@ -191,8 +200,8 @@ public class AnimeInfo extends AppCompatActivity {
             watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
             animateView(watchlaterlinear);
 
-            watchlatertext = (TextView)findViewById(R.id.watchlatertext);
-            watchlatertext.setText("WatchLater");
+            watchlaterplusbtn = (ImageView)findViewById(R.id.watchlaterplusbtn);
+            watchlaterplusbtn.setVisibility(View.GONE);
 
 
         } else {
@@ -206,6 +215,18 @@ public class AnimeInfo extends AppCompatActivity {
     public void addToWatched(View v) {
         tempDisableView(v,500);
 
+        dbHelper = DBHelper.getInstance(getApplicationContext());
+
+        if(!dbHelper.checkIfExistsInWatchedList(anime.getId())) {
+
+            dbHelper.insertIntoWatchedlist(anime.getId());
+
+            watchedlinear = (LinearLayout)findViewById(R.id.watched);
+            animateView(watchedlinear);
+
+            watchedplusbtn = (ImageView)findViewById(R.id.watchedplusbtn);
+            watchedplusbtn.setVisibility(View.GONE);
+        }
 
     }
 

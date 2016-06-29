@@ -44,26 +44,39 @@
 
 
 
+
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="33dp"
             android:orientation="horizontal"
-            android:gravity="center"
+            android:gravity="left"
             android:paddingBottom="3dp"
             android:background="@drawable/anime_letter_title"
             >
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="33dp"
+                android:gravity="left"
+                android:background="@drawable/ic_bookmark_border_white_24dp"
+                android:id="@+id/bookmarklinear"
                 android:orientation="horizontal"
-                android:layout_gravity="center"
+                android:visibility="gone"
+                />
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="33dp"
+                android:orientation="horizontal"
+                android:gravity="center"
                 android:layout_marginLeft="2dp"
                 >
 
+
                 <me.grantland.widget.AutofitTextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="33dp"
                     android:paddingBottom="4dp"
                     android:paddingTop="4dp"
                     android:textSize="15sp"
@@ -72,6 +85,8 @@
                     android:id="@+id/type"
                     android:gravity="center"
                     android:layout_below="@+id/image"
+                    android:text="text"
+                    android:layout_weight="1"
                     />
 
 

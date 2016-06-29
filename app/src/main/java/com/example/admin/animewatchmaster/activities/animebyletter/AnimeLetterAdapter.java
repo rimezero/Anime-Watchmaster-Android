@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -139,6 +141,17 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
                     .load(model.getImgurl())
                     .resize(160,200)
                     .into(imageView);
+
+
+            int animeId = model.getId();
+            DBHelper dbHelper = DBHelper.getInstance(getContext());
+            LinearLayout linearLayoutbookmark = (LinearLayout) convertView.findViewById(R.id.bookmarklinear);
+            if(dbHelper.checkIfExistsInWatchlist(animeId) || dbHelper.checkIfExistsInWatchedList(animeId) || dbHelper.checkIfExistsInWatchLaterList(animeId)) {
+                linearLayoutbookmark.setVisibility(View.VISIBLE);
+            } else {
+                linearLayoutbookmark.setVisibility(View.GONE);
+            }
+
 
         } catch (Exception ex) {
 
