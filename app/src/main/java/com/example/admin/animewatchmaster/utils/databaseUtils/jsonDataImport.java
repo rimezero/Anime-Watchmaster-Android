@@ -60,8 +60,7 @@ public class jsonDataImport {
 
     private static JSONArray getData(String db_url, int version){
         final String TAG = CLASS_TAG+"getData";
-        JSONArray jarr=null;
-        //i palia methodos sto api 23 exei katargithei alla den epsaksa na vrw pws na to kanw
+        JSONArray jarr =  new JSONArray();
         try {
             JSONObject obj = new JSONObject();
             obj.put("usr","gd4#DpxKli");
@@ -99,6 +98,7 @@ public class jsonDataImport {
             e.printStackTrace();
             Log.e(TAG,"IOException");
         } catch (JSONException e) {
+            Log.e(TAG,"Json Exception");
             e.printStackTrace();
         }
 
