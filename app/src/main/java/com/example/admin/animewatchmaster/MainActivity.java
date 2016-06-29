@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
+import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -119,6 +120,11 @@ public class MainActivity extends AppCompatActivity {
         tempDisableView(v,500);
         startActivity(new Intent(this, AnimeWatchLater.class));
 
+    }
+
+    public void watchedList(final View v){
+        tempDisableView(v,500);
+        startActivity(new Intent(this, WatchedAnime.class));
     }
 
 

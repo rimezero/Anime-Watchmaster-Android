@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="getAnimeAZ"
-            android:text="Demo.A-Z animes"
+            android:text="Demo.A-Z anime"
             />
 
         <Button
@@ -61,14 +61,21 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="watch latter list"
+            android:text="watch later list"
             android:onClick="watchLaterList"
             />
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Top animes/New animes"
+            android:text="watched list"
+            android:onClick="watchedList"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Top anime/New anime"
             />
 
         <Button
