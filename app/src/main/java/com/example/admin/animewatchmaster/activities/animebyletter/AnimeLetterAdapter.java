@@ -1,22 +1,15 @@
 package com.example.admin.animewatchmaster.activities.animebyletter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.util.List;
 
@@ -44,11 +37,14 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_anime_by_letter_row,parent,false);
         }
 
-        TextView titlestart = (TextView)convertView.findViewById(R.id.titlestart);
-        TextView titlemiddle = (TextView)convertView.findViewById(R.id.titlemiddle);
-        TextView titleend = (TextView)convertView.findViewById(R.id.titleend);
+        AutofitTextView titlestart = (AutofitTextView)convertView.findViewById(R.id.titlestart);
+        titlestart.setText(model.getTitle());
+        //TextView titlemiddle = (TextView)convertView.findViewById(R.id.titlemiddle);
+        //TextView titleend = (TextView)convertView.findViewById(R.id.titleend);
 
 
+
+        /*
         String temptitle = model.getTitle().toLowerCase();
         String title = model.getTitle();
         if(queryText != null && !queryText.isEmpty()) {
@@ -101,30 +97,33 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
         } else {
             titlestart.setText(model.getTitle());
         }
+        */
 
 
-
-
-        final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
-        Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.loading);
-        imageView.setImageBitmap(bitmap);
+        ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
+        //Bitmap bitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.loading);
+        //imageView.setImageBitmap(bitmap);
 
         try {
+
+            /*
 
             Target target = new Target()  {
 
                 @Override
                 public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
                     imageView.setImageBitmap(bitmap);
+
                 }
 
                 @Override
                 public void onBitmapFailed(Drawable errorDrawable) {
                     //do stuff if...
-                    Log.i("onBitmapFailed","failed to get bitmap");
+                    Log.i("onBitmapFailed", "failed to get bitmap");
                     Bitmap errorBitmap = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.ic_signal_wifi_off_white_24dp);
                     imageView.setImageDrawable(null);
                     imageView.setImageBitmap(errorBitmap);
+
 
                 }
 
@@ -133,11 +132,13 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
 
                 }
             };
+            */
+
 
             Picasso.with(getContext())
                     .load(model.getImgurl())
-                    .resize(150,200)
-                    .into(target);
+                    .resize(160,200)
+                    .into(imageView);
 
         } catch (Exception ex) {
 

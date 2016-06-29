@@ -329,6 +329,8 @@ public class ActivityLetters extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
+
+
                 return false;
             }
         });

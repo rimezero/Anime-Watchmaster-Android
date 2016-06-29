@@ -40,4 +40,5 @@ dependencies {
     compile group: 'org.jsoup', name: 'jsoup', version: '1.7.2'
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
 
+
 }
