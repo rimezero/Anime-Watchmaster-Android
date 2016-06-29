@@ -102,6 +102,8 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         public void onClick(View v) {
             DBHelper.getInstance(getContext()).deleteWatchlistAnime(model.getId());
             remove(model);
+            if(!DBHelper.getInstance(getContext()).checkIfExistsInWatchedList(model.getId()))
+                DBHelper.getInstance(getContext()).insertIntoWatchedlist(model.getId());
         }
     }
 

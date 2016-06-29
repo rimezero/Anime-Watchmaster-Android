@@ -284,7 +284,7 @@ public class DBHelper extends SQLiteOpenHelper{
         List<WatchlaterlistModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID;
+        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_WATCHLATER+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID+" order by Info."+ANIMEINFO_COLUMN_TITLE+" collate nocase asc";
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
@@ -312,7 +312,7 @@ public class DBHelper extends SQLiteOpenHelper{
         List<WatchedModel> models = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
 
-        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_WATCHED+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID;
+        String command = "select W."+ GENERAL_COLUMN_ID +", Info."+ ANIMEINFO_COLUMN_TITLE +", Info."+ ANIMEINFO_COLUMN_IMGURL +", Info."+ ANIMEINFO_COLUMN_GENRE +" from "+TABLE_WATCHED+" W inner join "+TABLE_ANIMEINFO+" Info on W."+ GENERAL_COLUMN_ID +"=Info."+ GENERAL_COLUMN_ID+" order by Info."+ANIMEINFO_COLUMN_TITLE+" collate nocase asc";
         Cursor c = db.rawQuery(command,null);
 
         if(c.moveToFirst()) {
@@ -473,6 +473,136 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         res.close();
         return link;
+    }
+
+    /**
+     *
+     * @param anime The anime to search for anime with same genres
+     * @return An arraylist of anime that contain all of the genres of the parameter anime (results may have more genres)
+     */
+    public ArrayList<Anime> getAnimeWithSameGenre(Anime anime){
+        ArrayList<Anime> animelist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder whereClause = new StringBuilder();
+        whereClause.append(ANIMEINFO_COLUMN_GENRE+ " like ?");
+        StringTokenizer animegenres = new StringTokenizer(anime.getGenre().replace(" ",""),",");
+
+        if(animegenres.countTokens()<1){
+            Log.i("DBHelper - getAnmGnr", " Anime with id: "+anime.getId()+" has no genres");
+            return animelist;
+        }
+
+        String[] whereArgs = new String[animegenres.countTokens()];
+        whereArgs[0] = "%"+animegenres.nextToken()+"%";
+
+        for(int i=1; i<whereArgs.length; i++){
+            whereClause.append(" and "+ANIMEINFO_COLUMN_GENRE+ " like ?");
+            whereArgs[i] = "%"+animegenres.nextToken()+"%";
+        }
+
+        Cursor res = db.query(TABLE_ANIMEINFO,new String[] {GENERAL_COLUMN_ID,ANIMEINFO_COLUMN_TITLE,ANIMEINFO_COLUMN_IMGURL,ANIMEINFO_COLUMN_GENRE,ANIMEINFO_COLUMN_EPISODES,ANIMEINFO_COLUMN_ANIMETYPE,ANIMEINFO_COLUMN_AGERATING,ANIMEINFO_COLUMN_DESCRIPTION},whereClause.toString(),whereArgs,null,null,null);
+        while(res.moveToNext()){
+            Anime newAnime = new Anime();
+            newAnime.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
+            newAnime.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setAgerating(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            animelist.add(newAnime);
+        }
+        res.close();
+
+        return animelist;
+    }
+
+    /**
+     *
+     * @param commandType - 0 ByLetter, 1 ByLetter with filters, 2 search, 3, search with filters
+     * @param searchparam - either the letter or the string to search for
+     * @param filterslist - either null or a list with the filters as Strings of this type "Action"
+     * @return An arraylist with Anime objects according to the parameters above
+     */
+    public ArrayList<Anime> getAllAnime(int commandType, String searchparam, ArrayList<String> filterslist){
+        ArrayList<Anime> allanime = new ArrayList<>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        StringBuilder command = new StringBuilder();
+
+        searchparam = searchparam+"%";
+
+        switch (commandType){
+            case 0:
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
+                break;
+            case 1:
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
+
+                if(filterslist!=null) {
+                    for (String filter : filterslist) {
+                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
+                    }
+                }else{
+                    Log.i(CLASS_TAG+"getAllAnime"," commandType is search by letter WITH FILTERS but filterslist is null");
+                }
+
+                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
+                break;
+            case 2:
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
+                searchparam = "%"+searchparam;
+                break;
+            case 3:
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
+
+                if(filterslist!=null) {
+                    for (String filter : filterslist) {
+                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
+                    }
+                }else{
+                    Log.i(CLASS_TAG+"getAllAnime"," commandType is search WITH FILTERS but filterslist is null");
+                }
+
+                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
+                searchparam = "%"+searchparam;
+                break;
+            default:
+                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
+                Log.i(CLASS_TAG+"getAllAnime"," commandType is out of bounds executing search with parameter as default method");
+
+        }
+
+        Log.d(CLASS_TAG+"getAllAnime","executing command: "+command.toString());
+        Cursor res = db.rawQuery(command.toString(),new String[] {searchparam});
+        res.moveToFirst();
+
+        int id;
+        String title;
+        String imgurl;
+        String genre;
+        String episodes;
+        String animetype;
+        String agerating;
+        String description;
+
+        while(!res.isAfterLast()){
+            id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
+            title = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE));
+            imgurl = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL));
+            genre = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_GENRE));
+            episodes = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES));
+            animetype = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANIMETYPE));
+            agerating = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_AGERATING));
+            description = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_DESCRIPTION));
+
+            allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
+            res.moveToNext();
+        }
+        return allanime;
     }
 
     /**
@@ -651,136 +781,6 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("update version set "+ VERSION_COLUMN_VERSION +"="+version);
         Log.d(TAG,"updated version to: "+version);
         return true;
-    }
-
-    /**
-     *
-     * @param anime The anime to search for anime with same genres
-     * @return An arraylist of anime that contain all of the genres of the parameter anime (results may have more genres)
-     */
-    public ArrayList<Anime> getAnimeWithSameGenre(Anime anime){
-        ArrayList<Anime> animelist = new ArrayList<>();
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        StringBuilder whereClause = new StringBuilder();
-        whereClause.append(ANIMEINFO_COLUMN_GENRE+ " like ?");
-        StringTokenizer animegenres = new StringTokenizer(anime.getGenre().replace(" ",""),",");
-
-        if(animegenres.countTokens()<1){
-            Log.i("DBHelper - getAnmGnr", " Anime with id: "+anime.getId()+" has no genres");
-            return animelist;
-        }
-
-        String[] whereArgs = new String[animegenres.countTokens()];
-        whereArgs[0] = "%"+animegenres.nextToken()+"%";
-
-        for(int i=1; i<whereArgs.length; i++){
-            whereClause.append(" and "+ANIMEINFO_COLUMN_GENRE+ " like ?");
-            whereArgs[i] = "%"+animegenres.nextToken()+"%";
-        }
-
-        Cursor res = db.query(TABLE_ANIMEINFO,new String[] {GENERAL_COLUMN_ID,ANIMEINFO_COLUMN_TITLE,ANIMEINFO_COLUMN_IMGURL,ANIMEINFO_COLUMN_GENRE,ANIMEINFO_COLUMN_EPISODES,ANIMEINFO_COLUMN_ANIMETYPE,ANIMEINFO_COLUMN_AGERATING,ANIMEINFO_COLUMN_DESCRIPTION},whereClause.toString(),whereArgs,null,null,null);
-        while(res.moveToNext()){
-            Anime newAnime = new Anime();
-            newAnime.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
-            newAnime.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setAgerating(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            animelist.add(newAnime);
-        }
-        res.close();
-
-        return animelist;
-    }
-
-    /**
-     *
-     * @param commandType - 0 ByLetter, 1 ByLetter with filters, 2 search, 3, search with filters
-     * @param searchparam - either the letter or the string to search for
-     * @param filterslist - either null or a list with the filters as Strings of this type "Action"
-     * @return An arraylist with Anime objects according to the parameters above
-     */
-    public ArrayList<Anime> getAllAnime(int commandType, String searchparam, ArrayList<String> filterslist){
-        ArrayList<Anime> allanime = new ArrayList<>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        StringBuilder command = new StringBuilder();
-
-        searchparam = searchparam+"%";
-
-        switch (commandType){
-            case 0:
-                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
-                break;
-            case 1:
-                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
-
-                if(filterslist!=null) {
-                    for (String filter : filterslist) {
-                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
-                    }
-                }else{
-                    Log.i(CLASS_TAG+"getAllAnime"," commandType is search by letter WITH FILTERS but filterslist is null");
-                }
-
-                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
-                break;
-            case 2:
-                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
-                searchparam = "%"+searchparam;
-                break;
-            case 3:
-                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ?");
-
-                if(filterslist!=null) {
-                    for (String filter : filterslist) {
-                        command.append(" and " + ANIMEINFO_COLUMN_GENRE + " like '%" + filter + "%'");
-                    }
-                }else{
-                    Log.i(CLASS_TAG+"getAllAnime"," commandType is search WITH FILTERS but filterslist is null");
-                }
-
-                command.append(" order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
-                searchparam = "%"+searchparam;
-                break;
-            default:
-                command.append("select * from animeinfo where "+ ANIMEINFO_COLUMN_TITLE +" like ? order by "+ ANIMEINFO_COLUMN_TITLE +" collate nocase asc");
-                Log.i(CLASS_TAG+"getAllAnime"," commandType is out of bounds executing search with parameter as default method");
-
-        }
-
-        Log.d(CLASS_TAG+"getAllAnime","executing command: "+command.toString());
-        Cursor res = db.rawQuery(command.toString(),new String[] {searchparam});
-        res.moveToFirst();
-
-        int id;
-        String title;
-        String imgurl;
-        String genre;
-        String episodes;
-        String animetype;
-        String agerating;
-        String description;
-
-        while(!res.isAfterLast()){
-            id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
-            title = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE));
-            imgurl = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL));
-            genre = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_GENRE));
-            episodes = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES));
-            animetype = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANIMETYPE));
-            agerating = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_AGERATING));
-            description = res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_DESCRIPTION));
-
-            allanime.add(new Anime(id,title,imgurl,genre,episodes,animetype,agerating,description));
-            res.moveToNext();
-        }
-        return allanime;
     }
 
     public boolean deleteAnime (Integer id)
