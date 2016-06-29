@@ -3,7 +3,7 @@
     >
 
     <solid
-        android:color="#ce3d3d43" >
+        android:color="#ce232351" >
     </solid>
 
     <stroke
@@ -28,8 +28,8 @@
 
     <gradient
         android:angle="270"
-        android:startColor="#ce3d3d43"
-        android:endColor="#ce64646b"
+        android:startColor="#ce232351"
+        android:endColor="#ce363664"
         android:type="linear" />
 
 </shape>
