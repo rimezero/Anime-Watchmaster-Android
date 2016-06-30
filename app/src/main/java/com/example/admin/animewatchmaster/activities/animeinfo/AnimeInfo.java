@@ -109,6 +109,15 @@ public class AnimeInfo extends AppCompatActivity {
 
             }
 
+            TextView animetype = (TextView)findViewById(R.id.type);
+            animetype.setText(anime.getAnimetype());
+
+            TextView agerating  = (TextView)findViewById(R.id.agerating);
+            agerating.setText(anime.getAgerating());
+
+            TextView episodes = (TextView)findViewById(R.id.episodes);
+            episodes.setText(anime.getEpisodes());
+
 
         } else {
             finish();
