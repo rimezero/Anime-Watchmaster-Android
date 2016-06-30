@@ -1,21 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#0affffff"
+    android:background="#1b563e3e"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Update"
-        android:id="@+id/ButtonUpdate"
-        android:onClick="updateWatchlist"/>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="47dp"
+        android:background="#da6d33"
+        android:id="@+id/topbar"
+        >
+
+        <ImageButton
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_arrow_back_white_24dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:onClick="goback"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:layout_weight="1"
+            >
+
+            <com.dd.CircularProgressButton
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/ButtonUpdate"
+                android:layout_margin="5dp"
+                android:textSize="16sp"
+                android:textColor="#FFF"
+                android:onClick="updateWatchlist"
+                app:cpb_textIdle="update"
+                app:cpb_textError="error"
+                app:cpb_textComplete="complete"
+                />
+
+
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/ic_share_white_24dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:onClick="shareAnime"
+            />
+
+    </LinearLayout>
+
+
 
     <com.twotoasters.jazzylistview.JazzyListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/watchlist"
-        android:background="#0affffff"
+        android:layout_below="@+id/topbar"
         >
 
     </com.twotoasters.jazzylistview.JazzyListView>

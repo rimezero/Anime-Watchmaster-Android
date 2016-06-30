@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
+import com.dd.CircularProgressButton;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
@@ -23,11 +23,16 @@ public class WatchList extends AppCompatActivity {
 
     private JazzyListView listView;
     private static Thread updateThread;
+    private CircularProgressButton circularProgressButton;
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.layout_watchlist);
 
+        circularProgressButton = (CircularProgressButton) findViewById(R.id.ButtonUpdate);
+        //circularProgressButton.setProgress(0);
+        //circularProgressButton.setIndeterminateProgressMode(true);
 
         List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
         listView = (JazzyListView)findViewById(R.id.watchlist);
@@ -44,8 +49,10 @@ public class WatchList extends AppCompatActivity {
 
         if(updateThread == null || !updateThread.isAlive()) {
 
-            final Button btn = (Button) findViewById(R.id.ButtonUpdate);
-            btn.setEnabled(false);
+            circularProgressButton.setProgress(0);
+            circularProgressButton.setIndeterminateProgressMode(true);
+            circularProgressButton.setProgress(50);
+
 
             updateThread = new Thread(new Runnable() {
                 @Override
@@ -68,7 +75,7 @@ public class WatchList extends AppCompatActivity {
                             WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(), modelList);
                             listView.setAdapter(watchListAdapter);
 
-                            btn.setEnabled(true);
+                            circularProgressButton.setProgress(100);
                         }
                     });
                 }

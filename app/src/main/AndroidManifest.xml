@@ -53,7 +53,6 @@
 
 
         <activity android:name=".activities.watchlist.WatchList"
-            android:theme="@style/AppTheme.NoActionBar"
             android:label="my watchlist">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

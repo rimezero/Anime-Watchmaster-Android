@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="horizontal" android:layout_width="match_parent"
     android:background="#0affffff"
     android:layout_height="match_parent">
 
@@ -13,43 +13,73 @@
         android:id="@+id/image"
         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/episodes"
-        android:layout_gravity="center"
-        android:textColor="#000000"
-        />
-
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
         >
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/button_white_trans"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:text="title"
+                android:gravity="center"
+                />
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="decrement"
-            android:id="@+id/btnDecrement"
+            android:id="@+id/episodes"
+            android:layout_gravity="center"
+            android:textColor="#000000"
             />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="decrement"
+                android:id="@+id/btnDecrement"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="increment"
+                android:id="@+id/btnIncrement"
+                />
+
+        </LinearLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="increment"
-            android:id="@+id/btnIncrement"
+            android:text="Remove"
+            android:id="@+id/BtnRemove"
             />
+
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Remove"
-        android:id="@+id/BtnRemove"
-        />
+
 
 
 

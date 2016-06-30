@@ -17,11 +17,11 @@ import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
 
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
         //DBHelper dbinstance = DBHelper.getInstance(this);
         /*

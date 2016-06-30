@@ -42,6 +42,7 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
     compile 'com.github.Hitta:RippleEffect:82cf00e551'
+    compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
 
 
 }
