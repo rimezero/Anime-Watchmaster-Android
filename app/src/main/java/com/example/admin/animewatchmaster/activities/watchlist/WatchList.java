@@ -25,6 +25,7 @@ public class WatchList extends AppCompatActivity {
     private static Thread updateThread;
     private CircularProgressButton circularProgressButton;
 
+
     @Override
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);

@@ -1,6 +1,7 @@
 package com.example.admin.animewatchmaster.activities.watchlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
+import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchListModel;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import me.grantland.widget.AutofitTextView;
 
 /**
  * Created by abraham on 10/6/2016.
@@ -37,12 +42,29 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
+        AutofitTextView title = (AutofitTextView)convertView.findViewById(R.id.title);
+        title.setText(model.getTitle());
+
 
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
                     .into(imageView);
         }
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Anime anime = DBHelper.getInstance(getContext()).getAnimeInfo(model.getId());
+
+                Intent intent = new Intent(getContext(), AnimeInfo.class);
+                intent.putExtra("anime",anime);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+
+            }
+        });
 
         final TextView textView = (TextView)convertView.findViewById(R.id.episodes);
 
@@ -57,34 +79,43 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));
 
-        Button btninc = (Button)convertView.findViewById(R.id.btnIncrement);
-        Button btndec = (Button)convertView.findViewById(R.id.btnDecrement);
+        ImageView btninc = (ImageView)convertView.findViewById(R.id.btnIncrement);
+        ImageView btndec = (ImageView)convertView.findViewById(R.id.btnDecrement);
+
         btninc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(!DBHelper.getInstance(getContext()).incrementEpisodesWatched(model.getId()))
                     return;
 
-                model.setEpisodeswatched(model.getEpisodeswatched()+1);
-                textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+
+                model.setEpisodeswatched(model.getEpisodeswatched() + 1);
+                textView.setText("Episodes: " + model.getEpisodeswatched() + "/" + model.getCurrentEpisode());
                 if(model.getCurrentEpisode() > model.getEpisodeswatched())
                     textView.setTextColor(Color.RED);
                 else
                     textView.setTextColor(Color.BLACK);
+
+
             }
         });
+
         btndec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(!DBHelper.getInstance(getContext()).decrementEpisodesWatched(model.getId()))
                     return;
 
+
                 model.setEpisodeswatched(model.getEpisodeswatched()-1);
-                textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+                textView.setText("Episodes: " + model.getEpisodeswatched() + "/" + model.getCurrentEpisode());
                 if(model.getCurrentEpisode() > model.getEpisodeswatched())
                     textView.setTextColor(Color.RED);
                 else
                     textView.setTextColor(Color.BLACK);
+
+
             }
         });
 
@@ -100,10 +131,12 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
         @Override
         public void onClick(View v) {
+
             DBHelper.getInstance(getContext()).deleteWatchlistAnime(model.getId());
             remove(model);
             if(!DBHelper.getInstance(getContext()).checkIfExistsInWatchedList(model.getId()))
                 DBHelper.getInstance(getContext()).insertIntoWatchedlist(model.getId());
+
         }
     }
 
