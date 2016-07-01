@@ -35,7 +35,7 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
     protected Void doInBackground(String... databaseurl) {
 
         if (!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))) {
-            Log.i("hotanimeUpdater -", " No internet connection or cannot connect to animefreak server");
+            Log.i("hotanimeUpdater -", " No internet connection or cannot connect to database server");
             return null;
         }
 

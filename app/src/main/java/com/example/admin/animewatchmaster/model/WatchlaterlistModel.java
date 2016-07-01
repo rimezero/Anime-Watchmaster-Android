@@ -4,10 +4,10 @@ package com.example.admin.animewatchmaster.model;
  * Created by admin on 6/10/2016.
  */
 public class WatchlaterlistModel {
-    int id;
-    String title;
-    String imgurl;
-    String genre;
+    private int id;
+    private String title;
+    private String imgurl;
+    private String genre;
 
     public WatchlaterlistModel(){}
 

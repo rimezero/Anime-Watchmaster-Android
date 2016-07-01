@@ -37,7 +37,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     protected Void doInBackground(String... databaseurl) {
 
         if(!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
-            Log.i("databaseUpdater -"," No internet connection or cannot connect to animefreak server");
+            Log.i("databaseUpdater -"," No internet connection or cannot connect to database server");
             return null;
         }
 
@@ -83,15 +83,15 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                             if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
                                 boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
                                 id = dbinstance.getAnimeID(job.getString("title"));
-                                s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
+                                s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"),job.getString("MALlink"));
                                 //System.out.println(s);
                             } else {
                                 id = dbinstance.getAnimeID(job.getString("title"));
                                 boolean s = dbinstance.updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
                                 if(dbinstance.checkIfExistsInAnimelinks(id)) {
-                                    s = dbinstance.updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"));
+                                    s = dbinstance.updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"),job.getString("MALlink"));
                                 }else{
-                                    s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"));
+                                    s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"),job.getString("MALlink"));
                                 }
                             }
                         }

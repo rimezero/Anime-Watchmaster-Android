@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.TopanimeModel;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.model.WatchedModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
@@ -25,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //genaral
@@ -34,6 +35,7 @@ public class DBHelper extends SQLiteOpenHelper{
     //animelinks
     private static final String ANIMELINKS_COLUMN_ANIMEFREAKLINK = "frlink";
     private static final String ANIMELINKS_COLUMN_ANIMEULTIMALINK = "ultimalink";
+    private static final String ANIMELINKS_COLUMN_MALLINK = "MALlink";
 
     //animeinfo
     private static final String ANIMEINFO_COLUMN_TITLE = "title";
@@ -49,6 +51,10 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String WATCHLIST_COLUMN_CURRENTEPISODE = "currentepisode";
     private static final String WATCHLIST_COLUMN_LASTUPDATED = "lastupdated";
 
+    //MALtopanime
+    private static final String MAL_TOPANIME_COLUMN_SPOT = "spot";
+    private static final String MAL_TOPANIME_COLUMN_SCORE = "score";
+
     //version
     private static final String VERSION_COLUMN_VERSION = "version";
 
@@ -59,6 +65,7 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String TABLE_WATCHLATER = "watchlaterlist";
     private static final String TABLE_WATCHED = "watchedlist";
     private static final String TABLE_HOTANIME = "hotanime";
+    private static final String TABLE_MAL_TOPANIME = "MALtopanime";
     private static final String TABLE_VERSION = "version";
 
     private static volatile DBHelper dbHelper;
@@ -91,7 +98,7 @@ public class DBHelper extends SQLiteOpenHelper{
         // TODO Auto-generated method stub
         db.execSQL(
                 "create table if not exists "+TABLE_ANIMELINKS+
-                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" text, "+ ANIMELINKS_COLUMN_ANIMEULTIMALINK +" text)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" text, "+ ANIMELINKS_COLUMN_ANIMEULTIMALINK +" text, "+ANIMELINKS_COLUMN_MALLINK+" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_ANIMEINFO+
@@ -108,6 +115,10 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL(
                 "create table if not exists "+TABLE_HOTANIME+
                         "("+ GENERAL_COLUMN_ID +" integer primary key)"
+        );
+        db.execSQL(
+                "create table if not exists "+TABLE_MAL_TOPANIME+
+                        "("+ GENERAL_COLUMN_ID +" integer, "+MAL_TOPANIME_COLUMN_SPOT+" integer primary key, "+MAL_TOPANIME_COLUMN_SCORE+" real)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_VERSION+
@@ -130,10 +141,27 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
         onCreate(db);*/
-        db.execSQL(
-                "create table if not exists "+TABLE_WATCHED+
-                        "("+ GENERAL_COLUMN_ID +" integer primary key)"
-        );
+        switch (oldVersion){
+            case 1:
+                db.execSQL(
+                        "create table if not exists "+TABLE_WATCHED+
+                                "("+ GENERAL_COLUMN_ID +" integer primary key)"
+                );
+            case 2:
+                db.execSQL(
+                        "alter table "+TABLE_ANIMELINKS+" add column "+ANIMELINKS_COLUMN_MALLINK+" text"
+                );
+                db.execSQL(
+                        "create table if not exists "+TABLE_MAL_TOPANIME+
+                                "("+ GENERAL_COLUMN_ID +" integer, "+MAL_TOPANIME_COLUMN_SPOT+" integer primary key, "+MAL_TOPANIME_COLUMN_SCORE+" real)"
+                );
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(VERSION_COLUMN_VERSION, 0);
+                db.update(TABLE_VERSION,contentValues,null,null);
+            default:
+                //you know ;p
+        }
+
     }
 
 
@@ -149,13 +177,14 @@ public class DBHelper extends SQLiteOpenHelper{
         onCreate(db);*/
     }
 
-    public boolean insertIntoAnimelinks(int id,String frlink,String ultimalink){
+    public boolean insertIntoAnimelinks(int id,String frlink,String ultimalink,String MALlink){
         final String TAG = CLASS_TAG+"insertAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(GENERAL_COLUMN_ID, id);
         contentValues.put(ANIMELINKS_COLUMN_ANIMEFREAKLINK, frlink);
         contentValues.put(ANIMELINKS_COLUMN_ANIMEULTIMALINK, ultimalink);
+        contentValues.put(ANIMELINKS_COLUMN_MALLINK,MALlink);
         long result = db.insert(TABLE_ANIMELINKS, null, contentValues);
         if(result==-1){
             Log.i(TAG,"insert of links for anime with ID "+id+" failed");
@@ -243,6 +272,22 @@ public class DBHelper extends SQLiteOpenHelper{
         Log.d("dbhelper - inshotanime", "inserted anime with id: "+id+" in hotanime");
         if(result==-1){
             Log.i(TAG,"insert of anime with id "+id+" into hotanime failed");
+            return false;
+        }
+        return true;
+    }
+
+    public boolean insertIntoMALtopanime(int id, int spot, double score){
+        final String TAG = CLASS_TAG+"insertIntoMALtopanime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GENERAL_COLUMN_ID,id);
+        contentValues.put(MAL_TOPANIME_COLUMN_SPOT,spot);
+        contentValues.put(MAL_TOPANIME_COLUMN_SCORE,score);
+        long result = db.insert(TABLE_MAL_TOPANIME, null, contentValues);
+        Log.d("dbhelper - instopanime", "inserted anime with id: "+id+" in topanime");
+        if(result==-1){
+            Log.i(TAG,"insert of anime with id "+id+" into topanime failed");
             return false;
         }
         return true;
@@ -364,6 +409,25 @@ public class DBHelper extends SQLiteOpenHelper{
         return models;
     }
 
+    public List<TopanimeModel> getTopAnimeData(){
+        List<TopanimeModel> models = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor res = db.query(TABLE_MAL_TOPANIME+" T inner join "+TABLE_ANIMEINFO+" A on T."+GENERAL_COLUMN_ID+"="+"A."+GENERAL_COLUMN_ID,new String[] {"T."+MAL_TOPANIME_COLUMN_SPOT,"T."+GENERAL_COLUMN_ID,"T."+MAL_TOPANIME_COLUMN_SCORE,"A."+ANIMEINFO_COLUMN_TITLE,"A."+ANIMEINFO_COLUMN_IMGURL},null,null,null,null,null);
+        while(res.moveToNext()){
+            TopanimeModel model = new TopanimeModel();
+            model.setSpot(res.getInt(res.getColumnIndex(MAL_TOPANIME_COLUMN_SPOT)));
+            model.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
+            model.setScore(res.getDouble(res.getColumnIndex(MAL_TOPANIME_COLUMN_SCORE)));
+            model.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+            models.add(model);
+        }
+
+        res.close();
+        return models;
+    }
+
 
 
     public int getVersion(){
@@ -410,7 +474,7 @@ public class DBHelper extends SQLiteOpenHelper{
      */
     public int getAnimeID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
-        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=? collate nocase";
         Cursor res =  db.rawQuery(command, new String[]{title});
         int id=-1;
         if(res.moveToFirst()) {
@@ -712,6 +776,51 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
+    public boolean checkIfExistsInHotanime(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_HOTANIME+" where "+ GENERAL_COLUMN_ID +"=?";
+        Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+    }
+
+    public boolean checkIfExistsInMALtopanime(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_MAL_TOPANIME+" where "+ GENERAL_COLUMN_ID +"=?";
+        Cursor res =  db.rawQuery( command, new String[] {String.valueOf(id)} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+    }
+
+    public boolean checkIfSpotIsFilledInMALtopanime(int spot){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_MAL_TOPANIME+" where "+ MAL_TOPANIME_COLUMN_SPOT +"=?";
+        Cursor res =  db.rawQuery( command, new String[] {String.valueOf(spot)} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+    }
+
     public boolean updateAnimeinfo (Integer id, String title, String imgurl, String genre, String episodes, String animetype, String agerating, String description)
     {
         final String TAG = CLASS_TAG+"updateAnimeinfo";
@@ -736,13 +845,14 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
-    public boolean updateAnimelinks (int id, String frlink, String ultimalink)
+    public boolean updateAnimelinks (int id, String frlink, String ultimalink, String MALlink)
     {
         final String TAG = CLASS_TAG+"updateAnimelinks";
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(ANIMELINKS_COLUMN_ANIMEFREAKLINK,frlink);
         contentValues.put(ANIMELINKS_COLUMN_ANIMEULTIMALINK,ultimalink);
+        contentValues.put(ANIMELINKS_COLUMN_MALLINK,MALlink);
         int rowsaffected = db.update(TABLE_ANIMELINKS, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
 
         if(rowsaffected>0) {
@@ -769,6 +879,24 @@ public class DBHelper extends SQLiteOpenHelper{
         }
         else {
             Log.i(TAG,"update of watchlist anime data with id: "+id+" failed");
+            return false;
+        }
+    }
+
+    public boolean updateMALtopanime(int spot, int id, double score){
+        final String TAG = CLASS_TAG+"updateMALtopanime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(GENERAL_COLUMN_ID,id);
+        contentValues.put(MAL_TOPANIME_COLUMN_SCORE,score);
+        int rowsaffected = db.update(TABLE_MAL_TOPANIME, contentValues, MAL_TOPANIME_COLUMN_SPOT +" = ? ", new String[]{Integer.toString(spot)});
+
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated top anime in spot: "+spot);
+            return true;
+        }
+        else {
+            Log.i(TAG,"update of topanime in spot: "+spot+" failed");
             return false;
         }
     }
@@ -863,6 +991,25 @@ public class DBHelper extends SQLiteOpenHelper{
                 new String[] { Integer.toString(id) });
         if(res==0) {
             Log.i(TAG, "delete of anime with id: " + id + " has failed");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param spot The spot after which every row in the table will be deleted (where spot>?)
+     * @return true if more than one rows were deleted or false if 0 rows were affected
+     */
+    public boolean deleteMALtopanimeAfterSpot (int spot)
+    {
+        final String TAG = CLASS_TAG+"deleteMALtopanime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_MAL_TOPANIME,
+                MAL_TOPANIME_COLUMN_SPOT +" > ? ",
+                new String[] { Integer.toString(spot) });
+        if(res==0) {
+            Log.i(TAG, "deleted 0 topanime after spot: " + spot);
             return false;
         }
         return true;
