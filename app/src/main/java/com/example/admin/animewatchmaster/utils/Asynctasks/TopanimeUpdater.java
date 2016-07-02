@@ -62,7 +62,7 @@ public class TopanimeUpdater extends AsyncTask<String,Void,Void> {
 
         }
 
-        dbinstance.deleteMALtopanimeAfterSpot(spot);
+        dbinstance.deleteMALtopanimeAfterSpot(--spot);
 
         //testing on create
         /*
