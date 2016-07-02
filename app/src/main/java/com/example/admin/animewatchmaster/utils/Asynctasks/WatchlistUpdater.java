@@ -37,8 +37,8 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
     @Override
     protected Void doInBackground(String... databaseurl) {
 
-        if(!NetworkUtils.isInternetConnectionActiveAnimeFreak(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
-            Log.i("WatchlistUpdater -"," No internet connection or cannot connect to animefreak server");
+        if(!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
+            Log.i("WatchlistUpdater -"," No internet connection or cannot connect to database server");
             return null;
         }
 

@@ -19,6 +19,7 @@ import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -37,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //removed for testing enable afterwards
-        //new WatchlistUpdater(getApplicationContext()).execute();
+
+        new WatchlistUpdater(getApplicationContext()).execute();
 
 
         TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);
