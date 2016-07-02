@@ -33,7 +33,7 @@
             >
 
             <me.grantland.widget.AutofitTextView
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:textColor="#FFF"
                 android:textSize="15sp"
@@ -41,7 +41,6 @@
                 android:gravity="center"
                 android:maxLines="2"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:id="@+id/title"
                 />
 
@@ -89,7 +88,7 @@
             android:text="Remove"
             android:textColor="#FFF"
             android:id="@+id/BtnRemove"
-            android:background="#22282d"
+            android:background="#333c43"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             />

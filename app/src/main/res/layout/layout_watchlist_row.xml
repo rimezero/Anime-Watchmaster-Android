@@ -33,15 +33,14 @@
             >
 
             <me.grantland.widget.AutofitTextView
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
                 android:textColor="#FFF"
                 android:textSize="15sp"
                 android:textStyle="bold"
                 android:gravity="center"
                 android:maxLines="2"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
                 android:id="@+id/title"
                 />
 
@@ -133,8 +132,8 @@
             >
 
             <com.andexert.library.RippleView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/button_yellow_transparent"
                 android:layout_margin="5dp"
                 android:gravity="center"
@@ -142,8 +141,8 @@
                 >
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_margin="5dp"
                     android:background="@drawable/ic_add_white_24dp"
                     />
@@ -153,8 +152,8 @@
 
 
             <com.andexert.library.RippleView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:background="@drawable/button_yellow_transparent"
                 android:layout_margin="5dp"
                 android:gravity="center"
@@ -162,8 +161,8 @@
                 >
 
                 <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_margin="5dp"
                     android:background="@drawable/ic_remove_white_24dp"
                     />

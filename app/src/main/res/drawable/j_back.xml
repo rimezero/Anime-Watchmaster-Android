@@ -3,7 +3,7 @@
     <item>
         <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
             android:src="@drawable/j_pic"
-            android:tileMode="disabled" android:gravity="left"
+            android:tileMode="disabled" android:gravity="right"
             android:alpha="0.9"
             >
         </bitmap>
