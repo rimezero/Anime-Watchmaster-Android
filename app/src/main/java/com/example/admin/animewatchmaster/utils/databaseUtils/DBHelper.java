@@ -883,6 +883,41 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
+    /**
+     *
+     * @param id The id of the anime in the watchlist
+     * @param CurrentEpisodes null not to update currentepisodes
+     * @param EpisodesWatched null not to update episodeswatched
+     * @return true if the update was successfull and more than one rows were affected false in any other case. Also false if both currentepisodes and episodeswatched are null.
+     */
+    public boolean updateWatchlistAnimeEps(int id, Integer CurrentEpisodes, Integer EpisodesWatched){
+        final String TAG = CLASS_TAG+"updateWatchlistAnimeEps";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        if(CurrentEpisodes==null&&EpisodesWatched==null){
+            Log.i(TAG,"Both CurrentEpisodes and EpisodesWatched are null Cannot proceed");
+            return false;
+        }else if(CurrentEpisodes==null){
+            contentValues.put(WATCHLIST_COLUMN_EPISODESWATCHED,EpisodesWatched);
+        }else if(EpisodesWatched==null){
+            contentValues.put(WATCHLIST_COLUMN_CURRENTEPISODE,CurrentEpisodes);
+        }else{
+            contentValues.put(WATCHLIST_COLUMN_CURRENTEPISODE,CurrentEpisodes);
+            contentValues.put(WATCHLIST_COLUMN_EPISODESWATCHED,EpisodesWatched);
+        }
+
+        int rowsaffected = db.update(TABLE_WATCHLIST, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
+
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated watchlist anime data with id: "+id);
+            return true;
+        }
+        else {
+            Log.i(TAG,"update of watchlist anime data with id: "+id+" failed");
+            return false;
+        }
+    }
+
     public boolean updateMALtopanime(int spot, int id, double score){
         final String TAG = CLASS_TAG+"updateMALtopanime";
         SQLiteDatabase db = this.getWritableDatabase();
