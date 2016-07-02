@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.andexert.library.RippleView;
 import com.example.admin.animewatchmaster.R;
@@ -135,28 +139,55 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
                 String newwatchedepisodevalue = s.toString();
                 try {
                     int watchedepisodenum = Integer.valueOf(newwatchedepisodevalue);
-                    if(watchedepisodenum>model.getCurrentEpisode()){
-                        Log.i("WatchlistAdapter","Episodeswatched value greater than currentepisodes");
+                    if (watchedepisodenum > model.getCurrentEpisode()) {
+                        Log.i("WatchlistAdapter", "Episodeswatched value greater than currentepisodes");
                         watchedepisodes.setText(String.valueOf(model.getEpisodeswatched()));
                         return;
                     }
-                    if(watchedepisodenum>999||watchedepisodenum<0){
-                        Log.i("WatchlistAdapter","Episodeswatched index out of bounds");
+                    if (watchedepisodenum > 999 || watchedepisodenum < 0) {
+                        Log.i("WatchlistAdapter", "Episodeswatched index out of bounds");
                         watchedepisodes.setText(String.valueOf(model.getEpisodeswatched()));
                         return;
                     }
 
                     model.setEpisodeswatched(watchedepisodenum);
-                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(),null,watchedepisodenum);
+                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(), null, watchedepisodenum);
 
-                }catch (NumberFormatException ex) {
-                    Log.e("WatchlistAdapter","NumberFormatExcpetion trying to parse episodeswatched input to Integer");
+                } catch (NumberFormatException ex) {
+                    Log.e("WatchlistAdapter", "NumberFormatExcpetion trying to parse episodeswatched input to Integer");
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+        final View finalConvertView1 = convertView;
+        watchedepisodes.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    watchedepisodes.performClick();
+                    //enter
+
+                    try {
+                        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if(imm.isActive()) {
+                            //hide keyboar
+                            imm.hideSoftInputFromWindow(finalConvertView1.getWindowToken(), 0);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                    return true;
+
+                }
+                return false;
             }
         });
 
@@ -173,29 +204,54 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
                 try {
                     int currentepisodesnum = Integer.valueOf(newcurrentepisodes);
-                    if(currentepisodesnum<model.getEpisodeswatched()){
-                        Log.i("WatchlistAdapter","Currentepisodes value lower than episodeswatched");
+                    if (currentepisodesnum < model.getEpisodeswatched()) {
+                        Log.i("WatchlistAdapter", "Currentepisodes value lower than episodeswatched");
                         currentepisodes.setText(String.valueOf(model.getCurrentEpisode()));
                         return;
                     }
-                    if(currentepisodesnum>999||currentepisodesnum<0){
-                        Log.i("WatchlistAdapter","Currentepisode index out of bounds");
+                    if (currentepisodesnum > 999 || currentepisodesnum < 0) {
+                        Log.i("WatchlistAdapter", "Currentepisode index out of bounds");
                         currentepisodes.setText(String.valueOf(model.getCurrentEpisode()));
                         return;
                     }
 
                     model.setCurrentEpisode(currentepisodesnum);
-                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(),currentepisodesnum,null);
+                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(), currentepisodesnum, null);
 
 
-                }catch (NumberFormatException ex) {
-                    Log.e("WatchlistAdapter","NumberFormatExcpetion trying to parse currentepisodes input to Integer");
+                } catch (NumberFormatException ex) {
+                    Log.e("WatchlistAdapter", "NumberFormatExcpetion trying to parse currentepisodes input to Integer");
                 }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
 
+            }
+        });
+
+
+        final View finalConvertView = convertView;
+        currentepisodes.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    currentepisodes.performClick();
+                    //enter
+
+                    try {
+                        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        if(imm.isActive()) {
+                            imm.hideSoftInputFromWindow(finalConvertView.getWindowToken(), 0);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    return true;
+                }
+                return false;
             }
         });
 

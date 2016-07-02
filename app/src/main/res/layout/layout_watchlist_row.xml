@@ -85,6 +85,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:background="@drawable/episodes_inc_dec_back"
 
                     />
@@ -110,6 +111,7 @@
                     android:gravity="center"
                     android:inputType="number"
                     android:singleLine="true"
+                    android:imeOptions="actionDone"
                     android:background="@drawable/episodes_inc_dec_back"
 
                     />
