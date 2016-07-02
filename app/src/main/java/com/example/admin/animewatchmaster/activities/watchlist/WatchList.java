@@ -43,7 +43,10 @@ public class WatchList extends AppCompatActivity {
 
     }
 
-
+    public void goback(View v) {
+        finish();
+    }
+    
 
     public void updateWatchlist(View v){
 

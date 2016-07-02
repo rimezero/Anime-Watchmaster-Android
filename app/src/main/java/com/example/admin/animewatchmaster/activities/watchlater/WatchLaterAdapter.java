@@ -8,13 +8,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.model.Anime;
-import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -65,7 +64,7 @@ public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
         AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);
         textView.setText(model.getTitle());
 
-        TextView txtGenre = (TextView)convertView.findViewById(R.id.genres);
+        AutofitTextView txtGenre = (AutofitTextView)convertView.findViewById(R.id.genres);
         if(model.getGenre()!=null && !model.getGenre().trim().isEmpty())
             txtGenre.setText("Genre:"+model.getGenre());
 

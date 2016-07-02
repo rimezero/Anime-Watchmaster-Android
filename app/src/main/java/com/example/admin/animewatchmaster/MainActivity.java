@@ -18,8 +18,6 @@ import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
-import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
-import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -52,13 +50,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                WatchlaterlistModel watchlaterlistModel = (WatchlaterlistModel)parent.getItemAtPosition(position);
+                WatchlaterlistModel watchlaterlistModel = (WatchlaterlistModel) parent.getItemAtPosition(position);
 
                 Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(watchlaterlistModel.getId());
 
-                if(anime != null) {
+                if (anime != null) {
                     Intent intent = new Intent(MainActivity.this, AnimeInfo.class);
-                    intent.putExtra("anime",anime);
+                    intent.putExtra("anime", anime);
                     startActivity(intent);
                 }
 
