@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
+import com.example.admin.animewatchmaster.activities.topanime.TopAnimeActivity;
 import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
@@ -136,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this, WatchedAnime.class));
     }
 
+    public void topanime(final View v) {
+        tempDisableView(v,500);
+        startActivity(new Intent(this, TopAnimeActivity.class));
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

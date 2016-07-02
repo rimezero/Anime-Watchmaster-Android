@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
@@ -62,7 +61,7 @@ public class WatchedAdapter extends ArrayAdapter<WatchedModel> {
             }
         });
 
-        TextView textView = (TextView)convertView.findViewById(R.id.title);
+        AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);
         textView.setText(model.getTitle());
 
         AutofitTextView txtGenre = (AutofitTextView)convertView.findViewById(R.id.genres);

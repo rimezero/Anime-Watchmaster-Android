@@ -23,7 +23,6 @@ public class WatchedAnime extends AppCompatActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.layout_watchedlist);
-
         List<WatchedModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchedListData();
         listView = (JazzyListView)findViewById(R.id.watchedlist);
         listView.setTransitionEffect(new SlideInEffect());
