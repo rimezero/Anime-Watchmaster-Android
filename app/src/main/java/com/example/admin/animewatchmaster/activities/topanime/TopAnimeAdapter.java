@@ -103,6 +103,7 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
         addmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                morelinear.setVisibility(View.GONE);
                 //future staff like share..
             }
         });
