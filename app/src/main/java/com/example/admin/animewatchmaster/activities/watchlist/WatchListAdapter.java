@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,16 +133,24 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String newwatchedepisodevalue = s.toString();
-                //an kai exw ton periorismo sto edittext o xristis na mpori
-                //na vazei mono numbers.
-                //den pianei panta.analogos tin siskeui,android version k ala
                 try {
                     int watchedepisodenum = Integer.valueOf(newwatchedepisodevalue);
-                    //an einai valid integer den tha xtipisi
-                    //kai proxorame stin db update
-                    //do db stuff...
-                }catch (Exception ex) {
+                    if(watchedepisodenum>model.getCurrentEpisode()){
+                        Log.i("WatchlistAdapter","Episodeswatched value greater than currentepisodes");
+                        watchedepisodes.setText(String.valueOf(model.getEpisodeswatched()));
+                        return;
+                    }
+                    if(watchedepisodenum>999||watchedepisodenum<0){
+                        Log.i("WatchlistAdapter","Episodeswatched index out of bounds");
+                        watchedepisodes.setText(String.valueOf(model.getEpisodeswatched()));
+                        return;
+                    }
 
+                    model.setEpisodeswatched(watchedepisodenum);
+                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(),null,watchedepisodenum);
+
+                }catch (NumberFormatException ex) {
+                    Log.e("WatchlistAdapter","NumberFormatExcpetion trying to parse episodeswatched input to Integer");
                 }
             }
 
@@ -160,16 +169,26 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String newcurrentepisodes = s.toString();
-                //an kai exw ton periorismo sto edittext o xristis na mpori
-                //na vazei mono numbers.
-                //den pianei panta.analogos tin siskeui,android version k ala
-                try {
-                    int watchedepisodenum = Integer.valueOf(newcurrentepisodes);
-                    //an einai valid integer den tha xtipisi
-                    //kai proxorame stin db update
-                    //do db stuff...
-                }catch (Exception ex) {
 
+                try {
+                    int currentepisodesnum = Integer.valueOf(newcurrentepisodes);
+                    if(currentepisodesnum<model.getEpisodeswatched()){
+                        Log.i("WatchlistAdapter","Currentepisodes value lower than episodeswatched");
+                        currentepisodes.setText(String.valueOf(model.getCurrentEpisode()));
+                        return;
+                    }
+                    if(currentepisodesnum>999||currentepisodesnum<0){
+                        Log.i("WatchlistAdapter","Currentepisode index out of bounds");
+                        currentepisodes.setText(String.valueOf(model.getCurrentEpisode()));
+                        return;
+                    }
+
+                    model.setCurrentEpisode(currentepisodesnum);
+                    DBHelper.getInstance(getContext()).updateWatchlistAnimeEps(model.getId(),currentepisodesnum,null);
+
+
+                }catch (NumberFormatException ex) {
+                    Log.e("WatchlistAdapter","NumberFormatExcpetion trying to parse currentepisodes input to Integer");
                 }
             }
 
