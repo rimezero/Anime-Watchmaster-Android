@@ -20,6 +20,7 @@ import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -27,6 +28,7 @@ import org.lucasr.twowayview.TwoWayView;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,8 +44,36 @@ public class MainActivity extends AppCompatActivity {
         new WatchlistUpdater(getApplicationContext()).execute();
 
 
-        TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);
+        final TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);
+        //loadHorizontalHotanime(twoWayView); //ama to valeis fortwnei mia fora apo to database kai meta kanei update kai ksanafortwnei
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    new hotanimeUpdater(getApplicationContext()).execute(getString(R.string.base_db_url)).get();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadHorizontalHotanime(twoWayView);
+                    }
+                });
+            }
+        }).start();
+
+
+
+
+
+    }
+
+    private void loadHorizontalHotanime(TwoWayView twoWayView){
         List<WatchlaterlistModel> animes = DBHelper.getInstance(getApplicationContext()).getHotAnimeData();
         AnimeHotAdapter animeHotAdapter = new AnimeHotAdapter(getApplicationContext(),animes);
         twoWayView.setAdapter(animeHotAdapter);
@@ -64,9 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 
 
@@ -82,8 +109,8 @@ public class MainActivity extends AppCompatActivity {
         //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
 
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
-        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
+        //new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
+        new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
         //DBHelper dbinstance = DBHelper.getInstance(this);
         /*
