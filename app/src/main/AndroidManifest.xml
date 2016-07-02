@@ -53,6 +53,7 @@
 
 
         <activity android:name=".activities.watchlist.WatchList"
+            android:windowSoftInputMode="adjustPan"
             android:label="my watchlist">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />

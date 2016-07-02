@@ -4,14 +4,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 
 import com.dd.CircularProgressButton;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
-import com.twotoasters.jazzylistview.JazzyListView;
-import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -21,7 +20,7 @@ import java.util.concurrent.ExecutionException;
  */
 public class WatchList extends AppCompatActivity {
 
-    private JazzyListView listView;
+    private ListView listView;
     private static Thread updateThread;
     private CircularProgressButton circularProgressButton;
 
@@ -36,11 +35,11 @@ public class WatchList extends AppCompatActivity {
         //circularProgressButton.setIndeterminateProgressMode(true);
 
         List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
-        listView = (JazzyListView)findViewById(R.id.watchlist);
-        listView.setTransitionEffect(new SlideInEffect());
+        listView = (ListView)findViewById(R.id.watchlist);
 
         WatchListAdapter watchListAdapter = new WatchListAdapter(getApplicationContext(),modelList);
         listView.setAdapter(watchListAdapter);
+
 
     }
 

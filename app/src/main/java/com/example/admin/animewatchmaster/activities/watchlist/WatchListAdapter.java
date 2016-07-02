@@ -2,15 +2,17 @@ package com.example.admin.animewatchmaster.activities.watchlist;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.andexert.library.RippleView;
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.model.Anime;
@@ -26,7 +28,6 @@ import me.grantland.widget.AutofitTextView;
  * Created by abraham on 10/6/2016.
  */
 public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
-
 
     public WatchListAdapter(Context context,List<WatchListModel> models) {
         super(context,0,models);
@@ -49,6 +50,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
+                    .fit()
                     .into(imageView);
         }
 
@@ -59,28 +61,30 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
                 Anime anime = DBHelper.getInstance(getContext()).getAnimeInfo(model.getId());
 
                 Intent intent = new Intent(getContext(), AnimeInfo.class);
-                intent.putExtra("anime",anime);
+                intent.putExtra("anime", anime);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 getContext().startActivity(intent);
 
             }
         });
 
-        final TextView textView = (TextView)convertView.findViewById(R.id.episodes);
+        final EditText watchedepisodes = (EditText)convertView.findViewById(R.id.episodeswatched);
+        watchedepisodes.setText(""+model.getEpisodeswatched());
 
-        textView.setText("Episodes: "+model.getEpisodeswatched()+"/"+model.getCurrentEpisode());
+        final EditText currentepisodes = (EditText)convertView.findViewById(R.id.currentepisode);
+        currentepisodes.setText(""+model.getCurrentEpisode());
 
-        if(model.getCurrentEpisode() > model.getEpisodeswatched())
-            textView.setTextColor(Color.RED);
-        else
-            textView.setTextColor(Color.BLACK);
+        //if(model.getCurrentEpisode() > model.getEpisodeswatched())
+        //    watchedepisodes.setTextColor(Color.RED);
+        //else
+         //   watchedepisodes.setTextColor(Color.BLACK);
 
 
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));
 
-        ImageView btninc = (ImageView)convertView.findViewById(R.id.btnIncrement);
-        ImageView btndec = (ImageView)convertView.findViewById(R.id.btnDecrement);
+        RippleView btninc = (RippleView)convertView.findViewById(R.id.btnIncrement);
+        RippleView btndec = (RippleView)convertView.findViewById(R.id.btnDecrement);
 
         btninc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,14 +92,13 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
                 if(!DBHelper.getInstance(getContext()).incrementEpisodesWatched(model.getId()))
                     return;
 
-
                 model.setEpisodeswatched(model.getEpisodeswatched() + 1);
-                textView.setText("Episodes: " + model.getEpisodeswatched() + "/" + model.getCurrentEpisode());
-                if(model.getCurrentEpisode() > model.getEpisodeswatched())
-                    textView.setTextColor(Color.RED);
-                else
-                    textView.setTextColor(Color.BLACK);
-
+                watchedepisodes.setText(""+model.getEpisodeswatched());
+                currentepisodes.setText(""+model.getCurrentEpisode());
+               // if(model.getCurrentEpisode() > model.getEpisodeswatched())
+                 //   watchedepisodes.setTextColor(Color.RED);
+               // else
+                 //   watchedepisodes.setTextColor(Color.BLACK);
 
             }
         });
@@ -104,23 +107,81 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
             @Override
             public void onClick(View v) {
 
-                if(!DBHelper.getInstance(getContext()).decrementEpisodesWatched(model.getId()))
+                if (!DBHelper.getInstance(getContext()).decrementEpisodesWatched(model.getId()))
                     return;
 
 
-                model.setEpisodeswatched(model.getEpisodeswatched()-1);
-                textView.setText("Episodes: " + model.getEpisodeswatched() + "/" + model.getCurrentEpisode());
-                if(model.getCurrentEpisode() > model.getEpisodeswatched())
-                    textView.setTextColor(Color.RED);
-                else
-                    textView.setTextColor(Color.BLACK);
+                model.setEpisodeswatched(model.getEpisodeswatched() - 1);
+                watchedepisodes.setText("" + model.getEpisodeswatched());
+                currentepisodes.setText("" + model.getCurrentEpisode());
+                // if(model.getCurrentEpisode() > model.getEpisodeswatched())
+                //    watchedepisodes.setTextColor(Color.RED);
+                // else
+                //    watchedepisodes.setTextColor(Color.BLACK);
 
+            }
+        });
+
+
+        watchedepisodes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newwatchedepisodevalue = s.toString();
+                //an kai exw ton periorismo sto edittext o xristis na mpori
+                //na vazei mono numbers.
+                //den pianei panta.analogos tin siskeui,android version k ala
+                try {
+                    int watchedepisodenum = Integer.valueOf(newwatchedepisodevalue);
+                    //an einai valid integer den tha xtipisi
+                    //kai proxorame stin db update
+                    //do db stuff...
+                }catch (Exception ex) {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        currentepisodes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String newcurrentepisodes = s.toString();
+                //an kai exw ton periorismo sto edittext o xristis na mpori
+                //na vazei mono numbers.
+                //den pianei panta.analogos tin siskeui,android version k ala
+                try {
+                    int watchedepisodenum = Integer.valueOf(newcurrentepisodes);
+                    //an einai valid integer den tha xtipisi
+                    //kai proxorame stin db update
+                    //do db stuff...
+                }catch (Exception ex) {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
 
             }
         });
 
         return convertView;
     }
+
 
     private class RemoveOnClick implements View.OnClickListener{
         private WatchListModel model;
@@ -139,6 +200,11 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
         }
     }
+
+
+
+
+
 
 
 }
