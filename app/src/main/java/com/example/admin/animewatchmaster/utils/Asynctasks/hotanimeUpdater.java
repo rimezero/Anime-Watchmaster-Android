@@ -48,11 +48,6 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
             try {
                 JSONObject hotanime = (JSONObject) hotanimedata.get(i);
                 String title = hotanime.getString("title");
-
-                //temporal fix gia 2 anime theloume prolog giati einai pithikoi xd
-                if(title.equals("Netoge no Yome wa Onnanoko ja Nai to Omotta?"))
-                    title = "Netoge no Yome wa Onnanoko ja Nai to Omotta";
-
                 titlelist.add(title);
             } catch (JSONException e) {
                 Log.e("hotanimeUpdater"," Unable to cast imported data to json object");
