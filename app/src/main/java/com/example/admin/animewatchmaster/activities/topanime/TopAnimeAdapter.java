@@ -97,8 +97,15 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
         TextView addwatched = (TextView)convertView.findViewById(R.id.addwatched);
         TextView addwatchlist = (TextView)convertView.findViewById(R.id.addwatchlist);
         TextView addwatchlater = (TextView)convertView.findViewById(R.id.addwatchlater);
+        TextView addmore = (TextView)convertView.findViewById(R.id.addmore);
 
 
+        addmore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //future staff like share..
+            }
+        });
 
         addwatched.setOnClickListener(new View.OnClickListener() {
             @Override
