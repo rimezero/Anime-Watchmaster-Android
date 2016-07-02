@@ -211,7 +211,7 @@ public class ActivityLetters extends AppCompatActivity {
 
                     }
 
-                } else if (position >= 1 && position <= navDrawerItems.size()) {
+                } else if (position >= 1 && position <= navDrawerItems.size()+1) {
 
                     NavDrawerItem navDrawerItem = (NavDrawerItem) parent.getItemAtPosition(position);
                     String genre = navDrawerItem.getTitle();

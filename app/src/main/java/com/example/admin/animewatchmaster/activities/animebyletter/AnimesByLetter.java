@@ -157,7 +157,7 @@ public class AnimesByLetter extends AppCompatActivity {
 
                         loadGridView(animeList,-1);
 
-                } else if(position >= 1 && position <= navDrawerItems.size()) {
+                } else if(position >= 1 && position <= navDrawerItems.size()+1) {
 
                     NavDrawerItem navDrawerItem = (NavDrawerItem)parent.getItemAtPosition(position);
                     String genre = navDrawerItem.getTitle();

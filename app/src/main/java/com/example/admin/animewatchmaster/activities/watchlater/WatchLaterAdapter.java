@@ -1,6 +1,7 @@
 package com.example.admin.animewatchmaster.activities.watchlater;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
+import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
+import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import me.grantland.widget.AutofitTextView;
 
 /**
  * Created by admin on 6/10/2016.
@@ -39,15 +44,31 @@ public class WatchLaterAdapter extends ArrayAdapter<WatchlaterlistModel> {
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
+                    .fit()
                     .into(imageView);
         }
 
-        TextView textView = (TextView)convertView.findViewById(R.id.txtTitle);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Anime anime = DBHelper.getInstance(getContext()).getAnimeInfo(model.getId());
+
+                Intent intent = new Intent(getContext(), AnimeInfo.class);
+                intent.putExtra("anime", anime);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                getContext().startActivity(intent);
+
+            }
+        });
+
+        AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);
         textView.setText(model.getTitle());
 
-        TextView txtGenre = (TextView)convertView.findViewById(R.id.txtGenre);
+        TextView txtGenre = (TextView)convertView.findViewById(R.id.genres);
         if(model.getGenre()!=null && !model.getGenre().trim().isEmpty())
-            txtGenre.setText(model.getGenre());
+            txtGenre.setText("Genre:"+model.getGenre());
+
 
         Button btn = (Button)convertView.findViewById(R.id.BtnRemove);
         btn.setOnClickListener(new RemoveOnClick(model));

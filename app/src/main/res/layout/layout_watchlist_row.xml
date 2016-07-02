@@ -3,13 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:background="#b80e1425"
-    android:layout_marginTop="10dp"
     android:layout_height="match_parent">
 
 
     <ImageView
         android:layout_width="150dp"
-        android:layout_height="200dp"
+        android:layout_height="220dp"
         android:background="@drawable/loading"
         android:layout_gravity="center"
         android:id="@+id/image"
@@ -35,7 +34,7 @@
 
             <me.grantland.widget.AutofitTextView
                 android:layout_width="match_parent"
-                android:layout_height="fill_parent"
+                android:layout_height="40dp"
                 android:textColor="#FFF"
                 android:textSize="15sp"
                 android:textStyle="bold"
@@ -181,7 +180,7 @@
 
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35dp"
             android:layout_marginTop="10dp"
             android:text="Remove"
             android:textColor="#FFF"
