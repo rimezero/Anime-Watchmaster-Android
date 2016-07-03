@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +17,9 @@ import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
+import org.lucasr.twowayview.TwoWayView;
+
+import java.util.List;
 import java.util.StringTokenizer;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,7 +53,34 @@ public class AnimeInfo extends AppCompatActivity {
 
         anime = (Anime) getIntent().getSerializableExtra("anime");
 
+
+        initLayout(anime);
+
+            TwoWayView twoWayView = (TwoWayView)findViewById(R.id.samegenrelist);
+            List<Anime> animes = DBHelper.getInstance(getApplicationContext()).getAnimeWithSameGenre(anime);
+            AnimeSameGenreAdapter animeHotAdapter = new AnimeSameGenreAdapter(getApplicationContext(),animes);
+            twoWayView.setAdapter(animeHotAdapter);
+
+            twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                    Anime animepos = (Anime) parent.getItemAtPosition(position);
+
+                    Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(animepos.getId());
+                    initLayout(anime);
+
+                }
+            });
+
+    }
+
+
+
+    private void initLayout(Anime anime) {
+
         if(anime != null) {
+
 
 
             dbHelper = DBHelper.getInstance(getApplicationContext());

@@ -18,7 +18,6 @@ import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
-import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
