@@ -36,7 +36,6 @@ public class AnimeSameGenreAdapter extends ArrayAdapter<Anime> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())

@@ -9,6 +9,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
@@ -53,9 +54,6 @@ public class AnimeInfo extends AppCompatActivity {
 
         anime = (Anime) getIntent().getSerializableExtra("anime");
 
-
-        initLayout(anime);
-
             TwoWayView twoWayView = (TwoWayView)findViewById(R.id.samegenrelist);
             List<Anime> animes = DBHelper.getInstance(getApplicationContext()).getAnimeWithSameGenre(anime);
             AnimeSameGenreAdapter animeHotAdapter = new AnimeSameGenreAdapter(getApplicationContext(),animes);
@@ -73,6 +71,10 @@ public class AnimeInfo extends AppCompatActivity {
                 }
             });
 
+        twoWayView.setFocusable(false);
+
+        initLayout(anime);
+
     }
 
 
@@ -81,13 +83,9 @@ public class AnimeInfo extends AppCompatActivity {
 
         if(anime != null) {
 
-
+            this.anime = anime;
 
             dbHelper = DBHelper.getInstance(getApplicationContext());
-
-            TextView title = (TextView)findViewById(R.id.title);
-            title.setText(anime.getTitle());
-
 
             ImageView imageView = (ImageView)findViewById(R.id.image);
 
@@ -109,36 +107,44 @@ public class AnimeInfo extends AppCompatActivity {
             desc.setText(anime.getDescription());
 
 
+            watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
+            watchlistplusbtn = (ImageView)findViewById(R.id.watchlistplusbtn);
             if(dbHelper.checkIfExistsInWatchlist(anime.getId())) {
 
-                watchlistlinear = (LinearLayout)findViewById(R.id.watchlistlinear);
                 animateView(watchlistlinear);
-
-                watchlistplusbtn = (ImageView)findViewById(R.id.watchlistplusbtn);
                 watchlistplusbtn.setVisibility(View.GONE);
 
+            } else {
+                watchlistlinear.setVisibility(View.GONE);
+                watchlistplusbtn.setVisibility(View.VISIBLE);
             }
 
+            watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
+            watchlaterplusbtn = (ImageView)findViewById(R.id.watchlaterplusbtn);
             if(dbHelper.checkIfExistsInWatchLaterList(anime.getId())) {
 
-                watchlaterlinear = (LinearLayout)findViewById(R.id.watchlaterlinear);
                 animateView(watchlaterlinear);
-
-                watchlaterplusbtn = (ImageView)findViewById(R.id.watchlaterplusbtn);
                 watchlaterplusbtn.setVisibility(View.GONE);
 
 
+            } else {
+                watchlaterlinear.setVisibility(View.GONE);
+                watchlaterplusbtn.setVisibility(View.VISIBLE);
             }
 
+
+            watchedlinear = (LinearLayout)findViewById(R.id.watched);
+            watchedplusbtn = (ImageView)findViewById(R.id.watchedplusbtn);
             if(dbHelper.checkIfExistsInWatchedList(anime.getId())) {
 
-                watchedlinear = (LinearLayout)findViewById(R.id.watched);
                 animateView(watchedlinear);
-
-                watchedplusbtn = (ImageView)findViewById(R.id.watchedplusbtn);
                 watchedplusbtn.setVisibility(View.GONE);
 
+            } else {
+                watchedlinear.setVisibility(View.GONE);
+                watchedplusbtn.setVisibility(View.VISIBLE);
             }
+
 
             TextView animetype = (TextView)findViewById(R.id.type);
             animetype.setText(anime.getAnimetype());
@@ -149,6 +155,12 @@ public class AnimeInfo extends AppCompatActivity {
             TextView episodes = (TextView)findViewById(R.id.episodes);
             episodes.setText(anime.getEpisodes());
 
+            TextView title = (TextView)findViewById(R.id.title);
+            title.setText(anime.getTitle());
+
+            ScrollView scrollView = (ScrollView)findViewById(R.id.scroll);
+            scrollView.fullScroll(ScrollView.FOCUS_UP);
+            scrollView.smoothScrollTo(0, 0);
 
         } else {
             finish();
