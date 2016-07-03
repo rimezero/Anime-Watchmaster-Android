@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="fill_parent"
-    android:background="#d7e5e5ea"
+    android:background="#d7f6f6fa"
     android:paddingLeft="4dp"
     android:paddingRight="4dp"
     android:layout_height="fill_parent">
+
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -17,11 +18,11 @@
         android:background="@drawable/anime_letter"
         >
 
+
         <FrameLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             >
-
 
 
             <ImageView
@@ -51,6 +52,18 @@
                 >
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFF"
+                    android:textSize="17sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:id="@+id/spot"
+                    android:text="0"
+                    />
+
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="#FFF"
@@ -69,49 +82,105 @@
                 android:layout_gravity="bottom|right"
                 android:background="@drawable/top_anime_more_back"
                 android:orientation="vertical"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="0dp"
                 android:padding="5dp"
                 android:id="@+id/morelinear"
                 android:visibility="gone"
                 >
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="add to watchList"
-                    android:textSize="16sp"
-                    android:textColor="#FFF"
-                    android:padding="10dp"
-                    android:id="@+id/addwatchlist"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/watchlistaddimage"
+                        />
+
+
+                    <me.grantland.widget.AutofitTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="add to watchList"
+                        android:textSize="14sp"
+                        android:textColor="#FFF"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:id="@+id/addwatchlist"
+                        />
+
+
+                </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/watchlaterimage"
                     />
 
-                <TextView
+                <me.grantland.widget.AutofitTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="add to watchLater"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="#FFF"
                     android:padding="10dp"
+                    android:maxLines="1"
                     android:id="@+id/addwatchlater"
                     />
 
-                <TextView
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                >
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:id="@+id/watchedimage"
+                    />
+
+                <me.grantland.widget.AutofitTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="add to watched"
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="#FFF"
                     android:padding="10dp"
+                    android:maxLines="1"
                     android:id="@+id/addwatched"
                     />
 
-                <TextView
+            </LinearLayout>
+
+
+                <me.grantland.widget.AutofitTextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:text="not imple.."
-                    android:textSize="16sp"
+                    android:textSize="14sp"
                     android:textColor="#FFF"
                     android:padding="10dp"
+                    android:maxLines="1"
                     android:id="@+id/addmore"
                     />
 
