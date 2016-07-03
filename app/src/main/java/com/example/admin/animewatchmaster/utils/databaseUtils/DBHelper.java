@@ -574,12 +574,12 @@ public class DBHelper extends SQLiteOpenHelper{
             Anime newAnime = new Anime();
             newAnime.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
             newAnime.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setAgerating(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-            newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
+            newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+            newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
+            newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES)));
+            newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANIMETYPE)));
+            newAnime.setAgerating(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_AGERATING)));
+            newAnime.setDescription(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_DESCRIPTION)));
             animelist.add(newAnime);
         }
         res.close();
