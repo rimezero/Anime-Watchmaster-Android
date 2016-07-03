@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 5;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //genaral
@@ -46,6 +46,19 @@ public class DBHelper extends SQLiteOpenHelper{
     private static final String ANIMEINFO_COLUMN_AGERATING = "agerating";
     private static final String ANIMEINFO_COLUMN_DESCRIPTION = "description";
 
+    //APanimeinfo
+    private static final String AP_ANIMEINFO_COLUMN_ANIMEINFOID = "id_animeinfo";
+    private static final String AP_ANIMEINFO_COLUMN_TITLE = "title";
+    private static final String AP_ANIMEINFO_COLUMN_SEASON = "season";
+    private static final String AP_ANIMEINFO_COLUMN_IMGURL = "imgurl";
+    private static final String AP_ANIMEINFO_COLUMN_GENRE = "genre";
+    private static final String AP_ANIMEINFO_COLUMN_ANIMETYPE = "animetype";
+    private static final String AP_ANIMEINFO_COLUMN_DESCRIPTION = "description";
+    private static final String AP_ANIMEINFO_COLUMN_RATING = "rating";
+
+    //APcurrentseason
+    private static final String AP_CURRENTSEASON_COLUMN_SEASON = "season";
+
     //watchlist
     private static final String WATCHLIST_COLUMN_EPISODESWATCHED = "episodeswatched";
     private static final String WATCHLIST_COLUMN_CURRENTEPISODE = "currentepisode";
@@ -58,15 +71,21 @@ public class DBHelper extends SQLiteOpenHelper{
     //version
     private static final String VERSION_COLUMN_VERSION = "version";
 
+    //APversion
+    private static final String AP_VERSION_COLUMN_VERSION = "version";
+
     //tables
     private static final String TABLE_ANIMELINKS = "animelinks";
     private static final String TABLE_ANIMEINFO = "animeinfo";
     private static final String TABLE_WATCHLIST = "watchlist";
     private static final String TABLE_WATCHLATER = "watchlaterlist";
     private static final String TABLE_WATCHED = "watchedlist";
+    private static final String TABLE_AP_ANIMEINFO = "APanimeinfo";
     private static final String TABLE_HOTANIME = "hotanime";
     private static final String TABLE_MAL_TOPANIME = "MALtopanime";
     private static final String TABLE_VERSION = "version";
+    private static final String TABLE_AP_VERSION = "APversion";
+    private static final String TABLE_AP_CURRENTSEASON = "APcurrentseason";
 
     private static volatile DBHelper dbHelper;
 
@@ -105,6 +124,10 @@ public class DBHelper extends SQLiteOpenHelper{
                         "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMEINFO_COLUMN_TITLE +" text, "+ ANIMEINFO_COLUMN_IMGURL +" text, "+ ANIMEINFO_COLUMN_GENRE +" text, "+ ANIMEINFO_COLUMN_EPISODES +" text, "+ ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ ANIMEINFO_COLUMN_AGERATING +" text, "+ ANIMEINFO_COLUMN_DESCRIPTION +" text)"
         );
         db.execSQL(
+                "create table if not exists "+TABLE_AP_ANIMEINFO+
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ AP_ANIMEINFO_COLUMN_ANIMEINFOID +" integer, "+ AP_ANIMEINFO_COLUMN_TITLE +" text, "+ AP_ANIMEINFO_COLUMN_SEASON +" text, "+ AP_ANIMEINFO_COLUMN_IMGURL +" text, "+ AP_ANIMEINFO_COLUMN_GENRE +" text, "+ AP_ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ AP_ANIMEINFO_COLUMN_DESCRIPTION +" text, "+ AP_ANIMEINFO_COLUMN_RATING +" real)"
+        );
+        db.execSQL(
                 "create table if not exists "+TABLE_WATCHLIST+
                         "("+ GENERAL_COLUMN_ID +" integer primary key, "+ WATCHLIST_COLUMN_EPISODESWATCHED +" integer, "+ WATCHLIST_COLUMN_CURRENTEPISODE +" integer, "+ WATCHLIST_COLUMN_LASTUPDATED +" text)"
         );
@@ -124,9 +147,27 @@ public class DBHelper extends SQLiteOpenHelper{
                 "create table if not exists "+TABLE_VERSION+
                         "("+ VERSION_COLUMN_VERSION +" integer primary key)"
         );
+        db.execSQL(
+                "create table if not exists "+TABLE_AP_VERSION+
+                        "("+ AP_VERSION_COLUMN_VERSION +" integer primary key)"
+        );
+        db.execSQL(
+                "create table if not exists "+TABLE_AP_VERSION+
+                        "("+ AP_VERSION_COLUMN_VERSION +" integer primary key)"
+        );
+        db.execSQL(
+                "create table if not exists "+TABLE_AP_CURRENTSEASON+
+                        "("+ AP_CURRENTSEASON_COLUMN_SEASON +" text)"
+        );
         ContentValues contentValues = new ContentValues();
         contentValues.put(VERSION_COLUMN_VERSION, 0);
         db.insert(TABLE_VERSION, null, contentValues);
+        contentValues = new ContentValues();
+        contentValues.put(AP_VERSION_COLUMN_VERSION, 0);
+        db.insert(TABLE_AP_VERSION, null, contentValues);
+        contentValues = new ContentValues();
+        contentValues.put(AP_CURRENTSEASON_COLUMN_SEASON,"na");
+        db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
     }
 
     //kanw drop ta pada gia testing
@@ -158,6 +199,26 @@ public class DBHelper extends SQLiteOpenHelper{
                 ContentValues contentValues = new ContentValues();
                 contentValues.put(VERSION_COLUMN_VERSION, 0);
                 db.update(TABLE_VERSION,contentValues,null,null);
+            case 3:
+                db.execSQL(
+                        "create table if not exists "+TABLE_AP_ANIMEINFO+
+                                "("+ GENERAL_COLUMN_ID +" integer primary key, "+ AP_ANIMEINFO_COLUMN_ANIMEINFOID +" integer, "+ AP_ANIMEINFO_COLUMN_TITLE +" text, "+ AP_ANIMEINFO_COLUMN_SEASON +" text, "+ AP_ANIMEINFO_COLUMN_IMGURL +" text, "+ AP_ANIMEINFO_COLUMN_GENRE +" text, "+ AP_ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ AP_ANIMEINFO_COLUMN_DESCRIPTION +" text, "+ AP_ANIMEINFO_COLUMN_RATING +" real)"
+                );
+                db.execSQL(
+                        "create table if not exists "+TABLE_AP_VERSION+
+                                "("+ AP_VERSION_COLUMN_VERSION +" integer primary key)"
+                );
+                contentValues = new ContentValues();
+                contentValues.put(AP_VERSION_COLUMN_VERSION, 0);
+                db.insert(TABLE_AP_VERSION, null, contentValues);
+            case 4:
+                db.execSQL(
+                        "create table if not exists "+TABLE_AP_CURRENTSEASON+
+                                "("+ AP_CURRENTSEASON_COLUMN_SEASON +" text)"
+                );
+                contentValues = new ContentValues();
+                contentValues.put(AP_CURRENTSEASON_COLUMN_SEASON,"na");
+                db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
             default:
                 //you know ;p
         }
@@ -215,6 +276,39 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    /**
+     *
+     * @param animeinfo_id The anime id reference to animeinfo table or -1 if the anime does not exist in animeinfo
+     * @param title ...
+     * @param season ...
+     * @param imgurl ...
+     * @param genre ...
+     * @param animetype ...
+     * @param description ...
+     * @param rating maximum rating is 5.0 can be -1 if it was not found in imported data
+     * @return The new row id or -1 if an error occured.
+     */
+    public boolean insertIntoAPAnimeinfo(int animeinfo_id,String title, String season, String imgurl, String genre, String animetype, String description, Double rating){
+
+        final String TAG = CLASS_TAG+"insrAPAnime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(AP_ANIMEINFO_COLUMN_ANIMEINFOID,animeinfo_id);
+        contentValues.put(AP_ANIMEINFO_COLUMN_TITLE,title);
+        contentValues.put(AP_ANIMEINFO_COLUMN_SEASON,season);
+        contentValues.put(AP_ANIMEINFO_COLUMN_IMGURL,imgurl);
+        contentValues.put(AP_ANIMEINFO_COLUMN_GENRE, genre);
+        contentValues.put(AP_ANIMEINFO_COLUMN_ANIMETYPE, animetype);
+        contentValues.put(AP_ANIMEINFO_COLUMN_DESCRIPTION, description);
+        contentValues.put(AP_ANIMEINFO_COLUMN_RATING, rating);
+        long result = db.insert(TABLE_AP_ANIMEINFO, null, contentValues);
+        if(result==-1){
+            Log.i(TAG,"insert of anime with title "+title+" failed");
+            return false;
+        }
+        Log.d(TAG, "inserted anime " + title);
+        return true;
+    }
 
     public boolean insertIntoWatchlist(int id, int episodeswatched, int currentepisode, String lastupdated){
 
@@ -441,7 +535,27 @@ public class DBHelper extends SQLiteOpenHelper{
         return version;
     }
 
+    public int getAPVersion(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("select * from " + TABLE_AP_VERSION, null);
+        int version = -1;
+        if(res.moveToFirst()){
+            version = res.getInt(res.getColumnIndex(AP_VERSION_COLUMN_VERSION));
+        }
+        res.close();
+        return version;
+    }
 
+    public String getCurrentSeason(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery("select * from " + TABLE_AP_CURRENTSEASON, null);
+        String currentSeason = "na";
+        if(res.moveToFirst()){
+            currentSeason = res.getString(res.getColumnIndex(AP_CURRENTSEASON_COLUMN_SEASON));
+        }
+        res.close();
+        return currentSeason;
+    }
 
     public Anime getAnimeInfo(int id) {
 
@@ -470,11 +584,28 @@ public class DBHelper extends SQLiteOpenHelper{
     /**
      *
      * @param title The title of the anime
-     * @return the id of the anime or -1 if the anime does not exist in the database
+     * @return The id of the anime or -1 if the anime does not exist in the database
      */
     public int getAnimeID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=? collate nocase";
+        Cursor res =  db.rawQuery(command, new String[]{title});
+        int id=-1;
+        if(res.moveToFirst()) {
+            id = res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID));
+        }
+        res.close();
+        return id;
+    }
+
+    /**
+     *
+     * @param title The title of the anime
+     * @return The id of the anime or -1 if the anime does not exist in APanimeinfo
+     */
+    public int getAPAnimeID(String title){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_AP_ANIMEINFO+" where "+ AP_ANIMEINFO_COLUMN_TITLE +"=? collate nocase";
         Cursor res =  db.rawQuery(command, new String[]{title});
         int id=-1;
         if(res.moveToFirst()) {
@@ -719,6 +850,22 @@ public class DBHelper extends SQLiteOpenHelper{
 
     }
 
+    public boolean checkIfExistsInAPAnimeInfo(String title){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String command = "select title from "+TABLE_AP_ANIMEINFO+" where "+ AP_ANIMEINFO_COLUMN_TITLE +"=?";
+        Cursor res =  db.rawQuery( command, new String[] {title} );
+
+        if(res.getCount()>0) {
+            res.close();
+            return true;
+        }
+        else{
+            res.close();
+            return false;
+        }
+
+    }
+
     public boolean checkIfExistsInAnimelinks(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+ ANIMELINKS_COLUMN_ANIMEFREAKLINK +" from "+TABLE_ANIMELINKS+" where "+ GENERAL_COLUMN_ID +"=?";
@@ -849,6 +996,44 @@ public class DBHelper extends SQLiteOpenHelper{
         }
     }
 
+    /**
+     *
+     * @param id The id of the anime in APanimeinfo table
+     * @param animeinfo_id The id reference of the anime to table animeinfo
+     * @param title ...
+     * @param season ...
+     * @param imgurl ...
+     * @param genre ...
+     * @param animetype ...
+     * @param description ...
+     * @param rating ...
+     * @return True if more than one row was affected. False otherwise.
+     */
+    public boolean updateAPAnimeinfo (int id, int animeinfo_id, String title, String season, String imgurl, String genre, String animetype, String description, Double rating)
+    {
+        final String TAG = CLASS_TAG+"updateAPAnimeinfo";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(AP_ANIMEINFO_COLUMN_ANIMEINFOID,animeinfo_id);
+        contentValues.put(AP_ANIMEINFO_COLUMN_TITLE,title);
+        contentValues.put(AP_ANIMEINFO_COLUMN_SEASON,season);
+        contentValues.put(AP_ANIMEINFO_COLUMN_IMGURL,imgurl);
+        contentValues.put(AP_ANIMEINFO_COLUMN_GENRE, genre);
+        contentValues.put(AP_ANIMEINFO_COLUMN_ANIMETYPE, animetype);
+        contentValues.put(AP_ANIMEINFO_COLUMN_DESCRIPTION, description);
+        contentValues.put(AP_ANIMEINFO_COLUMN_RATING, rating);
+        int rowsaffected = db.update(TABLE_AP_ANIMEINFO, contentValues, GENERAL_COLUMN_ID +" = ? ", new String[]{Integer.toString(id)});
+
+        if(rowsaffected>0) {
+            Log.d(TAG,"updated AP info of anime: "+title);
+            return true;
+        }
+        else {
+            Log.i(TAG,"AP update of anime with id: "+id+" and title: "+title+" failed");
+            return false;
+        }
+    }
+
     public boolean updateAnimelinks (int id, String frlink, String ultimalink, String MALlink)
     {
         final String TAG = CLASS_TAG+"updateAnimelinks";
@@ -945,8 +1130,28 @@ public class DBHelper extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(TABLE_VERSION,version);
-        db.execSQL("update version set "+ VERSION_COLUMN_VERSION +"="+version);
+        db.execSQL("update "+TABLE_VERSION+" set "+ VERSION_COLUMN_VERSION +"="+version);
         Log.d(TAG,"updated version to: "+version);
+        return true;
+    }
+
+    public boolean updateAPVersion(int version) {
+        final String TAG = CLASS_TAG+"updAPVersion";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TABLE_AP_VERSION,version);
+        db.execSQL("update "+TABLE_AP_VERSION+" set "+ AP_VERSION_COLUMN_VERSION +"="+version);
+        Log.d(TAG,"updated APversion to: "+version);
+        return true;
+    }
+
+    public boolean updateCurrentSeason(String currentSeason) {
+        final String TAG = CLASS_TAG+"updCRseason";
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(AP_CURRENTSEASON_COLUMN_SEASON,currentSeason);
+        db.update(TABLE_AP_CURRENTSEASON,contentValues,null,null);
+        Log.d(TAG,"updated Currentseason to: "+currentSeason);
         return true;
     }
 
@@ -955,6 +1160,21 @@ public class DBHelper extends SQLiteOpenHelper{
         final String TAG = CLASS_TAG+"deleteAnime";
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_ANIMEINFO,
+                GENERAL_COLUMN_ID +" = ? ",
+                new String[] { Integer.toString(id) });
+        if(res==0) {
+            Log.i(TAG, "delete of anime with id: " + id + " has failed");
+            return false;
+        }
+        Log.d(TAG,"deleted anime with id: "+id);
+        return true;
+    }
+
+    public boolean deleteAPAnime (Integer id)
+    {
+        final String TAG = CLASS_TAG+"delAPAnime";
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_AP_ANIMEINFO,
                 GENERAL_COLUMN_ID +" = ? ",
                 new String[] { Integer.toString(id) });
         if(res==0) {

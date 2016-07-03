@@ -37,7 +37,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     protected Void doInBackground(String... databaseurl) {
 
         if(!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))){
-            Log.i("databaseUpdater -"," No internet connection or cannot connect to database server");
+            Log.i("databaseUpdater"," No internet connection or cannot connect to database server");
             return null;
         }
 
@@ -96,12 +96,11 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
                             }
                         }
 
+                        dbinstance.updateVersion(onlineversion);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
 
-
-                    dbinstance.updateVersion(onlineversion);
 
 
                 }
@@ -110,7 +109,6 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
             } else {
                 Log.i("dbupdater - background", "Up to date update not needed");
-
             }
 
         }
