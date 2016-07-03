@@ -484,7 +484,11 @@ public class DBHelper extends SQLiteOpenHelper{
         return id;
     }
 
-    //returns watchlist id or -1 if the anime with this title does not exist in the watchlist or -2 if the anime does not exists in the database at all
+    /**
+     *
+     * @param title The title of the anime.
+     * @return The id of the anime. -1 if the anime does not exist in the watchlist or -2 if the anime does not exist in the database
+     */
     public int getWatchlistID(String title){
         SQLiteDatabase db = this.getReadableDatabase();
         String command = "select "+ GENERAL_COLUMN_ID +" from "+TABLE_ANIMEINFO+" where "+ ANIMEINFO_COLUMN_TITLE +"=?";
