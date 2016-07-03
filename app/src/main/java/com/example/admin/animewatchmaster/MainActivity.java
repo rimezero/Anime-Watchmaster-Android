@@ -19,7 +19,6 @@ import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
-import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
@@ -105,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
 
     public void callit(View v){
         //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
