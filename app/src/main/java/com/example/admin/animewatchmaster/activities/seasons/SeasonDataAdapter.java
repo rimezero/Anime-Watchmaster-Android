@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
@@ -67,6 +68,15 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
 
             }
         });
+
+        TextView rating = (TextView)convertView.findViewById(R.id.rating);
+        double rat = model.getRating();
+
+        if(rat > 0) {
+            rating.setText("Rating | "+rat);
+        } else {
+            rating.setText("Rating | ");
+        }
 
         AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);
         textView.setText(model.getTitle());

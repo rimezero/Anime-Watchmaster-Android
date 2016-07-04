@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#cc1c3eac"
     android:layout_height="match_parent">
+
+
+
 
     <org.lucasr.twowayview.TwoWayView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -10,14 +14,21 @@
         android:id="@+id/horlist"
         style="@style/TwoWayView"
         android:drawSelectorOnTop="false"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         />
 
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listview"
+        android:numColumns="2"
         >
 
+
     </GridView>
+
+
+
 
 </LinearLayout>
