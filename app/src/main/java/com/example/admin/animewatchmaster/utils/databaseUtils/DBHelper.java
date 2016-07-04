@@ -447,7 +447,7 @@ public class DBHelper extends SQLiteOpenHelper{
         }else{
             if(season.equals("Upcoming"))
                 crossCheck = false;
-            res = db.query(TABLE_AP_ANIMEINFO,columns,whereCluse,new String[] {AP_ANIMEINFO_COLUMN_SEASON},null,null,null);
+            res = db.query(TABLE_AP_ANIMEINFO,columns,whereCluse,new String[] {season},null,null,null);
         }
 
         while(res.moveToNext()){
