@@ -3,12 +3,12 @@ package com.example.admin.animewatchmaster.model;
 /**
  * Created by admin on 7/4/2016.
  */
-public class seasonsSortModel implements Comparable{
+public class SeasonsSortModel implements Comparable{
     private String season;
     private int year;
     private int order;
 
-    public seasonsSortModel(String season, int year) {
+    public SeasonsSortModel(String season, int year) {
         this.season = season;
         this.year = year;
         setOrder();
@@ -55,14 +55,14 @@ public class seasonsSortModel implements Comparable{
 
     @Override
     public int compareTo(Object another) {
-        if(this.year>((seasonsSortModel)another).getYear()){
+        if(this.year>((SeasonsSortModel)another).getYear()){
             return -1;
-        }else if(this.year<((seasonsSortModel)another).getYear()){
+        }else if(this.year<((SeasonsSortModel)another).getYear()){
             return 1;
         }else{
-            if(this.order<((seasonsSortModel)another).getOrder()){
+            if(this.order<((SeasonsSortModel)another).getOrder()){
                 return -1;
-            }else if(this.order>((seasonsSortModel)another).getOrder()){
+            }else if(this.order>((SeasonsSortModel)another).getOrder()){
                 return 1;
             }
         }

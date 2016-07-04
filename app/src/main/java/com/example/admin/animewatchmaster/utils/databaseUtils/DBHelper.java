@@ -9,11 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.SeasonModel;
+import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.model.TopanimeModel;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.model.WatchedModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
-import com.example.admin.animewatchmaster.model.seasonsSortModel;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -389,9 +390,13 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
-    public List<seasonsSortModel> getSeasons(){
+    /**
+     *
+     * @return Returns all of the seasons in the database sorted. May return empty list or less seasons if an error occurs.
+     */
+    public List<SeasonsSortModel> getSeasons(){
         final String TAG = CLASS_TAG+"getSeasons";
-        List<seasonsSortModel> seasonslist = new ArrayList<>();
+        List<SeasonsSortModel> seasonslist = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.query(true,TABLE_AP_ANIMEINFO,new String[] {AP_ANIMEINFO_COLUMN_SEASON},null,null,null,null,null,null);
         while(res.moveToNext()){
@@ -403,13 +408,13 @@ public class DBHelper extends SQLiteOpenHelper{
                     return seasonslist;
                 }
                 try {
-                    seasonslist.add(new seasonsSortModel(seasontokenizer.nextToken(), Integer.valueOf(seasontokenizer.nextToken())));
+                    seasonslist.add(new SeasonsSortModel(seasontokenizer.nextToken(), Integer.valueOf(seasontokenizer.nextToken())));
                 } catch (NumberFormatException e) {
                     Log.e(TAG, "Cannot cast year to integer for season: " + season);
                 }
             }
         }
-
+        res.close();
         try {
             Collections.sort(seasonslist);
         }catch (ClassCastException e){
@@ -418,11 +423,57 @@ public class DBHelper extends SQLiteOpenHelper{
         }
 
         /* test result
-        for(seasonsSortModel model : seasonslist){
+        for(SeasonsSortModel model : seasonslist){
             System.out.println(model.toString());
         }*/
 
         return seasonslist;
+    }
+
+    /**
+     *
+     * @param crossCheck True will return the anime that exist in animeinfo. False will return all of the anime of the season from APanimeinfo. If the season is Upcoming this parameter is automatically set to false.
+     * @param season The season to search for. Can be null to return all of the seasons.
+     * @return An arraylist with the season's data. Rating can be -1 (no rating is available).
+     */
+    public List<SeasonModel> getSeasonData(boolean crossCheck, String season){
+        List<SeasonModel> seasonData = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = new String[] {AP_ANIMEINFO_COLUMN_ANIMEINFOID,AP_ANIMEINFO_COLUMN_TITLE,AP_ANIMEINFO_COLUMN_IMGURL,AP_ANIMEINFO_COLUMN_ANIMETYPE,AP_ANIMEINFO_COLUMN_RATING};
+        String whereCluse = AP_ANIMEINFO_COLUMN_SEASON+"=?";
+        Cursor res;
+        if(season==null){
+            res = db.query(TABLE_AP_ANIMEINFO,columns,null,null,null,null,null);
+        }else{
+            if(season.equals("Upcoming"))
+                crossCheck = false;
+            res = db.query(TABLE_AP_ANIMEINFO,columns,whereCluse,new String[] {AP_ANIMEINFO_COLUMN_SEASON},null,null,null);
+        }
+
+        while(res.moveToNext()){
+            if(crossCheck){
+                if(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID))!=-1){
+                    SeasonModel model = new SeasonModel();
+                    model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
+                    model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
+                    model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
+                    model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
+                    model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
+                    seasonData.add(model);
+                }
+            }else{
+                SeasonModel model = new SeasonModel();
+                model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
+                model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
+                model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
+                model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
+                model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
+                seasonData.add(model);
+            }
+
+        }
+
+        return seasonData;
     }
 
     public List<WatchListModel> getWatchlistData() {
