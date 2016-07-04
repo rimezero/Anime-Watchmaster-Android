@@ -28,12 +28,7 @@ public class UpcomingActivity extends AppCompatActivity {
 
         DBHelper dbHelper = DBHelper.getInstance(getApplicationContext());
 
-        List<SeasonsSortModel> seasonsSortModels = dbHelper.getSeasons();
-
-        List<SeasonModel> seasonModels = dbHelper.getSeasonData(false,seasonsSortModels.get(0).toString());
-        if(seasonModels.isEmpty()) {
-            seasonModels = dbHelper.getSeasonData(false,seasonsSortModels.get(1).toString());
-        }
+        List<SeasonModel> seasonModels = dbHelper.getSeasonData(false,"Upcoming");
 
         UpcomingAdapter upcomingAdapter = new UpcomingAdapter(getApplicationContext(),seasonModels);
         gridView.setAdapter(upcomingAdapter);
