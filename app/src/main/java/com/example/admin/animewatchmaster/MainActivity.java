@@ -14,6 +14,7 @@ import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
 import com.example.admin.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.example.admin.animewatchmaster.activities.topanime.TopAnimeActivity;
+import com.example.admin.animewatchmaster.activities.upcoming.UpcomingActivity;
 import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
@@ -196,6 +197,11 @@ public class MainActivity extends AppCompatActivity {
     public void season(View v) {
         tempDisableView(v,500);
         startActivity(new Intent(this, SeasonsMainActivity.class));
+    }
+
+    public void upcoming(View v) {
+        tempDisableView(v,500);
+        startActivity(new Intent(this, UpcomingActivity.class));
     }
 
     @Override
