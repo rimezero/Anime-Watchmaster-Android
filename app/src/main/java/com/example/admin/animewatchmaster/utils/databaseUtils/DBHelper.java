@@ -13,8 +13,10 @@ import com.example.admin.animewatchmaster.model.TopanimeModel;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.model.WatchedModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.model.seasonsSortModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -387,6 +389,41 @@ public class DBHelper extends SQLiteOpenHelper{
         return true;
     }
 
+    public List<seasonsSortModel> getSeasons(){
+        final String TAG = CLASS_TAG+"getSeasons";
+        List<seasonsSortModel> seasonslist = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.query(true,TABLE_AP_ANIMEINFO,new String[] {AP_ANIMEINFO_COLUMN_SEASON},null,null,null,null,null,null);
+        while(res.moveToNext()){
+            String season = res.getString(res.getColumnIndex(AP_CURRENTSEASON_COLUMN_SEASON));
+            if(season != null && !season.equals("Upcoming")) {
+                StringTokenizer seasontokenizer = new StringTokenizer(season, " ");
+                if (seasontokenizer.countTokens() != 2) {
+                    Log.e(TAG, "Season format is incorrect: " + season);
+                    return seasonslist;
+                }
+                try {
+                    seasonslist.add(new seasonsSortModel(seasontokenizer.nextToken(), Integer.valueOf(seasontokenizer.nextToken())));
+                } catch (NumberFormatException e) {
+                    Log.e(TAG, "Cannot cast year to integer for season: " + season);
+                }
+            }
+        }
+
+        try {
+            Collections.sort(seasonslist);
+        }catch (ClassCastException e){
+            e.printStackTrace();
+            Log.e(TAG,"Cannot sort list");
+        }
+
+        /* test result
+        for(seasonsSortModel model : seasonslist){
+            System.out.println(model.toString());
+        }*/
+
+        return seasonslist;
+    }
 
     public List<WatchListModel> getWatchlistData() {
 

@@ -110,11 +110,12 @@ public class MainActivity extends AppCompatActivity {
         //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
 
         //new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
+        //new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
         //new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
-        //DBHelper dbinstance = DBHelper.getInstance(this);
+        DBHelper dbinstance = DBHelper.getInstance(this);
+        dbinstance.getSeasons();
         /*
         ArrayList<Anime> animelist = dbinstance.getAnimeWithSameGenre(anime);
         for(Anime anim : animelist){
