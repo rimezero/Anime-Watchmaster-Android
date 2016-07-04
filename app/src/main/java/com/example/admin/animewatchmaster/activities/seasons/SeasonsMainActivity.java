@@ -30,8 +30,8 @@ public class SeasonsMainActivity extends AppCompatActivity {
     private List<SeasonsSortModel> seasonsSortModel;
     private int seasonsortPosition = 0;
 
-    private static final int SWIPE_MIN_DISTANCE = 140;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 100;
+    private static final int SWIPE_MIN_DISTANCE = 150;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
     private MyGestureListener myGestureListener;
 
     private GridView gridView;
@@ -127,7 +127,7 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
         @Override
         public boolean onDown(MotionEvent event) {
-            return true;
+            return false;
         }
 
         @Override
@@ -136,7 +136,6 @@ public class SeasonsMainActivity extends AppCompatActivity {
             if(e1 == null || e2 == null) {
                 return false;
             }
-
 
             //right to left
             if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
@@ -163,9 +162,12 @@ public class SeasonsMainActivity extends AppCompatActivity {
                 //left to right
             } else if(e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
 
-                if((seasonsortPosition - 1) > 0) {
+                if((seasonsortPosition - 1) >= 0) {
 
-                    seasonsortPosition--;
+                    if(seasonsortPosition > 0) {
+                        seasonsortPosition--;
+                    }
+
                     SeasonsSortModel seasonsSortModel1 = seasonsSortModel.get(seasonsortPosition);
 
                     String season = seasonsSortModel1.toString();
