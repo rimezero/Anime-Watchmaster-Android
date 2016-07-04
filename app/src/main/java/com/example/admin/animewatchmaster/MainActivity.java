@@ -12,12 +12,12 @@ import android.widget.AdapterView;
 import com.example.admin.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.example.admin.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.example.admin.animewatchmaster.activities.hotanime.AnimeHotAdapter;
+import com.example.admin.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.example.admin.animewatchmaster.activities.topanime.TopAnimeActivity;
 import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
-import com.example.admin.animewatchmaster.model.SeasonModel;
 import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
@@ -121,11 +121,10 @@ public class MainActivity extends AppCompatActivity {
 
 
         for(SeasonsSortModel s : seasons) {
-            System.out.println(s.getOrder());
-            System.out.println(s.getSeason());
-            System.out.println(s.getYear());
+            System.out.println(s.toString());
         }
 
+        /*
         List<SeasonModel> seasonModels = dbinstance.getSeasonData(false,((SeasonsSortModel)seasons.get(8)).toString());
 
         System.out.println("------"+seasonModels.size());
@@ -192,6 +191,11 @@ public class MainActivity extends AppCompatActivity {
     public void topanime(final View v) {
         tempDisableView(v,500);
         startActivity(new Intent(this, TopAnimeActivity.class));
+    }
+
+    public void season(View v) {
+        tempDisableView(v,500);
+        startActivity(new Intent(this, SeasonsMainActivity.class));
     }
 
     @Override
