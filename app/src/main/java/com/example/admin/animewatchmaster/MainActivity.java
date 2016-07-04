@@ -17,8 +17,9 @@ import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
+import com.example.admin.animewatchmaster.model.SeasonModel;
+import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
-import com.example.admin.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
@@ -114,8 +115,28 @@ public class MainActivity extends AppCompatActivity {
         //new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
+
         DBHelper dbinstance = DBHelper.getInstance(this);
-        dbinstance.getSeasons();
+        List<SeasonsSortModel> seasons =  dbinstance.getSeasons();
+
+
+        for(SeasonsSortModel s : seasons) {
+            System.out.println(s.getOrder());
+            System.out.println(s.getSeason());
+            System.out.println(s.getYear());
+        }
+
+        List<SeasonModel> seasonModels = dbinstance.getSeasonData(false,((SeasonsSortModel)seasons.get(8)).toString());
+
+        System.out.println("------"+seasonModels.size());
+
+        for (SeasonModel s : seasonModels) {
+            System.out.println(s.getAnimeinfo_id());
+            System.out.println(s.getTitle());
+            System.out.println(s.getRating());
+            System.out.println(s.toString());
+        }
+
         /*
         ArrayList<Anime> animelist = dbinstance.getAnimeWithSameGenre(anime);
         for(Anime anim : animelist){
