@@ -46,9 +46,19 @@ public class UpcomingAdapter extends ArrayAdapter<SeasonModel> {
                     .into(imageView);
         }
 
-        TextView desc = (TextView)convertView.findViewById(R.id.desc);
+        TextView ratings = (TextView)convertView.findViewById(R.id.rating);
+        ImageView starimage = (ImageView)convertView.findViewById(R.id.ratingstar);
+        if(model.getRating() > 0) {
+            ratings.setText(""+model.getRating());
+            starimage.setVisibility(View.VISIBLE);
+        } else {
+            ratings.setText("");
+            starimage.setVisibility(View.GONE);
+        }
 
-        //extra stuff...
+        TextView type = (TextView)convertView.findViewById(R.id.type);
+        type.setText(model.getAnimetype());
+
 
         return convertView;
     }

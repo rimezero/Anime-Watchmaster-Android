@@ -51,6 +51,30 @@
                 android:background="#84353131"
                 >
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/ratingstar"
+                    android:background="@drawable/ic_star_half_white_24dp"
+                    />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFF"
+                    android:textSize="15sp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:id="@+id/rating"
+                    android:text="8.5"
+                    />
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -59,7 +83,7 @@
                     android:textSize="16sp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:id="@+id/rating"
+                    android:id="@+id/type"
                     />
 
 

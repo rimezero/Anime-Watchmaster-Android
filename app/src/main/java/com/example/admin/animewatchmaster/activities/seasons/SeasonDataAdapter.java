@@ -69,17 +69,24 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
             }
         });
 
+
         TextView rating = (TextView)convertView.findViewById(R.id.rating);
+        ImageView starimage = (ImageView)convertView.findViewById(R.id.ratingstar);
         double rat = model.getRating();
 
         if(rat > 0) {
-            rating.setText("Rating | "+rat);
+            rating.setText(""+rat);
+            starimage.setVisibility(View.VISIBLE);
         } else {
-            rating.setText("Rating | ");
+            rating.setText("");
+            starimage.setVisibility(View.GONE);
         }
 
         AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);
         textView.setText(model.getTitle());
+
+        TextView type = (TextView)convertView.findViewById(R.id.type);
+        type.setText(model.getAnimetype());
 
         final LinearLayout morelinear = (LinearLayout)convertView.findViewById(R.id.morelinear);
 
