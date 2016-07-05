@@ -139,6 +139,10 @@ public class DBHelper extends SQLiteOpenHelper{
                         "("+ GENERAL_COLUMN_ID +" integer primary key)"
         );
         db.execSQL(
+                "create table if not exists "+TABLE_WATCHED+
+                        "("+ GENERAL_COLUMN_ID +" integer primary key)"
+        );
+        db.execSQL(
                 "create table if not exists "+TABLE_HOTANIME+
                         "("+ GENERAL_COLUMN_ID +" integer primary key)"
         );
@@ -149,10 +153,6 @@ public class DBHelper extends SQLiteOpenHelper{
         db.execSQL(
                 "create table if not exists "+TABLE_VERSION+
                         "("+ VERSION_COLUMN_VERSION +" integer primary key)"
-        );
-        db.execSQL(
-                "create table if not exists "+TABLE_AP_VERSION+
-                        "("+ AP_VERSION_COLUMN_VERSION +" integer primary key)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_AP_VERSION+
