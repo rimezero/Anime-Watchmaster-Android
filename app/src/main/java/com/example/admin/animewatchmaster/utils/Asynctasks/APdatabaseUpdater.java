@@ -39,7 +39,7 @@ public class APdatabaseUpdater extends AsyncTask<String,Void,Void> {
         JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);
         if(versionjob != null) {
 
-            int localversion = 0;//dbinstance.getVersion();
+            int localversion = dbinstance.getAPVersion();
             int onlineversion = -1;
             try {
                 onlineversion = versionjob.getInt("version");
