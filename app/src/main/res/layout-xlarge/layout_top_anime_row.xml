@@ -62,15 +62,38 @@
                     android:id="@+id/spot"
                     />
 
-                <TextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="#FFF"
-                    android:textSize="17sp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:id="@+id/score"
-                    />
+                    >
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:visibility="gone"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginLeft="2dp"
+                        android:id="@+id/ratingstar"
+                        android:background="@drawable/ic_star_half_white_24dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textColor="#FFF"
+                        android:textSize="17sp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:id="@+id/score"
+                        android:text="text"
+                        />
+
+                </LinearLayout>
 
 
             </LinearLayout>

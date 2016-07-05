@@ -91,6 +91,7 @@
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:id="@+id/score"
+                        android:text="text"
                         />
 
                 </LinearLayout>
