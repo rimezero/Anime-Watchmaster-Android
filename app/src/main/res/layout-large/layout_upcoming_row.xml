@@ -51,50 +51,40 @@
                 android:background="#84353131"
                 >
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginLeft="2dp"
+                    android:id="@+id/ratingstar"
+                    android:background="@drawable/ic_star_half_white_24dp"
+                    />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:textColor="#FFF"
-                    android:textSize="17sp"
+                    android:textSize="15sp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="5dp"
                     android:gravity="center"
-                    android:id="@+id/spot"
-                    android:text="0"
+                    android:id="@+id/rating"
+                    android:text="8.5"
                     />
 
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:layout_height="match_parent"
+                    android:textColor="#FFF"
+                    android:textSize="16sp"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    >
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginLeft="2dp"
-                        android:id="@+id/ratingstar"
-                        android:background="@drawable/ic_star_half_white_24dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:textColor="#FFF"
-                        android:textSize="16sp"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:id="@+id/score"
-                        />
-
-                </LinearLayout>
-
+                    android:id="@+id/type"
+                    android:text="Tv Show"
+                    />
 
 
             </LinearLayout>
@@ -140,60 +130,60 @@
                 </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                >
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/watchlaterimage"
-                    />
-
-                <me.grantland.widget.AutofitTextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="add to watchLater"
-                    android:textSize="14sp"
-                    android:textColor="#FFF"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:id="@+id/addwatchlater"
-                    />
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    >
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/watchlaterimage"
+                        />
+
+                    <me.grantland.widget.AutofitTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="add to watchLater"
+                        android:textSize="14sp"
+                        android:textColor="#FFF"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:id="@+id/addwatchlater"
+                        />
 
 
-            </LinearLayout>
+                </LinearLayout>
 
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
-                >
-
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_gravity="center"
-                    android:id="@+id/watchedimage"
-                    />
-
-                <me.grantland.widget.AutofitTextView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="add to watched"
-                    android:textSize="14sp"
-                    android:textColor="#FFF"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:id="@+id/addwatched"
-                    />
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    >
 
-            </LinearLayout>
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:id="@+id/watchedimage"
+                        />
+
+                    <me.grantland.widget.AutofitTextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="add to watched"
+                        android:textSize="14sp"
+                        android:textColor="#FFF"
+                        android:padding="10dp"
+                        android:maxLines="1"
+                        android:id="@+id/addwatched"
+                        />
+
+                </LinearLayout>
 
 
                 <me.grantland.widget.AutofitTextView
@@ -224,7 +214,7 @@
                 android:background="@drawable/top_anime_back"
                 android:gravity="center"
                 android:layout_marginTop="4dp"
-                android:layout_weight="2"
+                android:layout_weight="1"
                 >
 
                 <me.grantland.widget.AutofitTextView
@@ -239,13 +229,7 @@
                     android:layout_weight="1"
                     />
 
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/ic_more_vert_white_24dp"
-                    android:layout_marginRight="4dp"
-                    android:id="@+id/moreimage"
-                    />
+
 
             </LinearLayout>
 

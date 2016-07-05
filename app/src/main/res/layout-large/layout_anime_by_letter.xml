@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawer_layout"
+    android:background="#f12a2a2d"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/topLinear"
+                >
+
+                <ImageButton
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:layout_marginRight="10dp"
+                    android:onClick="showGenreDrawer"
+                    android:background="@drawable/ic_settings_white_24dp"
+                    />
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="28dp"
+                    android:layout_marginTop="5dp"
+                    android:onClick="listgridswitch"
+                    android:id="@+id/imagebtnswitch"
+                    android:background="@drawable/ic_apps_white_24dp"
+                    />
+
+            </LinearLayout>
+
+
+            <!--
+            <com.twotoasters.jazzylistview.JazzyListView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/letterlist"
+                android:layout_below="@+id/topLinear"
+                >
+
+
+            </com.twotoasters.jazzylistview.JazzyListView>
+            -->
+
+            <com.twotoasters.jazzylistview.JazzyGridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridview"
+                android:numColumns="2"
+                android:gravity="center"
+                android:columnWidth="90dp"
+                android:scrollbars="vertical"
+                android:layout_below="@+id/topLinear"
+                >
+            </com.twotoasters.jazzylistview.JazzyGridView>
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+    <ListView android:id="@+id/list_slidermenu"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:choiceMode="singleChoice"
+        android:divider="#6aaff5"
+        android:dividerHeight="1dp"
+        android:background="#9b111111"/>
+
+</android.support.v4.widget.DrawerLayout>

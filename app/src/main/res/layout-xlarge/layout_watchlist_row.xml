@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:background="#b80e1425"
+    android:layout_height="match_parent">
+
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="220dp"
+        android:background="@drawable/loading"
+        android:layout_gravity="center"
+        android:id="@+id/image"
+        android:layout_marginTop="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/button_yellow_transparent"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            >
+
+            <me.grantland.widget.AutofitTextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:textColor="#FFF"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:maxLines="2"
+                android:layout_gravity="center"
+                android:id="@+id/title"
+                />
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Episodes:"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="3dp"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:id="@+id/save"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/button_yellow_transparent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="save"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="75dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:id="@+id/cancel"
+                android:background="@drawable/button_yellow_transparent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textSize="15sp"
+                    android:text="cancel"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/episodes_inc_dec_back"
+                android:layout_weight="1"
+                android:id="@+id/watchedlinear"
+                >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/episodeswatched"
+                    android:textSize="15sp"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@drawable/episodes_inc_dec_back"
+
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:background="@drawable/episodes_inc_dec_back"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:id="@+id/currentlinear"
+                >
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/currentepisode"
+                    android:textSize="15sp"
+                    android:textColor="#FFF"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:singleLine="true"
+                    android:imeOptions="actionDone"
+                    android:background="@drawable/episodes_inc_dec_back"
+
+                    />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            >
+
+            <com.andexert.library.RippleView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_yellow_transparent"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:id="@+id/btnIncrement"
+                >
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/ic_add_white_24dp"
+                    />
+
+
+            </com.andexert.library.RippleView>
+
+
+            <com.andexert.library.RippleView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_yellow_transparent"
+                android:layout_margin="5dp"
+                android:gravity="center"
+                android:id="@+id/btnDecrement"
+                >
+
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/ic_remove_white_24dp"
+                    />
+
+
+            </com.andexert.library.RippleView>
+
+
+
+
+        </LinearLayout>
+
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Remove"
+            android:textColor="#FFF"
+            android:id="@+id/BtnRemove"
+            android:background="#22282d"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

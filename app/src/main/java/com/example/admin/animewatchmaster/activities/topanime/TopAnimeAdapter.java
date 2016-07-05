@@ -71,7 +71,15 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
         textView.setText(model.getTitle());
 
         TextView score = (TextView)convertView.findViewById(R.id.score);
-        score.setText("Score | " + model.getScore());
+        ImageView ratingstar = (ImageView)convertView.findViewById(R.id.ratingstar);
+
+        if(model.getScore() > 0) {
+            score.setText("" + model.getScore());
+            ratingstar.setVisibility(View.VISIBLE);
+        } else {
+            score.setText("");
+            ratingstar.setVisibility(View.GONE);
+        }
 
         final LinearLayout morelinear = (LinearLayout)convertView.findViewById(R.id.morelinear);
 
