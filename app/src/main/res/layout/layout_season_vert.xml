@@ -14,8 +14,6 @@
         android:id="@+id/horlist"
         style="@style/TwoWayView"
         android:drawSelectorOnTop="false"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         />
 
     <GridView

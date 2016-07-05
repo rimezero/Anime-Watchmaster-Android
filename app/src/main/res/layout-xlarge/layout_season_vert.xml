@@ -5,8 +5,6 @@
     android:layout_height="match_parent">
 
 
-
-
     <org.lucasr.twowayview.TwoWayView
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -14,8 +12,6 @@
         android:id="@+id/horlist"
         style="@style/TwoWayView"
         android:drawSelectorOnTop="false"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         />
 
     <GridView

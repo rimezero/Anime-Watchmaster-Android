@@ -18,7 +18,6 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:id="@+id/season"
-            android:text="test"
             />
 
 
