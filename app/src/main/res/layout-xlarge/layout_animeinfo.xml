@@ -23,7 +23,7 @@
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="45dp"
+                android:layout_height="50dp"
                 android:background="@drawable/anime_info_topbackground"
                 >
 
@@ -100,7 +100,7 @@
                     android:layout_height="match_parent"
                     android:id="@+id/title"
                     android:textColor="#FFF"
-                    android:textSize="18sp"
+                    android:textSize="19sp"
                     android:textStyle="bold"
                     android:gravity="center|center_vertical"
                     />
@@ -212,7 +212,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
-                    android:textSize="17sp"
+                    android:textSize="18sp"
                     android:textColor="#FFF"
                     />
 
@@ -299,7 +299,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:text="WatchList"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textColor="#FFF"
                         android:layout_gravity="center"
                         android:id="@+id/watchlisttext"
@@ -373,7 +373,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="Watched"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#FFF"
                     android:gravity="center"
                     android:layout_gravity="center"
@@ -447,7 +447,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:text="WatchLater"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textColor="#FFF"
                     android:gravity="center"
                     android:id="@+id/watchlatertext"

@@ -19,9 +19,9 @@ import com.example.admin.animewatchmaster.activities.watched.WatchedAnime;
 import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
-import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
@@ -42,9 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         new WatchlistUpdater(getApplicationContext()).execute();
-
 
         final TwoWayView twoWayView = (TwoWayView)findViewById(R.id.horizlist);
         //loadHorizontalHotanime(twoWayView); //ama to valeis fortwnei mia fora apo to database kai meta kanei update kai ksanafortwnei
@@ -111,19 +109,11 @@ public class MainActivity extends AppCompatActivity {
     public void callit(View v){
         //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
 
-        //new databaseUpdater(this).execute(getString(R.string.base_db_url));
+        new databaseUpdater(this).execute(getString(R.string.base_db_url));
         //new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
         //new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
-
-        DBHelper dbinstance = DBHelper.getInstance(this);
-        List<SeasonsSortModel> seasons =  dbinstance.getSeasons();
-
-
-        for(SeasonsSortModel s : seasons) {
-            System.out.println(s.toString());
-        }
 
         /*
         List<SeasonModel> seasonModels = dbinstance.getSeasonData(false,((SeasonsSortModel)seasons.get(8)).toString());
