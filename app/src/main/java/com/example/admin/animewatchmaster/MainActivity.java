@@ -21,7 +21,10 @@ import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 
@@ -117,13 +120,13 @@ public class MainActivity extends AppCompatActivity {
         //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
 
 
-        DBHelper dbinstance = DBHelper.getInstance(this);
-        List<SeasonsSortModel> seasons =  dbinstance.getSeasons();
+        //DBHelper dbinstance = DBHelper.getInstance(this);
+        /*List<SeasonsSortModel> seasons =  dbinstance.getSeasons();
 
 
         for(SeasonsSortModel s : seasons) {
             System.out.println(s.toString());
-        }
+        }*/
 
         /*
         List<SeasonModel> seasonModels = dbinstance.getSeasonData(false,((SeasonsSortModel)seasons.get(8)).toString());
@@ -135,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
             System.out.println(s.getTitle());
             System.out.println(s.getRating());
             System.out.println(s.toString());
-        }
+        }*/
 
         /*
         ArrayList<Anime> animelist = dbinstance.getAnimeWithSameGenre(anime);
@@ -210,10 +213,24 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        /*
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }*/
+        switch (id){
+            case R.id.action_settings:
+                break;
+            case R.id.action_databaseUpdater:
+                new databaseUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            case R.id.action_TopAnimeUpdater:
+                new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            case R.id.action_APUpdater:
+                new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            default:
         }
 
         return super.onOptionsItemSelected(item);

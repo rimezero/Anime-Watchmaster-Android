@@ -7,4 +7,22 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_databaseUpdater"
+        android:orderInCategory="100"
+        android:title="Animeinfo Update"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_TopAnimeUpdater"
+        android:orderInCategory="100"
+        android:title="Topanime update"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_APUpdater"
+        android:orderInCategory="100"
+        android:title="AP update"
+        app:showAsAction="never" />
 </menu>
