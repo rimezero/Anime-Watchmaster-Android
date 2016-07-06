@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -122,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         watchlaterfloat.setImageBitmap(bitmap);
         watchedfloat.setImageBitmap(bitmap);
 
+        floatingActionMenu.bringToFront();
 
 
     }
