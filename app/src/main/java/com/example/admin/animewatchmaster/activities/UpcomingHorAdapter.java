@@ -1,4 +1,4 @@
-package com.example.admin.animewatchmaster.activities.hotanime;
+package com.example.admin.animewatchmaster.activities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.example.admin.animewatchmaster.R;
-import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.model.SeasonModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -16,19 +16,19 @@ import java.util.List;
 import me.grantland.widget.AutofitTextView;
 
 /**
- * Created by abraham on 12/6/2016.
+ * Created by abraham on 6/7/2016.
  */
-public class AnimeHotAdapter extends ArrayAdapter<WatchlaterlistModel> {
+public class UpcomingHorAdapter extends ArrayAdapter<SeasonModel> {
 
 
-    public AnimeHotAdapter(Context context,List<WatchlaterlistModel> models) {
+    public UpcomingHorAdapter(Context context,List<SeasonModel> models) {
         super(context,0,models);
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final WatchlaterlistModel model = getItem(position);
+        final SeasonModel model = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_anime_hot_row,parent,false);
@@ -38,10 +38,12 @@ public class AnimeHotAdapter extends ArrayAdapter<WatchlaterlistModel> {
 
         try {
 
-            Picasso.with(getContext())
-                    .load(model.getImgurl())
-                    .fit()
-                    .into(imageView);
+            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
+                Picasso.with(getContext())
+                        .load(model.getImgurl())
+                        .fit()
+                        .into(imageView);
+            }
 
         }catch (Exception ex) {
 

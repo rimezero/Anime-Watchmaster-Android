@@ -24,9 +24,16 @@ public class TopAnimeActivity extends AppCompatActivity {
 
         JazzyGridView jazzyGridView = (JazzyGridView)findViewById(R.id.gridview);
         List<TopanimeModel> topanimeModelList = DBHelper.getInstance(getApplicationContext()).getTopAnimeData();
-        TopAnimeAdapter topAnimeAdapter = new TopAnimeAdapter(getApplicationContext(),topanimeModelList);
-        jazzyGridView.setTransitionEffect(new SlideInEffect());
-        jazzyGridView.setAdapter(topAnimeAdapter);
+
+        if(topanimeModelList != null && !topanimeModelList.isEmpty()) {
+
+            TopAnimeAdapter topAnimeAdapter = new TopAnimeAdapter(getApplicationContext(), topanimeModelList);
+            jazzyGridView.setTransitionEffect(new SlideInEffect());
+            jazzyGridView.setAdapter(topAnimeAdapter);
+
+        } else {
+            finish();
+        }
 
 
 

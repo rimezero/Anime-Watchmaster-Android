@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.model.SeasonModel;
-import com.example.admin.animewatchmaster.model.SeasonsSortModel;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
@@ -30,8 +29,14 @@ public class UpcomingActivity extends AppCompatActivity {
 
         List<SeasonModel> seasonModels = dbHelper.getSeasonData(false,"Upcoming");
 
-        UpcomingAdapter upcomingAdapter = new UpcomingAdapter(getApplicationContext(),seasonModels);
-        gridView.setAdapter(upcomingAdapter);
+        if(seasonModels != null && !seasonModels.isEmpty()) {
+
+            UpcomingAdapter upcomingAdapter = new UpcomingAdapter(getApplicationContext(), seasonModels);
+            gridView.setAdapter(upcomingAdapter);
+
+        } else {
+            finish();
+        }
         
     }
 

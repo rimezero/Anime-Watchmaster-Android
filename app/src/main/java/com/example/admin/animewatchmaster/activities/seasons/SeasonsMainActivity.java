@@ -46,44 +46,57 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
         twoWayView = (TwoWayView)findViewById(R.id.horlist);
         seasonsSortModel = dbHelper.getSeasons();
-        SeasonYearAdapter seasonYearAdapter = new SeasonYearAdapter(getApplicationContext(),seasonsSortModel);
-        twoWayView.setAdapter(seasonYearAdapter);
 
-        gridView = (GridView)findViewById(R.id.listview);
-        List<SeasonModel> seasonModel = dbHelper.getSeasonData(true,seasonsSortModel.get(0).toString());
+        if(seasonsSortModel != null && !seasonsSortModel.isEmpty()) {
 
-        if(seasonModel.size() == 0) {
-            seasonsortPosition = 1;
-            seasonModel = dbHelper.getSeasonData(true,seasonsSortModel.get(1).toString());
-        }
+            SeasonYearAdapter seasonYearAdapter = new SeasonYearAdapter(getApplicationContext(), seasonsSortModel);
+            twoWayView.setAdapter(seasonYearAdapter);
 
-        SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(),seasonModel);
-        gridView.setAdapter(seasonDataAdapter);
+            gridView = (GridView) findViewById(R.id.listview);
+            List<SeasonModel> seasonModel = dbHelper.getSeasonData(true, seasonsSortModel.get(0).toString());
 
+                if (seasonModel.size() == 0) {
+                    seasonsortPosition = 1;
+                    seasonModel = dbHelper.getSeasonData(true, seasonsSortModel.get(1).toString());
+                }
 
-        twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(seasonModel != null && !seasonModel.isEmpty()) {
 
-                SeasonsSortModel seasonsSortModel1 = (SeasonsSortModel) parent.getItemAtPosition(position);
-
-                String season = seasonsSortModel1.toString();
-
-                List<SeasonModel> seasonModels = dbHelper.getSeasonData(true, season);
-                gridView = (GridView) findViewById(R.id.listview);
-
-                SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(), seasonModels);
+                SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(), seasonModel);
                 gridView.setAdapter(seasonDataAdapter);
 
-                seasonsortPosition = position;
 
+                twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                        SeasonsSortModel seasonsSortModel1 = (SeasonsSortModel) parent.getItemAtPosition(position);
+
+                        String season = seasonsSortModel1.toString();
+
+                        List<SeasonModel> seasonModels = dbHelper.getSeasonData(true, season);
+                        gridView = (GridView) findViewById(R.id.listview);
+
+                        SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(), seasonModels);
+                        gridView.setAdapter(seasonDataAdapter);
+
+                        seasonsortPosition = position;
+
+                    }
+                });
+
+                myGestureListener = new MyGestureListener(this);
+
+
+                gridView.setOnTouchListener(myGestureListener);
+
+            } else {
+                finish();
             }
-        });
 
-        myGestureListener = new MyGestureListener(this);
-
-
-        gridView.setOnTouchListener(myGestureListener);
+        } else {
+            finish();
+        }
 
 
 

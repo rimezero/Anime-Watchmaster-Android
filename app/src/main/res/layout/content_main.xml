@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ef331e3d"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="2dp"
+    android:paddingLeft="2dp"
+    android:paddingRight="2dp"
+    android:paddingTop="2dp"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main">
@@ -19,85 +20,177 @@
 
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         >
 
-
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="callit"
-            android:text="Do the thing!!!"/>
+            android:layout_height="230dp"
+            android:background="@drawable/chapter"
+            android:orientation="vertical"
+            >
 
-        <org.lucasr.twowayview.TwoWayView
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="match_parent"
-            android:layout_height="180dp"
-            android:id="@+id/horizlist"
-            style="@style/TwoWayView"
-            android:drawSelectorOnTop="false"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="What's Hot"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
 
-        <Button
+            <org.lucasr.twowayview.TwoWayView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:id="@+id/horizlist"
+                style="@style/TwoWayView"
+                android:drawSelectorOnTop="false"
+                android:layout_marginTop="5dp"
+                />
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
+            android:background="@drawable/chapter"
             android:onClick="getAnimeAZ"
-            android:text="Demo.A-Z anime"
-            />
+            android:layout_marginTop="5dp"
+            >
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="my watchlist"
-            android:onClick="showWatchlist"
-            />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Anime A-Z"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="watch later list"
-            android:onClick="watchLaterList"
-            />
+        </LinearLayout>
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="watched list"
-            android:onClick="watchedList"
-            />
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Top anime/New anime"
-            android:onClick="topanime"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="season anime"
-            android:onClick="season"
-            />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="upcoming"
+            android:layout_height="230dp"
+            android:background="@drawable/chapter"
             android:onClick="upcoming"
-            />
+            android:layout_marginTop="10dp"
+            android:orientation="vertical"
+            >
 
-        <Button
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:text="upcoming anime"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+            <org.lucasr.twowayview.TwoWayView
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:id="@+id/horupcoming"
+                style="@style/TwoWayView"
+                android:drawSelectorOnTop="false"
+                android:layout_marginTop="5dp"
+                />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="settings/Share"
-            />
+            android:layout_height="45dp"
+            android:background="@drawable/chapter"
+            android:onClick="topanime"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Top anime/New anime"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/chapter"
+            android:onClick="season"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="season anime"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/chapter"
+            android:layout_marginTop="10dp"
+            android:onClick="share"
+            android:orientation="horizontal"
+            >
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_share_white_24dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Share"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingRight="40dp"
+                />
+
+        </LinearLayout>
+
+
+
+
 
 
 

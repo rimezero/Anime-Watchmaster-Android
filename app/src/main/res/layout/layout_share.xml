@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#3a2245"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        >
+
+        <com.facebook.share.widget.ShareButton
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:layout_gravity="left"
+            android:text="share"
+            android:background="@drawable/chapter"
+            android:textColor="#FFF"
+            android:textStyle="bold"
+            android:id="@+id/sharebutton"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:background="@drawable/chapter"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:onClick="inviteFriends"
+            android:layout_marginRight="5dp">
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_people_white_24dp"
+                android:layout_gravity="left|center"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="invite friends"
+                android:textSize="18sp"
+                android:textColor="#FFF"
+                android:textStyle="bold"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="80dp"
+            android:orientation="horizontal"
+            android:background="@drawable/chapter"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:onClick="rateapp"
+            >
+
+            <ImageView
+                android:layout_width="55dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_grade_white_24dp"
+                android:layout_gravity="left|center"
+                />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="rate app"
+                android:textSize="18sp"
+                android:textColor="#FFF"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textStyle="bold"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

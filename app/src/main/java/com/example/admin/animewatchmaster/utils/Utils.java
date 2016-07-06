@@ -62,6 +62,11 @@ public class Utils {
     }
 
 
+    public static int dpToPx(int dp,float density) {
+        return Math.round((float)dp * density);
+    }
+
+
     public static String[] getAllGenresArr() {
         List<String> genres = getAllGenres();
         String[] genresArr = new String[genres.size()];
