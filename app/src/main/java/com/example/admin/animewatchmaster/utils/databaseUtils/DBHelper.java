@@ -894,7 +894,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
     /**
      *
-     * @param tableNum - 1.animeinfo/2.animelinks/3.hotanime/4.watchlist/5.watchlater/defalt.animeinfo
+     * @param tableNum - 0.animeinfo/1.animelinks/2.hotanime/3.watchlist/4.watchlater/5.APanimeinfo/6.MALtopanime/defalt.animeinfo
      * @return - the number of rows of the table
      */
     public int getNumberOfAnime(int tableNum){
@@ -915,6 +915,12 @@ public class DBHelper extends SQLiteOpenHelper{
                 break;
             case 4:
                 tablename = TABLE_WATCHLATER;
+                break;
+            case 5:
+                tablename = TABLE_AP_ANIMEINFO;
+                break;
+            case 6:
+                tablename = TABLE_MAL_TOPANIME;
                 break;
             default:
                 tablename = TABLE_ANIMEINFO;

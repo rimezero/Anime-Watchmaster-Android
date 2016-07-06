@@ -41,12 +41,13 @@ public class TopanimeUpdater extends AsyncTask<String,Void,Void> {
         JSONArray jarr = jsonDataImport.getMALtopanimeData(mainContext.getString(R.string.base_db_url));
 
         int spot = 1;
+        final int topAnimeNumber = dbinstance.getNumberOfAnime(6);
         for(int i=0; i<jarr.length(); i++){
             try {
                 JSONObject job = jarr.getJSONObject(i);
                 int id = dbinstance.getAnimeID(job.getString("title"));
                 if(id!=-1) {
-                    if (dbinstance.checkIfSpotIsFilledInMALtopanime(spot)) {
+                    if (spot<=topAnimeNumber) {
                         dbinstance.updateMALtopanime(spot, id, job.getDouble("score"));
                     } else {
                         dbinstance.insertIntoMALtopanime(id, spot, job.getDouble("score"));

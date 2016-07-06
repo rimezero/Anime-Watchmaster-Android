@@ -20,6 +20,8 @@ import com.example.admin.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.example.admin.animewatchmaster.activities.watchlist.WatchList;
 import com.example.admin.animewatchmaster.model.Anime;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.example.admin.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
@@ -202,8 +204,21 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             return true;
+        }*/
+        switch (id){
+            case R.id.action_databaseUpdater:
+                new databaseUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            case R.id.action_APUpdater:
+                new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            case R.id.action_TopAnimeUpdater:
+                new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
+                return true;
+            default:
+
         }
 
         return super.onOptionsItemSelected(item);
