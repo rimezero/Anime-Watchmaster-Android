@@ -47,15 +47,6 @@
         </LinearLayout>
 
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:background="@drawable/ic_share_white_24dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:onClick="shareAnime"
-            />
-
     </LinearLayout>
 
 
