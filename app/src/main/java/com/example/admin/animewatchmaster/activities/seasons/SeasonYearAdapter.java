@@ -35,7 +35,7 @@ public class SeasonYearAdapter extends ArrayAdapter<SeasonsSortModel> {
 
 
         TextView textViewseason = (TextView)convertView.findViewById(R.id.season);
-        System.out.println("year+Season-->"+model.toString());
+        //System.out.println("year+Season-->"+model.toString());
         textViewseason.setText(model.toString());
 
         return convertView;

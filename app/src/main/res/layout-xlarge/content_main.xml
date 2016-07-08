@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:onClick="watchedList"
             fab:fab_size="mini"
-            fab:fab_label="watched list"
+            fab:fab_label="Watched List"
             />
 
         <com.github.clans.fab.FloatingActionButton
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:onClick="watchLaterList"
             fab:fab_size="mini"
-            fab:fab_label="watchlater list"
+            fab:fab_label="Watchlater List"
             />
 
         <com.github.clans.fab.FloatingActionButton
@@ -52,7 +52,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             fab:fab_size="mini"
-            fab:fab_label="watchlist"
+            fab:fab_label="Watchlist"
             android:onClick="showWatchlist"
             />
 
@@ -81,7 +81,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:text="What's Hot"
+                    android:text="Hot anime this season"
                     android:textColor="#FFF"
                     android:textSize="16sp"
                     android:layout_gravity="center"
@@ -114,7 +114,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Anime A-Z"
+                    android:text="Browse all anime"
                     android:textColor="#FFF"
                     android:textSize="16sp"
                     android:layout_gravity="center"
@@ -136,7 +136,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
-                    android:text="upcoming anime"
+                    android:text="Upcoming anime"
                     android:textColor="#FFF"
                     android:textSize="16sp"
                     android:layout_gravity="center"
@@ -170,7 +170,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Top anime/New anime"
+                    android:text="Top anime"
                     android:textColor="#FFF"
                     android:textSize="16sp"
                     android:layout_gravity="center"
@@ -191,7 +191,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="season anime"
+                    android:text="Anime by season"
                     android:textColor="#FFF"
                     android:textSize="16sp"
                     android:layout_gravity="center"

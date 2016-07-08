@@ -101,6 +101,23 @@ public class MainActivity extends AppCompatActivity {
 
         setUpFloatingMenu();
 
+        Thread startingUpdaterThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    //prepei prwta na teliwsei to database updater gia na ginoun apotelesmatika ta alla 2 updates
+                    new databaseUpdater(getApplicationContext()).execute(getString(R.string.base_db_url)).get();
+                    new APdatabaseUpdater(getApplicationContext()).execute(getString(R.string.base_db_url));
+                    new TopanimeUpdater(getApplicationContext()).execute(getString(R.string.base_db_url));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        startingUpdaterThread.start();
 
     }
 
@@ -164,57 +181,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //esvisa to button
-    public void callit(View v){
-        //Anime anime = new Anime(-1,"","","Action, Romance","","","","");
-
-        new databaseUpdater(this).execute(getString(R.string.base_db_url));
-        //new APdatabaseUpdater(this).execute(getString(R.string.base_db_url));
-        //new TopanimeUpdater(this).execute(getString(R.string.base_db_url));
-        //new hotanimeUpdater(this).execute(getString(R.string.base_db_url));
-
-
-        /*
-        List<SeasonModel> seasonModels = dbinstance.getSeasonData(false,((SeasonsSortModel)seasons.get(8)).toString());
-
-        System.out.println("------"+seasonModels.size());
-
-        for (SeasonModel s : seasonModels) {
-            System.out.println(s.getAnimeinfo_id());
-            System.out.println(s.getTitle());
-            System.out.println(s.getRating());
-            System.out.println(s.toString());
-        }
-
-        /*
-        ArrayList<Anime> animelist = dbinstance.getAnimeWithSameGenre(anime);
-        for(Anime anim : animelist){
-            System.out.println(anim.getTitle());
-        }*/
-       // dbinstance.deleteWatchlistAnime(83);
-        //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("009-1"),0,0,"vaggelis");
-        //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("11eyes"),0,0,"gamidia");
-        /*
-        ArrayList<Integer> ids = new ArrayList<>();
-        ids.add(2000);
-        ids.add(2001);
-        dbinstance.handleWatchlistRemainingUpdate(ids);
-        List<WatchListModel> walist = dbinstance.getWatchlistData();
-        for(WatchListModel model : walist){
-            Log.d("mainActivity - Result","Title: "+model.getTitle()+" Current episode: "+model.getCurrentEpisode());
-        }*/
-        /*
-        dbinstance.insertIntoAnimeinfo("$:)';;;sdasd$@#!^&*(){}","adasdasd","agaeghaegaeg","arharh","ahaerhaha","aehahaeh","erhaerhaeh");
-        int id = dbinstance.getAnimeID("$:)';;;sdasd$@#!^&*(){}");
-        dbinstance.deleteAnime(id);*/
-        //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Sousei no Onmyouji"),0,0,"");
-        //dbinstance.insertIntoWatchlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"),0,0,"");
-        //dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Sousei no Onmyouji"));
-        //dbinstance.insertIntoWatchlaterlist(dbinstance.getAnimeID("Koutetsujou no Kabaneri"));
-        //new WatchlistUpdater(this).execute("");
-    }
-
-
     public void getAnimeAZ(final View v) {
         tempDisableView(v,500);
         startActivity(new Intent(this, ActivityLetters.class));
@@ -227,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
         if(!DBHelper.getInstance(getApplicationContext()).getWatchlistData().isEmpty()) {
             startActivity(new Intent(this, WatchList.class));
         } else {
-            Toast.makeText(getApplicationContext(),"watchlist is empty!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Watchlist is empty!",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -238,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
         if(!DBHelper.getInstance(getApplicationContext()).getWatchlaterlistData().isEmpty()) {
             startActivity(new Intent(this, AnimeWatchLater.class));
         } else {
-            Toast.makeText(getApplicationContext(),"watchlist is empty!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Watchlater list is empty!",Toast.LENGTH_SHORT).show();
         }
 
 
@@ -250,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
         if(!DBHelper.getInstance(getApplicationContext()).getWatchedListData().isEmpty()) {
             startActivity(new Intent(this, WatchedAnime.class));
         } else {
-            Toast.makeText(getApplicationContext(),"watchlist is empty!",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Watched list is empty!",Toast.LENGTH_SHORT).show();
         }
 
     }

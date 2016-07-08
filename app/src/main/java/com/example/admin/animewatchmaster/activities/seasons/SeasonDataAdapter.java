@@ -20,6 +20,7 @@ import com.example.admin.animewatchmaster.model.SeasonModel;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.StringTokenizer;
 
@@ -75,7 +76,8 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
         double rat = model.getRating();
 
         if(rat > 0) {
-            rating.setText(""+rat);
+            rat*=2;
+            rating.setText(""+new DecimalFormat("#.#").format(rat));
             starimage.setVisibility(View.VISIBLE);
         } else {
             rating.setText("");

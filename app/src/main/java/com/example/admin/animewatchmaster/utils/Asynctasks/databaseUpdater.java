@@ -25,10 +25,10 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
     }
 
 
-    ProgressDialog dialog;
+    //ProgressDialog dialog;
     @Override
     protected void onPreExecute(){
-        dialog = ProgressDialog.show(mainContext,"Database Update","Updating database",true);
+        //dialog = ProgressDialog.show(mainContext,"Database Update","Updating database",true);
     }
 
 
@@ -113,7 +113,7 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
         }
 
-        dialog.dismiss();
+        //dialog.dismiss();
         return null;
 
     }

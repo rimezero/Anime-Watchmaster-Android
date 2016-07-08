@@ -1215,7 +1215,7 @@ public class DBHelper extends SQLiteAssetHelper {
         int rowsaffected = db.update(TABLE_MAL_TOPANIME, contentValues, MAL_TOPANIME_COLUMN_SPOT +" = ? ", new String[]{Integer.toString(spot)});
 
         if(rowsaffected>0) {
-            Log.d(TAG,"updated top anime in spot: "+spot);
+            //Log.d(TAG,"updated top anime in spot: "+spot);
             return true;
         }
         else {
