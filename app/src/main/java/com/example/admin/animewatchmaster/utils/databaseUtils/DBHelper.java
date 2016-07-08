@@ -15,6 +15,7 @@ import com.example.admin.animewatchmaster.model.TopanimeModel;
 import com.example.admin.animewatchmaster.model.WatchListModel;
 import com.example.admin.animewatchmaster.model.WatchedModel;
 import com.example.admin.animewatchmaster.model.WatchlaterlistModel;
+import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,11 +26,11 @@ import java.util.StringTokenizer;
 /**
  * Created by admin on 4/11/2016.
  */
-public class DBHelper extends SQLiteOpenHelper{
+public class DBHelper extends SQLiteAssetHelper {
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 5;
+    public static final int DATABASE_VERSION = 1;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //genaral
@@ -114,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper{
 
 
 
-
+    /*
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
@@ -171,20 +172,22 @@ public class DBHelper extends SQLiteOpenHelper{
         contentValues = new ContentValues();
         contentValues.put(AP_CURRENTSEASON_COLUMN_SEASON,"na");
         db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
-    }
+    }*/
 
     //kanw drop ta pada gia testing
+    /*
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        /*
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
-        onCreate(db);*/
+        onCreate(db);
+
         switch (oldVersion){
             case 1:
                 db.execSQL(
@@ -224,22 +227,24 @@ public class DBHelper extends SQLiteOpenHelper{
                 db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
             default:
                 //you know ;p
+
         }
 
-    }
+    }*/
 
-
+    /*
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion){
-        /*
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
-        onCreate(db);*/
-    }
+        onCreate(db);
+    }*/
+
 
     public boolean insertIntoAnimelinks(int id,String frlink,String ultimalink,String MALlink){
         final String TAG = CLASS_TAG+"insertAnime";
