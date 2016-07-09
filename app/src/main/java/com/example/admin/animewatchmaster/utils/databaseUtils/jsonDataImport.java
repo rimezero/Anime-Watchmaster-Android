@@ -88,7 +88,6 @@ public class jsonDataImport {
 
             Response response = client.newCall(request).execute();
             String result = response.body().string();
-
             jarr = new JSONArray(result);
 
             /*
