@@ -37,8 +37,6 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle bundle) {
-        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(bundle);
         setContentView(R.layout.layout_season_vert);
 
