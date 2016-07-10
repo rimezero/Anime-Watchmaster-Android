@@ -80,7 +80,10 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         currentepisodes.setText(""+model.getCurrentEpisode());
 
         TextView lastupdate = (TextView)convertView.findViewById(R.id.lastupdate);
-        lastupdate.setText(model.getLastupdated());
+        if(model.getLastupdated() != null && !model.getLastupdated().trim().isEmpty()) {
+            lastupdate.setVisibility(View.VISIBLE);
+            lastupdate.setText(model.getLastupdated());
+        }
 
         //if(model.getCurrentEpisode() > model.getEpisodeswatched())
         //    watchedepisodes.setTextColor(Color.RED);

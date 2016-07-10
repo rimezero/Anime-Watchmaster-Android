@@ -1,5 +1,6 @@
 package com.example.admin.animewatchmaster.activities.animeinfo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -44,6 +45,8 @@ public class AnimeInfo extends AppCompatActivity {
     private LinearLayout watchedlinear;
     private ImageView watchedplusbtn;
 
+    private String sharelink;
+
 
     @Override
     protected void onCreate(Bundle bundle) {
@@ -51,6 +54,8 @@ public class AnimeInfo extends AppCompatActivity {
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(bundle);
         setContentView(R.layout.layout_animeinfo);
+
+        dbHelper = DBHelper.getInstance(getApplicationContext());
 
         anime = (Anime) getIntent().getSerializableExtra("anime");
 
@@ -83,9 +88,15 @@ public class AnimeInfo extends AppCompatActivity {
 
         if(anime != null) {
 
+            sharelink = dbHelper.getMALLink(anime.getId());
+
+            if(sharelink.trim().equals("na")) {
+                ImageView shareimg = (ImageView)findViewById(R.id.sharebutton);
+                shareimg.setEnabled(false);
+            }
+
             this.anime = anime;
 
-            dbHelper = DBHelper.getInstance(getApplicationContext());
 
             ImageView imageView = (ImageView)findViewById(R.id.image);
 
@@ -233,7 +244,18 @@ public class AnimeInfo extends AppCompatActivity {
     public void shareAnime(View v) {
         tempDisableView(v,1000);
 
-        //share...
+        if(!sharelink.equals("na")) {
+
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_SEND);
+            intent.putExtra(Intent.EXTRA_TEXT, sharelink);
+            intent.setType("text/plain");
+            this.startActivity(Intent.createChooser(intent,"share anime"));
+
+
+        }
+
+
     }
 
 

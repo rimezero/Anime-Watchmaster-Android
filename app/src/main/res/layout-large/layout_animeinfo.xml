@@ -63,6 +63,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="5dp"
                     android:onClick="shareAnime"
+                    android:id="@+id/sharebutton"
                     />
 
             </LinearLayout>

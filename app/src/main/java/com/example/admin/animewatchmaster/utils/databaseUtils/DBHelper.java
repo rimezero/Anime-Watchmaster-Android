@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.DatabaseUtils;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.example.admin.animewatchmaster.model.Anime;
@@ -879,6 +878,25 @@ public class DBHelper extends SQLiteAssetHelper {
             Cursor res = db.rawQuery(command, new String[]{String.valueOf(id)});
             if (res.moveToFirst()) {
                 link = res.getString(res.getColumnIndex(ANIMELINKS_COLUMN_ANIMEULTIMALINK));
+            } else {
+                Log.i("dbhelper - animeultlink", "Could not find a link for the anime with id: " + id);
+            }
+            res.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e(CLASS_TAG+"getAnimeInfo","SQLexception: "+e.toString());
+        }
+        return link;
+    }
+
+    public String getMALLink(int id){
+        String link = "na";
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String command = "select " + ANIMELINKS_COLUMN_MALLINK + " from " + TABLE_ANIMELINKS + " where " + GENERAL_COLUMN_ID + "=?";
+            Cursor res = db.rawQuery(command, new String[]{String.valueOf(id)});
+            if (res.moveToFirst()) {
+                link = res.getString(res.getColumnIndex(ANIMELINKS_COLUMN_MALLINK));
             } else {
                 Log.i("dbhelper - animeultlink", "Could not find a link for the anime with id: " + id);
             }

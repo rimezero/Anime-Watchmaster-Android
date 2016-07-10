@@ -31,8 +31,6 @@ public class WatchList extends AppCompatActivity {
         setContentView(R.layout.layout_watchlist);
 
         circularProgressButton = (CircularProgressButton) findViewById(R.id.ButtonUpdate);
-        //circularProgressButton.setProgress(0);
-        //circularProgressButton.setIndeterminateProgressMode(true);
 
         List<WatchListModel> modelList = DBHelper.getInstance(getApplicationContext()).getWatchlistData();
         listView = (ListView)findViewById(R.id.watchlist);

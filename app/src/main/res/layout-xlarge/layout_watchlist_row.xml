@@ -17,10 +17,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="255dp"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_marginTop="10dp"
+        android:layout_gravity="center"
         >
 
         <LinearLayout
@@ -47,6 +48,18 @@
 
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#FFF"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="5dp"
+            android:id="@+id/lastupdate"
+            android:visibility="gone"
+            />
 
         <TextView
             android:layout_width="wrap_content"
