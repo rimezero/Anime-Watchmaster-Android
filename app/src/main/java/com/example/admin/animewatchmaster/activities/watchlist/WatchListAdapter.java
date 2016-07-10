@@ -82,7 +82,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         TextView lastupdate = (TextView)convertView.findViewById(R.id.lastupdate);
         if(model.getLastupdated() != null && !model.getLastupdated().trim().isEmpty()) {
             lastupdate.setVisibility(View.VISIBLE);
-            lastupdate.setText(model.getLastupdated());
+            lastupdate.setText("Last episode:"+model.getLastupdated()+" ago");
         } else {
             lastupdate.setText("");
             lastupdate.setVisibility(View.GONE);
