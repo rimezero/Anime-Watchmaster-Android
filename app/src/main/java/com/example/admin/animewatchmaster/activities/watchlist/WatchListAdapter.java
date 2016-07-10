@@ -83,6 +83,9 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         if(model.getLastupdated() != null && !model.getLastupdated().trim().isEmpty()) {
             lastupdate.setVisibility(View.VISIBLE);
             lastupdate.setText(model.getLastupdated());
+        } else {
+            lastupdate.setText("");
+            lastupdate.setVisibility(View.GONE);
         }
 
         //if(model.getCurrentEpisode() > model.getEpisodeswatched())
