@@ -40,6 +40,11 @@ public class TopanimeUpdater extends AsyncTask<String,Void,Void> {
 
         JSONArray jarr = jsonDataImport.getMALtopanimeData(mainContext.getString(R.string.base_db_url));
 
+        if(jarr.length()==0){
+            Log.i("TopanimeUpdater","Empty array");
+            return null;
+        }
+
         int spot = 1;
         final int topAnimeNumber = dbinstance.getNumberOfAnime(6);
         for(int i=0; i<jarr.length(); i++){
