@@ -26,6 +26,8 @@ public class APdatabaseUpdaterTest extends AndroidTestCase {
 
             protected void onPostExecute(Void v ) {
                 super.onPostExecute(v);
+                //v can be string result indicating success or fail or no network messages
+                //so test can be done more efficient
                 assertTrue(true);
             }
 
