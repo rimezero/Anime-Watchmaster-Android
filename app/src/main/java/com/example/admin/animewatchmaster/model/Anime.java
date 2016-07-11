@@ -108,6 +108,24 @@ public class Anime implements Serializable,Comparable {
     }
 
     @Override
+    public int hashCode() {
+        return id;
+    }
+
+
+    @Override
+    public boolean equals(Object ob) {
+        if(ob == null) {
+            return false;
+        }
+        if(!(ob instanceof Anime)) {
+            return false;
+        }
+
+        return ((Anime)ob).getId() == this.id;
+    }
+
+    @Override
     public String toString() {
         return "Anime{" +
                 "id=" + id +
