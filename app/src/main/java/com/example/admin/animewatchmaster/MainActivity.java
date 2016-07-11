@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         });
         startingUpdaterThread.start();
 
+
     }
 
 

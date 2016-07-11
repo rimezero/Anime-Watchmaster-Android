@@ -41,6 +41,11 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
 
         DBHelper dbinstance = DBHelper.getInstance(mainContext);
         JSONArray hotanimedata = jsonDataImport.getHotanimeData(databaseurl[0]);
+
+        if(hotanimedata.length()==0){
+            Log.i("hotanimeUpdater", "Empty array");
+            return null;
+        }
         //JSONObject versionjob = jsonDataImport.getVData(databaseurl[0]);
         List<String> titlelist = new ArrayList<>();
 

@@ -46,6 +46,11 @@ public class WatchlistUpdater extends AsyncTask<String,Void,Void> {
 
         JSONArray jarr = jsonDataImport.getWatchlistData(mainContext.getString(R.string.base_db_url));
 
+        if(jarr.length()==0){
+            Log.i("WatchlistUpdater","Empty array");
+            return null;
+        }
+
         ArrayList<Integer> ids = new ArrayList<>();
         ArrayList<Integer> episodes = new ArrayList<>();
         ArrayList<String> lastupdated = new ArrayList<>();
