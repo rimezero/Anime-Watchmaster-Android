@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.admin.animewatchmaster.R;
 import com.example.admin.animewatchmaster.utils.NetworkUtils;
 import com.example.admin.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.example.admin.animewatchmaster.utils.databaseUtils.jsonDataImport;
@@ -16,8 +15,11 @@ import org.json.JSONObject;
 /**
  * Created by admin on 7/3/2016.
  */
-public class APdatabaseUpdater extends AsyncTask<String,Void,Void> {
+public class APdatabaseUpdater extends AsyncTask<String,Void,String> {
     public Context mainContext;
+
+    private APdatabaseUpdaterListener listener;
+    private Exception exception;
 
     public APdatabaseUpdater(Context context){
         mainContext=context;
@@ -29,10 +31,10 @@ public class APdatabaseUpdater extends AsyncTask<String,Void,Void> {
         //dialog = ProgressDialog.show(mainContext,"Database Update","Updating database",true);
     }
 
-    protected Void doInBackground(String... databaseurl) {
+    protected String doInBackground(String... databaseurl) {
         if (!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))) {
             Log.i("APdatabaseUpdater", " No internet connection or cannot connect to database server");
-            return null;
+            return "1";
         }
 
         DBHelper dbinstance = DBHelper.getInstance(mainContext);
@@ -98,7 +100,39 @@ public class APdatabaseUpdater extends AsyncTask<String,Void,Void> {
         }
 
 
-
-        return null;
+        return "1";
     }
+
+
+
+    public static interface APdatabaseUpdaterListener {
+        public void onComplete(String res,Exception ex);
+    }
+
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(this.listener != null) {
+            this.listener.onComplete(result,exception);
+        }
+    }
+
+    @Override
+    protected void onCancelled() {
+        if (this.listener != null) {
+            exception = new InterruptedException("AsyncTask cancelled");
+            this.listener.onComplete(null, exception);
+        }
+    }
+
+    public static interface hotanimeupdaterInterface {
+        public void onComplete(String result,Exception ex);
+    }
+
+
+    public APdatabaseUpdater setListener(APdatabaseUpdaterListener listener) {
+        this.listener = listener;
+        return this;
+    }
+
 }

@@ -19,8 +19,13 @@ import java.util.List;
 /**
  * Created by admin on 6/11/2016.
  */
-public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
-    public Context mainContext;
+public class hotanimeUpdater extends AsyncTask<String,Void,String> {
+
+    private Context mainContext;
+
+    private hotanimeupdaterInterface mListener = null;
+    private Exception exception = null;
+
 
     public hotanimeUpdater(Context context){
         mainContext=context;
@@ -32,7 +37,7 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
         //dialog = ProgressDialog.show(mainContext,"Database Update","Updating database",true);
     }
 
-    protected Void doInBackground(String... databaseurl) {
+    protected String doInBackground(String... databaseurl) {
 
         if (!NetworkUtils.isInternetConnectionActive(mainContext.getSystemService(Context.CONNECTIVITY_SERVICE))) {
             Log.i("hotanimeUpdater -", " No internet connection or cannot connect to database server");
@@ -69,7 +74,33 @@ public class hotanimeUpdater extends AsyncTask<String,Void,Void> {
         for(WatchlaterlistModel model : data){
             Log.d("hotanimeUpdater",model.getTitle());
         }*/
-
-        return null;
+        return ""+titlelist.isEmpty();
     }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if(this.mListener != null) {
+            this.mListener.onComplete(result,exception);
+        }
+    }
+
+    @Override
+    protected void onCancelled() {
+        if (this.mListener != null) {
+            exception = new InterruptedException("AsyncTask cancelled");
+            this.mListener.onComplete(null, exception);
+        }
+    }
+
+    public static interface hotanimeupdaterInterface {
+        public void onComplete(String result,Exception ex);
+    }
+
+
+    public hotanimeUpdater setListener(hotanimeupdaterInterface listener) {
+        this.mListener = listener;
+        return this;
+    }
+
+
 }

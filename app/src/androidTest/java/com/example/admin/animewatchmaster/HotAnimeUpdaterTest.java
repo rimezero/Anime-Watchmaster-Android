@@ -2,20 +2,20 @@ package com.example.admin.animewatchmaster;
 
 import android.test.AndroidTestCase;
 
-import com.example.admin.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
+import com.example.admin.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
 
 /**
- * Created by abraham on 11/7/2016.
+ * Created by abraham on 12/7/2016.
  */
-public class APdatabaseUpdaterTest extends AndroidTestCase {
+public class HotAnimeUpdaterTest extends AndroidTestCase {
 
+    private CountDownLatch signal = null;
     private String result = null;
     private Exception exception = null;
-    private CountDownLatch signal = null;
 
     protected void setUp() throws Exception {
         super.setUp();
@@ -30,8 +30,8 @@ public class APdatabaseUpdaterTest extends AndroidTestCase {
     @Test
     public void testSuccessFetch() throws InterruptedException {
 
-        APdatabaseUpdater aPdatabaseUpdater = new APdatabaseUpdater(getContext());
-        aPdatabaseUpdater.setListener(new APdatabaseUpdater.APdatabaseUpdaterListener() {
+        hotanimeUpdater hau = new hotanimeUpdater(getContext());
+        hau.setListener(new hotanimeUpdater.hotanimeupdaterInterface() {
 
             @Override
             public void onComplete(String res, Exception ex) {
@@ -44,10 +44,12 @@ public class APdatabaseUpdaterTest extends AndroidTestCase {
 
         signal.await();
 
-        assertEquals("1",result);
+
+        assertEquals("false",result);
         assertNull(exception);
 
     }
+
 
 
 }
