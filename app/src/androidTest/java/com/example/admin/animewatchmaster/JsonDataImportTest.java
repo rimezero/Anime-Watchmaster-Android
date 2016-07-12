@@ -25,7 +25,7 @@ public class JsonDataImportTest extends AndroidTestCase {
     public void testGetMALtopanimeData() {
         JSONArray data = jsonDataImport.getMALtopanimeData(getContext().getString(R.string.base_db_url));
         assertNotNull(data);
-        assertTrue(data.toString().startsWith("[{\"title\":"));
+        assertTrue(data.toString().startsWith("[{\"score\":"));
     }
 
 
