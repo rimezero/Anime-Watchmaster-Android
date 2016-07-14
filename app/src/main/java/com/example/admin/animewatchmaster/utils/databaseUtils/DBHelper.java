@@ -100,6 +100,8 @@ public class DBHelper extends SQLiteAssetHelper {
     }
 
 
+
+
     //double check locking singleton
     public static DBHelper getInstance(Context context) {
         if(dbHelper == null) {
@@ -112,6 +114,7 @@ public class DBHelper extends SQLiteAssetHelper {
         }
         return dbHelper;
     }
+
 
 
 
