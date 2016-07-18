@@ -4,6 +4,25 @@
     android:layout_height="match_parent">
 
 
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/topLinear"
+        >
+
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:onClick="listgridswitch"
+            android:id="@+id/imagebtnswitch"
+            android:background="@drawable/ic_apps_black_24dp"
+            />
+
+    </LinearLayout>
+
     <com.twotoasters.jazzylistview.JazzyGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
