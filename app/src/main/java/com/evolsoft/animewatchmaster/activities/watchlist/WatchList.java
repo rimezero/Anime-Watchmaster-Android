@@ -52,6 +52,9 @@ public class WatchList extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+        if(circularProgressButton != null) {
+            circularProgressButton.setProgress(0);
+        }
     }
 
     public void goback(View v) {
