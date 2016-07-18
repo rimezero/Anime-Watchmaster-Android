@@ -26,6 +26,7 @@ import com.evolsoft.animewatchmaster.model.Anime;
 import com.evolsoft.animewatchmaster.utils.EffectUtils;
 import com.evolsoft.animewatchmaster.utils.Utils;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
@@ -195,6 +196,19 @@ public class AnimesByLetter extends AppCompatActivity {
             }
         });
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     private void loadGridView(List<Anime> animeList, int colsNum){

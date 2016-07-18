@@ -6,12 +6,15 @@ import android.support.v7.app.AppCompatActivity;
 import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.TopanimeModel;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 
-
+/**
+ * Created by abraham on 2/7/2016.
+ */
 public class TopAnimeActivity extends AppCompatActivity {
 
 
@@ -35,6 +38,19 @@ public class TopAnimeActivity extends AppCompatActivity {
 
 
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 

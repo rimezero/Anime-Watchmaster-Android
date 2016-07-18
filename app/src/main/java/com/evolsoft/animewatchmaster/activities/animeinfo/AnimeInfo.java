@@ -17,6 +17,7 @@ import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.Anime;
 import com.evolsoft.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.squareup.picasso.Picasso;
 
 import org.lucasr.twowayview.TwoWayView;
@@ -80,6 +81,19 @@ public class AnimeInfo extends AppCompatActivity {
 
         initLayout(anime);
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 

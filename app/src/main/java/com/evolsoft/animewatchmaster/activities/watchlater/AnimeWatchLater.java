@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.WatchlaterlistModel;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
@@ -30,6 +31,18 @@ public class AnimeWatchLater extends AppCompatActivity {
         WatchLaterAdapter watchListAdapter = new WatchLaterAdapter(getApplicationContext(),modelList);
         listView.setAdapter(watchListAdapter);
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 

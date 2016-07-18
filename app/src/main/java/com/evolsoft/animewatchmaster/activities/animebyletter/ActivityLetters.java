@@ -28,6 +28,7 @@ import com.evolsoft.animewatchmaster.model.Anime;
 import com.evolsoft.animewatchmaster.utils.EffectUtils;
 import com.evolsoft.animewatchmaster.utils.Utils;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.JazzyListView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
@@ -263,6 +264,19 @@ public class ActivityLetters extends AppCompatActivity {
         imageView.setImageBitmap(bitmap);
 
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 

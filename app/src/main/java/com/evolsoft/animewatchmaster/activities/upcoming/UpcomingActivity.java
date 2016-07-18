@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.SeasonModel;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
@@ -38,6 +39,18 @@ public class UpcomingActivity extends AppCompatActivity {
             finish();
         }
         
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 

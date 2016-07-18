@@ -13,6 +13,7 @@ import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.SeasonModel;
 import com.evolsoft.animewatchmaster.model.SeasonsSortModel;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -100,6 +101,18 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
+    }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

@@ -11,6 +11,7 @@ import com.evolsoft.animewatchmaster.R;
 import com.evolsoft.animewatchmaster.model.WatchListModel;
 import com.evolsoft.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -39,6 +40,18 @@ public class WatchList extends AppCompatActivity {
         listView.setAdapter(watchListAdapter);
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
     public void goback(View v) {

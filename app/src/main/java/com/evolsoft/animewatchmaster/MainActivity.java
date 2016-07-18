@@ -32,6 +32,8 @@ import com.evolsoft.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.evolsoft.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.evolsoft.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.evolsoft.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
 import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 
@@ -44,9 +46,11 @@ import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.content_main);
 
         new WatchlistUpdater(getApplicationContext()).execute();
@@ -114,6 +118,19 @@ public class MainActivity extends AppCompatActivity {
         startingUpdaterThread.start();
 
 
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        AppEventsLogger.deactivateApp(this);
     }
 
 
