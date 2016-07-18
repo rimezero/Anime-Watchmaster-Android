@@ -11,9 +11,7 @@ import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 
-/**
- * Created by abraham on 2/7/2016.
- */
+
 public class TopAnimeActivity extends AppCompatActivity {
 
 
