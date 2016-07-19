@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -68,7 +69,7 @@ public class ActivityLetters extends AppCompatActivity {
     private ArrayList<NavDrawerItem> navDrawerItems;
     private NavDrawerListAdapter adapter;
 
-    public static String queryText = "";
+    private  String queryText = "";
 
     private List<Anime> animeListState = new ArrayList<>();
 
@@ -77,6 +78,7 @@ public class ActivityLetters extends AppCompatActivity {
     protected void onCreate(Bundle bundle) {
         super.onCreate(bundle);
         setContentView(R.layout.layout_letters);
+        queryText = "";
 
         List<String> letters = getAllLetters();
 
@@ -247,6 +249,7 @@ public class ActivityLetters extends AppCompatActivity {
                         //do nothing
                     } else {
 
+
                         List<Anime> animes = dbHelper.getAllAnime(3, queryText, genres);
 
                         setupGridView(animes, 0);
@@ -271,12 +274,14 @@ public class ActivityLetters extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         AppEventsLogger.activateApp(this);
+        queryText = "";
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         AppEventsLogger.deactivateApp(this);
+        queryText = "";
     }
 
 

@@ -27,7 +27,6 @@ import me.grantland.widget.AutofitTextView;
  */
 public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
 
-    private String queryText = ActivityLetters.queryText;
 
     public AnimeLetterAdapter(Context context, List<Anime> models) {
         super(context, 0, models);
