@@ -28,7 +28,7 @@ public class ShareActivity extends AppCompatActivity {
         setContentView(R.layout.layout_share);
 
         ShareLinkContent content = new ShareLinkContent.Builder()
-               .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id=com.evolsoft.animewatchmaster"))
+               .setContentUrl(Uri.parse("https://play.google.com/store/apps/details?id="+getApplicationContext().getPackageName()))
                .build();
 
 
