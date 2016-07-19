@@ -41,6 +41,11 @@ public class AnimeSameGenreAdapter extends ArrayAdapter<Anime> {
                     .load(model.getImgurl())
                     .fit()
                     .into(imageView);
+        }  else {
+            Picasso.with(getContext())
+                    .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
+                    .fit()
+                    .into(imageView);
         }
 
         AutofitTextView textView = (AutofitTextView)convertView.findViewById(R.id.title);

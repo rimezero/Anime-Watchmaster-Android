@@ -1,6 +1,9 @@
 package com.cspeitch.animewatchmaster.activities.seasons;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.GestureDetector;
@@ -8,12 +11,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.cspeitch.animewatchmaster.R;
+import com.cspeitch.animewatchmaster.activities.topanime.TopAnimeAdapter;
 import com.cspeitch.animewatchmaster.model.SeasonModel;
 import com.cspeitch.animewatchmaster.model.SeasonsSortModel;
+import com.cspeitch.animewatchmaster.model.TopanimeModel;
 import com.cspeitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.facebook.appevents.AppEventsLogger;
+import com.twotoasters.jazzylistview.JazzyGridView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -27,6 +35,7 @@ public class SeasonsMainActivity extends AppCompatActivity {
     private DBHelper dbHelper;
 
     private List<SeasonsSortModel> seasonsSortModel;
+    private List<SeasonModel> seasonModelsList;
     private int seasonsortPosition = 0;
 
     private static final int SWIPE_MIN_DISTANCE = 150;
@@ -61,9 +70,7 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
             if(seasonModel != null && !seasonModel.isEmpty()) {
 
-                SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(), seasonModel);
-                gridView.setAdapter(seasonDataAdapter);
-
+                loadGridView(seasonModel,-1);
 
                 twoWayView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
@@ -74,6 +81,9 @@ public class SeasonsMainActivity extends AppCompatActivity {
                         String season = seasonsSortModel1.toString();
 
                         List<SeasonModel> seasonModels = dbHelper.getSeasonData(true, season);
+
+                        seasonModelsList = seasonModels;
+
                         gridView = (GridView) findViewById(R.id.listview);
 
                         SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(), seasonModels);
@@ -101,6 +111,66 @@ public class SeasonsMainActivity extends AppCompatActivity {
 
     }
 
+
+    private void loadGridView(List<SeasonModel> animeList, int colsNum){
+
+        seasonModelsList = animeList;
+
+        final GridView gridView = (GridView) findViewById(R.id.listview);
+
+        if(colsNum == 1) {
+            gridView.setNumColumns(1);
+        } else if(colsNum == 2) {
+            gridView.setNumColumns(2);
+        } else if(colsNum == 3) {
+            gridView.setNumColumns(3);
+        }
+
+        SeasonDataAdapter topAnimeAdapter = new SeasonDataAdapter(getApplicationContext(), animeList);
+        gridView.setAdapter(topAnimeAdapter);
+
+
+    }
+
+
+    public void listgridswitch(View v) {
+
+
+        GridView gridView = (GridView) findViewById(R.id.listview);
+
+        if(!seasonModelsList.isEmpty() && gridView.getVisibility() == View.VISIBLE) {
+
+            ImageView imageView = (ImageView) findViewById(R.id.imagebtnswitch);
+
+            Bitmap bitmap;
+
+            if(gridView.getNumColumns() == 3) {
+
+                bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_apps_black_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                loadGridView(seasonModelsList, 2);
+
+            } else if (gridView.getNumColumns() == 2) {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_apps_black_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                loadGridView(seasonModelsList, 1);
+
+            } else {
+
+                bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_black_24dp);
+                imageView.setImageBitmap(bitmap);
+
+                loadGridView(seasonModelsList,3);
+
+            }
+
+        }
+
+
+    }
 
     @Override
     protected void onResume() {
@@ -170,6 +240,7 @@ public class SeasonsMainActivity extends AppCompatActivity {
                     String season = seasonsSortModel1.toString();
 
                     List<SeasonModel> seasonModels = dbHelper.getSeasonData(true, season);
+                    seasonModelsList = seasonModels;
                     gridView = (GridView)findViewById(R.id.listview);
 
                     SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(),seasonModels);
@@ -195,6 +266,7 @@ public class SeasonsMainActivity extends AppCompatActivity {
                     String season = seasonsSortModel1.toString();
 
                     List<SeasonModel> seasonModels = dbHelper.getSeasonData(true, season);
+                    seasonModelsList = seasonModels;
                     gridView = (GridView)findViewById(R.id.listview);
 
                     SeasonDataAdapter seasonDataAdapter = new SeasonDataAdapter(getApplicationContext(),seasonModels);

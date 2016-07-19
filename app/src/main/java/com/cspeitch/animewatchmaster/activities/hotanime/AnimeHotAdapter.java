@@ -38,10 +38,17 @@ public class AnimeHotAdapter extends ArrayAdapter<WatchlaterlistModel> {
 
         try {
 
-            Picasso.with(getContext())
-                    .load(model.getImgurl())
-                    .fit()
-                    .into(imageView);
+            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
+                Picasso.with(getContext())
+                        .load(model.getImgurl())
+                        .fit()
+                        .into(imageView);
+            }  else {
+                Picasso.with(getContext())
+                        .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
+                        .fit()
+                        .into(imageView);
+            }
 
         }catch (Exception ex) {
 

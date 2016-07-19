@@ -20,11 +20,13 @@ import com.cspeitch.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.cspeitch.animewatchmaster.activities.share.ShareActivity;
 import com.cspeitch.animewatchmaster.activities.topanime.TopAnimeActivity;
 import com.cspeitch.animewatchmaster.activities.upcoming.UpcomingActivity;
+import com.cspeitch.animewatchmaster.activities.upcoming.UpcomingInfo;
 import com.cspeitch.animewatchmaster.activities.watched.WatchedAnime;
 import com.cspeitch.animewatchmaster.activities.watchlater.AnimeWatchLater;
 import com.cspeitch.animewatchmaster.activities.watchlist.WatchList;
 import com.cspeitch.animewatchmaster.model.Anime;
 import com.cspeitch.animewatchmaster.model.SeasonModel;
+import com.cspeitch.animewatchmaster.model.UpcomingAnime;
 import com.cspeitch.animewatchmaster.model.WatchlaterlistModel;
 import com.cspeitch.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
 import com.cspeitch.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
@@ -80,17 +82,22 @@ public class MainActivity extends AppCompatActivity {
 
 
         TwoWayView upcominghorlist = (TwoWayView)findViewById(R.id.horupcoming);
-        List<SeasonModel> seasonModels = DBHelper.getInstance(getApplicationContext()).getSeasonData(false, "Upcoming");
+        // List<SeasonModel> seasonModels = DBHelper.getInstance(getApplicationContext()).getSeasonData(false, "Upcoming");
+        final List<UpcomingAnime> upcomingAnimeList = DBHelper.getInstance(getApplicationContext()).getUpcomingAnime();
 
 
-        if(seasonModels != null && !seasonModels.isEmpty()) {
-            UpcomingHorAdapter upcomingAdapter = new UpcomingHorAdapter(getApplicationContext(), seasonModels);
+        if(upcomingAnimeList != null && !upcomingAnimeList.isEmpty()) {
+            UpcomingHorAdapter upcomingAdapter = new UpcomingHorAdapter(getApplicationContext(), upcomingAnimeList);
             upcominghorlist.setAdapter(upcomingAdapter);
 
             upcominghorlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    startActivity(new Intent(MainActivity.this, UpcomingActivity.class));
+                    //startActivity(new Intent(MainActivity.this, UpcomingActivity.class));
+                    UpcomingAnime upcomingAnime = (UpcomingAnime)parent.getItemAtPosition(position);
+                    Intent intent = new Intent(getApplicationContext(), UpcomingInfo.class);
+                    intent.putExtra("anime",upcomingAnime);
+                    startActivity(intent);
                 }
             });
 

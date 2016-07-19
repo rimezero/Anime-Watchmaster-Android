@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.cspeitch.animewatchmaster.R;
 import com.cspeitch.animewatchmaster.model.SeasonModel;
+import com.cspeitch.animewatchmaster.model.UpcomingAnime;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,17 +19,17 @@ import me.grantland.widget.AutofitTextView;
 /**
  * Created by abraham on 6/7/2016.
  */
-public class UpcomingHorAdapter extends ArrayAdapter<SeasonModel> {
+public class UpcomingHorAdapter extends ArrayAdapter<UpcomingAnime> {
 
 
-    public UpcomingHorAdapter(Context context,List<SeasonModel> models) {
+    public UpcomingHorAdapter(Context context,List<UpcomingAnime> models) {
         super(context,0,models);
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final SeasonModel model = getItem(position);
+        final UpcomingAnime model = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_anime_hot_row,parent,false);
@@ -38,9 +39,9 @@ public class UpcomingHorAdapter extends ArrayAdapter<SeasonModel> {
 
         try {
 
-            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
+            if(model.getImageurl() != null && !model.getImageurl().trim().isEmpty()) {
                 Picasso.with(getContext())
-                        .load(model.getImgurl())
+                        .load(model.getImageurl())
                         .fit()
                         .into(imageView);
             }

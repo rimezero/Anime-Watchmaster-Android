@@ -11,12 +11,20 @@
         android:id="@+id/frame"
         >
 
+        <ImageView
+            android:layout_width="85dp"
+            android:layout_height="85dp"
+            android:id="@+id/loadingimage"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/loading"
+            />
 
                <ImageView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
+                   android:layout_width="250dp"
+                   android:layout_height="320dp"
                    android:id="@+id/image"
-                   android:background="@drawable/loading"
                    android:layout_gravity="center"
                    />
 

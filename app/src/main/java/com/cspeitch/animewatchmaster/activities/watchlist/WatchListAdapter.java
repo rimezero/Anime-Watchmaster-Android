@@ -2,6 +2,7 @@ package com.cspeitch.animewatchmaster.activities.watchlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andexert.library.RippleView;
 import com.cspeitch.animewatchmaster.R;
@@ -55,6 +57,11 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
+                    .fit()
+                    .into(imageView);
+        } else {
+            Picasso.with(getContext())
+                    .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                     .fit()
                     .into(imageView);
         }
@@ -139,25 +146,30 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
         final LinearLayout linearLayoutsave = (LinearLayout)convertView.findViewById(R.id.save);
 
         watchedepisodes.setOnTouchListener(new View.OnTouchListener() {
+
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
 
-                if (linearLayoutsave.getVisibility() == View.GONE) {
-                    linearLayoutsave.setVisibility(View.VISIBLE);
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if (linearLayoutsave.getVisibility() == View.GONE) {
+                        linearLayoutsave.setVisibility(View.VISIBLE);
+                    }
                 }
-
                 return false;
             }
         });
 
         currentepisodes.setOnTouchListener(new View.OnTouchListener() {
+
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-                if (linearLayoutsave.getVisibility() == View.GONE) {
-                    linearLayoutsave.setVisibility(View.VISIBLE);
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if (linearLayoutsave.getVisibility() == View.GONE) {
+                        linearLayoutsave.setVisibility(View.VISIBLE);
+                    }
                 }
-
                 return false;
             }
         });
@@ -229,6 +241,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
 
 
         final View finalConvertView1 = convertView;
+
         watchedepisodes.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 
             @Override
@@ -298,6 +311,7 @@ public class WatchListAdapter extends ArrayAdapter<WatchListModel> {
                 return false;
             }
         });
+
 
 
 

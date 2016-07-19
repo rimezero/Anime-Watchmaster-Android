@@ -134,6 +134,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.cspeitch.animewatchmaster.activities.upcoming.UpcomingInfo"
+            android:label="upcoming info">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
     </application>
 
 </manifest>

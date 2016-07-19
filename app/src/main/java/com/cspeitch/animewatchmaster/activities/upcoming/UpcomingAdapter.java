@@ -44,6 +44,11 @@ public class UpcomingAdapter extends ArrayAdapter<SeasonModel> {
                     .load(model.getImgurl())
                     .fit()
                     .into(imageView);
+        }  else {
+            Picasso.with(getContext())
+                    .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
+                    .fit()
+                    .into(imageView);
         }
 
         TextView ratings = (TextView)convertView.findViewById(R.id.rating);

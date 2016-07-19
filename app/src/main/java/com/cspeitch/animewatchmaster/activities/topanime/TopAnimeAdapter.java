@@ -17,6 +17,7 @@ import com.cspeitch.animewatchmaster.R;
 import com.cspeitch.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.cspeitch.animewatchmaster.model.Anime;
 import com.cspeitch.animewatchmaster.model.TopanimeModel;
+import com.cspeitch.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.cspeitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
@@ -49,6 +50,11 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
         if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
+                    .fit()
+                    .into(imageView);
+        }  else {
+            Picasso.with(getContext())
+                    .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                     .fit()
                     .into(imageView);
         }
@@ -155,19 +161,12 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
         AutofitTextView addwatched = (AutofitTextView)convertView.findViewById(R.id.addwatched);
         AutofitTextView addwatchlist = (AutofitTextView)convertView.findViewById(R.id.addwatchlist);
         AutofitTextView addwatchlater = (AutofitTextView)convertView.findViewById(R.id.addwatchlater);
-        AutofitTextView addmore = (AutofitTextView)convertView.findViewById(R.id.addmore);
         TextView spot = (TextView)convertView.findViewById(R.id.spot);
 
         spot.setText(""+model.getSpot());
 
 
-        addmore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                morelinear.setVisibility(View.GONE);
-                //future staff like share..
-            }
-        });
+
 
         addwatched.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,7 +191,6 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
                 morelinear.setVisibility(View.GONE);
                 //do dbstuff
                 if(!dbHelper.checkIfExistsInWatchlist(model.getId())) {
-                    dbHelper.insertIntoWatchlist(model.getId(),0,0,"");
 
                     Anime anime = dbHelper.getAnimeInfo(model.getId());
 
@@ -223,6 +221,9 @@ public class TopAnimeAdapter extends ArrayAdapter<TopanimeModel> {
                     }
 
                     dbHelper.insertIntoWatchlist(anime.getId(), 0, ep, "");
+
+                    if(doUpdateFlag)
+                        new WatchlistUpdater(getContext()).execute("");
 
                     watchlistimage.setImageBitmap(bitmapDone);
                 }

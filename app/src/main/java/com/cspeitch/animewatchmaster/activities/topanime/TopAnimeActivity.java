@@ -60,7 +60,6 @@ public class TopAnimeActivity extends AppCompatActivity {
         gridView.setTransitionEffect(new SlideInEffect());
         gridView.setAdapter(topAnimeAdapter);
 
-        gridView.setAdapter(topAnimeAdapter);
 
     }
 

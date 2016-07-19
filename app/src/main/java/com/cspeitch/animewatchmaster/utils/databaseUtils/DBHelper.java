@@ -12,6 +12,7 @@ import com.cspeitch.animewatchmaster.model.Anime;
 import com.cspeitch.animewatchmaster.model.SeasonModel;
 import com.cspeitch.animewatchmaster.model.SeasonsSortModel;
 import com.cspeitch.animewatchmaster.model.TopanimeModel;
+import com.cspeitch.animewatchmaster.model.UpcomingAnime;
 import com.cspeitch.animewatchmaster.model.WatchListModel;
 import com.cspeitch.animewatchmaster.model.WatchedModel;
 import com.cspeitch.animewatchmaster.model.WatchlaterlistModel;
@@ -537,6 +538,36 @@ public class DBHelper extends SQLiteAssetHelper {
         }
 
         return seasonData;
+    }
+
+    public List<UpcomingAnime> getUpcomingAnime() {
+        List<UpcomingAnime> seasonData = new ArrayList<>();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_IMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
+            String whereCluse = AP_ANIMEINFO_COLUMN_SEASON + "=?";
+            Cursor res;
+
+            res = db.query(TABLE_AP_ANIMEINFO, columns, whereCluse, new String[]{"Upcoming"}, null, null, null);
+
+            while (res.moveToNext()) {
+                UpcomingAnime model = new UpcomingAnime();
+                model.setId(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
+                model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
+                model.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
+                model.setType(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
+                model.setDesc(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_DESCRIPTION)));
+                model.setGenres(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_GENRE)));
+                seasonData.add(model);
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e("DBHelper - getSsonData","SQLexception: "+e.toString());
+        }
+
+        return seasonData;
+
+
     }
 
     public List<WatchListModel> getWatchlistData() {

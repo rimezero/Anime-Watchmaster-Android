@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.cspeitch.animewatchmaster.R;
 import com.cspeitch.animewatchmaster.model.Anime;
+import com.cspeitch.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.cspeitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
@@ -141,10 +142,17 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
             */
 
 
-            Picasso.with(getContext())
-                    .load(model.getImgurl())
-                    .fit()
-                    .into(imageView);
+            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
+                Picasso.with(getContext())
+                        .load(model.getImgurl())
+                        .fit()
+                        .into(imageView);
+            }  else {
+                Picasso.with(getContext())
+                        .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
+                        .fit()
+                        .into(imageView);
+            }
 
 
             int animeId = model.getId();
@@ -228,16 +236,7 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
             AutofitTextView addwatched = (AutofitTextView)convertView.findViewById(R.id.addwatched);
             AutofitTextView addwatchlist = (AutofitTextView)convertView.findViewById(R.id.addwatchlist);
             AutofitTextView addwatchlater = (AutofitTextView)convertView.findViewById(R.id.addwatchlater);
-            AutofitTextView addmore = (AutofitTextView)convertView.findViewById(R.id.addmore);
 
-
-            addmore.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    morelinear.setVisibility(View.GONE);
-                    //future staff like share..
-                }
-            });
 
             addwatched.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -262,7 +261,6 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
                     morelinear.setVisibility(View.GONE);
                     //do dbstuff
                     if(!dbHelper.checkIfExistsInWatchlist(model.getId())) {
-                        dbHelper.insertIntoWatchlist(model.getId(),0,0,"");
 
                         Anime anime = dbHelper.getAnimeInfo(model.getId());
 
@@ -292,7 +290,11 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
                             }
                         }
 
+
                         dbHelper.insertIntoWatchlist(anime.getId(), 0, ep, "");
+
+                        if(doUpdateFlag)
+                            new WatchlistUpdater(getContext()).execute("");
 
                         watchlistimage.setImageBitmap(bitmapDone);
                     }

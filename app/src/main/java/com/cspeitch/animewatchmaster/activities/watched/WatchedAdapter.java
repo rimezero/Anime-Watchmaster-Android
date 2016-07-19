@@ -45,6 +45,11 @@ public class WatchedAdapter extends ArrayAdapter<WatchedModel> {
                     .load(model.getImgurl())
                     .fit()
                     .into(imageView);
+        }  else {
+            Picasso.with(getContext())
+                    .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
+                    .fit()
+                    .into(imageView);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {

@@ -191,17 +191,6 @@
                 </LinearLayout>
 
 
-                <me.grantland.widget.AutofitTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="not imple.."
-                    android:textSize="14sp"
-                    android:textColor="#FFF"
-                    android:padding="10dp"
-                    android:maxLines="1"
-                    android:id="@+id/addmore"
-                    />
-
             </LinearLayout>
 
         </FrameLayout>

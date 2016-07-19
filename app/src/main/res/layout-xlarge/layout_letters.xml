@@ -66,7 +66,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/gridview"
-                android:numColumns="2"
+                android:numColumns="3"
                 android:gravity="center"
                 android:columnWidth="90dp"
                 android:scrollbars="vertical"
