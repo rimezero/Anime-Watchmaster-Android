@@ -50,7 +50,7 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty()) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na")) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
                     .fit()

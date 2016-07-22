@@ -39,9 +39,14 @@ public class UpcomingHorAdapter extends ArrayAdapter<UpcomingAnime> {
 
         try {
 
-            if(model.getImageurl() != null && !model.getImageurl().trim().isEmpty()) {
+            if(model.getImageurl() != null && !model.getImageurl().trim().isEmpty() && !model.getImageurl().equals("na")) {
                 Picasso.with(getContext())
                         .load(model.getImageurl())
+                        .fit()
+                        .into(imageView);
+            }else {
+                Picasso.with(getContext())
+                        .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                         .fit()
                         .into(imageView);
             }

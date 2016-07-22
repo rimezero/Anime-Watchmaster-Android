@@ -31,9 +31,14 @@ public class UpcomingInfo extends AppCompatActivity {
 
             ImageView imageView = (ImageView) findViewById(R.id.image);
 
-            if (anime.getImageurl() != null && !anime.getImageurl().trim().isEmpty()) {
+            if (anime.getImageurl() != null && !anime.getImageurl().trim().isEmpty() && !anime.getImageurl().equals("na")) {
                 Picasso.with(getApplicationContext())
                         .load(anime.getImageurl())
+                        .fit()
+                        .into(imageView);
+            }else{
+                Picasso.with(getApplicationContext())
+                        .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                         .fit()
                         .into(imageView);
             }

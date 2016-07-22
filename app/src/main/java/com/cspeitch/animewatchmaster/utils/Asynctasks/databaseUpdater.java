@@ -80,13 +80,13 @@ public class databaseUpdater extends AsyncTask<String,Void,Void> {
 
 
                             if (!dbinstance.checkIfExistsInAnimeInfo(job.getString("title"))) {
-                                boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                boolean s = dbinstance.insertIntoAnimeinfo(job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"),job.getString("annimgurl"));
                                 id = dbinstance.getAnimeID(job.getString("title"));
                                 s = dbinstance.insertIntoAnimelinks(id,job.getString("frlink"),job.getString("ultimalink"),job.getString("MALlink"));
                                 //System.out.println(s);
                             } else {
                                 id = dbinstance.getAnimeID(job.getString("title"));
-                                boolean s = dbinstance.updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"));
+                                boolean s = dbinstance.updateAnimeinfo(id, job.getString("title"), job.getString("imgurl"), job.getString("genre"), job.getString("episodes"), job.getString("animetype"), job.getString("agerating"), job.getString("description"),job.getString("annimgurl"));
                                 if(dbinstance.checkIfExistsInAnimelinks(id)) {
                                     s = dbinstance.updateAnimelinks(id, job.getString("frlink"), job.getString("ultimalink"),job.getString("MALlink"));
                                 }else{

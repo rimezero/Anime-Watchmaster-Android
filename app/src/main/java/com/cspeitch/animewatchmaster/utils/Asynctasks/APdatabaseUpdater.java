@@ -79,9 +79,9 @@ public class APdatabaseUpdater extends AsyncTask<String,Void,String> {
 
                             int animeinfo_id = dbinstance.getAnimeID(job.getString("frtitle"));
                             if (!dbinstance.checkIfExistsInAPAnimeInfo(job.getString("title"))) {
-                                boolean s = dbinstance.insertIntoAPAnimeinfo(animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"));
+                                boolean s = dbinstance.insertIntoAPAnimeinfo(animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("annimgurl"));
                             }else{
-                                boolean s = dbinstance.updateAPAnimeinfo(dbinstance.getAPAnimeID(job.getString("title")),animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"));
+                                boolean s = dbinstance.updateAPAnimeinfo(dbinstance.getAPAnimeID(job.getString("title")),animeinfo_id,job.getString("title"),job.getString("season"),job.getString("imgurl"),job.getString("genre"),job.getString("animetype"),job.getString("description"),job.getDouble("rating"),job.getString("annimgurl"));
                             }
                         }
 
