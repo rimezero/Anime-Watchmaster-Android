@@ -2,8 +2,8 @@
     <string name="app_name">Anime Watchmaster</string>
     <string name="action_settings">Settings</string>
 
-    <string name="base_db_url">213.16.145.43</string>
-    <string name="app_logo_url">213.16.145.43/applogo.png</string>
+    <string name="base_db_url">http://213.16.145.43</string>
+    <string name="app_logo_url">http://213.16.145.43/applogo.png</string>
     <string name="app_link">https://fb.me/266500817058684</string>
 
     <string name="facebook_app_id">266465377062228</string>

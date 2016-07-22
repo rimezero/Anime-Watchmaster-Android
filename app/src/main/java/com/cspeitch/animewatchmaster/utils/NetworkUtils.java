@@ -40,7 +40,7 @@ public class NetworkUtils {
 
             try {
 
-                HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("213.16.145.43").openConnection());
+                HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://213.16.145.43").openConnection());
                 httpURLConnection.setRequestProperty("User-Agent","Test");
                 httpURLConnection.setRequestProperty("Connection","close");
                 httpURLConnection.setConnectTimeout(2500);
