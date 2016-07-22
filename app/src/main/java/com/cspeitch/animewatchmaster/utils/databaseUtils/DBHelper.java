@@ -132,11 +132,11 @@ public class DBHelper extends SQLiteOpenHelper {
         );
         db.execSQL(
                 "create table if not exists "+TABLE_ANIMEINFO+
-                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMEINFO_COLUMN_TITLE +" text, "+ ANIMEINFO_COLUMN_IMGURL +" text, "+ ANIMEINFO_COLUMN_GENRE +" text, "+ ANIMEINFO_COLUMN_EPISODES +" text, "+ ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ ANIMEINFO_COLUMN_AGERATING +" text, "+ ANIMEINFO_COLUMN_DESCRIPTION +" text)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ ANIMEINFO_COLUMN_TITLE +" text, "+ ANIMEINFO_COLUMN_IMGURL +" text, "+ ANIMEINFO_COLUMN_GENRE +" text, "+ ANIMEINFO_COLUMN_EPISODES +" text, "+ ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ ANIMEINFO_COLUMN_AGERATING +" text, "+ ANIMEINFO_COLUMN_DESCRIPTION +" text, "+ ANIMEINFO_COLUMN_ANNIMGURL +" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_AP_ANIMEINFO+
-                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ AP_ANIMEINFO_COLUMN_ANIMEINFOID +" integer, "+ AP_ANIMEINFO_COLUMN_TITLE +" text, "+ AP_ANIMEINFO_COLUMN_SEASON +" text, "+ AP_ANIMEINFO_COLUMN_IMGURL +" text, "+ AP_ANIMEINFO_COLUMN_GENRE +" text, "+ AP_ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ AP_ANIMEINFO_COLUMN_DESCRIPTION +" text, "+ AP_ANIMEINFO_COLUMN_RATING +" real)"
+                        "("+ GENERAL_COLUMN_ID +" integer primary key, "+ AP_ANIMEINFO_COLUMN_ANIMEINFOID +" integer, "+ AP_ANIMEINFO_COLUMN_TITLE +" text, "+ AP_ANIMEINFO_COLUMN_SEASON +" text, "+ AP_ANIMEINFO_COLUMN_IMGURL +" text, "+ AP_ANIMEINFO_COLUMN_GENRE +" text, "+ AP_ANIMEINFO_COLUMN_ANIMETYPE +" text, "+ AP_ANIMEINFO_COLUMN_DESCRIPTION +" text, "+ AP_ANIMEINFO_COLUMN_RATING +" real, "+ AP_ANIMEINFO_COLUMN_ANNIMGURL +" text)"
         );
         db.execSQL(
                 "create table if not exists "+TABLE_WATCHLIST+
