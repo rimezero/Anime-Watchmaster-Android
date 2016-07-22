@@ -592,7 +592,7 @@ public class DBHelper extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getWritableDatabase();
 
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", W." + WATCHLIST_COLUMN_EPISODESWATCHED + ", W." + WATCHLIST_COLUMN_CURRENTEPISODE + ", W." + WATCHLIST_COLUMN_LASTUPDATED + " from " + TABLE_WATCHLIST + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", W." + WATCHLIST_COLUMN_EPISODESWATCHED + ", W." + WATCHLIST_COLUMN_CURRENTEPISODE + ", W." + WATCHLIST_COLUMN_LASTUPDATED + " from " + TABLE_WATCHLIST + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -601,7 +601,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     WatchListModel watchListModel = new WatchListModel();
                     watchListModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchListModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchListModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                    watchListModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                     watchListModel.setCurrentEpisode(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_CURRENTEPISODE)));
                     watchListModel.setEpisodeswatched(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_EPISODESWATCHED)));
                     watchListModel.setLastupdated(c.getString(c.getColumnIndex(WATCHLIST_COLUMN_LASTUPDATED)));
@@ -626,7 +626,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -636,7 +636,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                     watchlaterlistModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                     watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                     models.add(watchlaterlistModel);
@@ -659,7 +659,7 @@ public class DBHelper extends SQLiteOpenHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -669,7 +669,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
                     watchedmodel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchedmodel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchedmodel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                    watchedmodel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                     watchedmodel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                     models.add(watchedmodel);
