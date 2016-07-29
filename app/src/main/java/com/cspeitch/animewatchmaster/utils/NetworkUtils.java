@@ -40,7 +40,7 @@ public class NetworkUtils {
 
             try {
 
-                HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://213.16.145.43").openConnection());
+                HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://ec2-52-29-100-224.eu-central-1.compute.amazonaws.com/").openConnection());
                 httpURLConnection.setRequestProperty("User-Agent","Test");
                 httpURLConnection.setRequestProperty("Connection","close");
                 httpURLConnection.setConnectTimeout(2500);
