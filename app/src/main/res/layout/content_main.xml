@@ -134,11 +134,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:text="Upcoming anime"
+                android:text=""
                 android:textColor="#FFF"
                 android:textSize="16sp"
                 android:layout_gravity="center"
                 android:gravity="center"
+                android:id="@+id/upcominganime"
                 />
 
             <org.lucasr.twowayview.TwoWayView
@@ -190,6 +191,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Anime by season"
+                android:textColor="#FFF"
+                android:textSize="16sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/chapter"
+            android:onClick="upcomingList"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Upcoming anime"
                 android:textColor="#FFF"
                 android:textSize="16sp"
                 android:layout_gravity="center"

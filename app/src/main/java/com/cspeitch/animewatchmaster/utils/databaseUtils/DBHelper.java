@@ -514,15 +514,18 @@ public class DBHelper extends SQLiteOpenHelper {
         List<SeasonModel> seasonData = new ArrayList<>();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_RATING};
+            final String[] columns = new String[]{"ap."+AP_ANIMEINFO_COLUMN_ANIMEINFOID, "ap."+AP_ANIMEINFO_COLUMN_TITLE, "info."+ANIMEINFO_COLUMN_ANNIMGURL, "ap."+AP_ANIMEINFO_COLUMN_ANIMETYPE, "ap."+AP_ANIMEINFO_COLUMN_RATING};
+            final String[] upccolumns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_RATING};
             String whereCluse = AP_ANIMEINFO_COLUMN_SEASON + "=?";
             Cursor res;
             if (season == null) {
-                res = db.query(TABLE_AP_ANIMEINFO, columns, null, null, null, null, null);
+                res = db.query(TABLE_AP_ANIMEINFO+" ap inner join "+TABLE_ANIMEINFO+ " info on ap."+AP_ANIMEINFO_COLUMN_ANIMEINFOID+"=info."+GENERAL_COLUMN_ID, columns, null, null, null, null, null);
             } else {
-                if (season.equals("Upcoming"))
+                if (season.equals("Upcoming")) {
                     crossCheck = false;
-                res = db.query(TABLE_AP_ANIMEINFO, columns, whereCluse, new String[]{season}, null, null, null);
+                    res = db.query(TABLE_AP_ANIMEINFO,upccolumns, whereCluse, new String[]{season}, null, null, null);
+                }else
+                    res = db.query(TABLE_AP_ANIMEINFO+" ap inner join "+TABLE_ANIMEINFO+ " info on ap."+AP_ANIMEINFO_COLUMN_ANIMEINFOID+"=info."+GENERAL_COLUMN_ID, columns, whereCluse, new String[]{season}, null, null, null);
             }
 
             while (res.moveToNext()) {
@@ -531,7 +534,7 @@ public class DBHelper extends SQLiteOpenHelper {
                         SeasonModel model = new SeasonModel();
                         model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                         model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                        model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANNIMGURL)));
+                        model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                         model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                         model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
                         seasonData.add(model);
@@ -540,7 +543,7 @@ public class DBHelper extends SQLiteOpenHelper {
                     SeasonModel model = new SeasonModel();
                     model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                     model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                    model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANNIMGURL)));
+                    model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                     model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                     model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
                     seasonData.add(model);
@@ -577,12 +580,37 @@ public class DBHelper extends SQLiteOpenHelper {
             }
         }catch (SQLException e){
             e.printStackTrace();
-            Log.e("DBHelper - getSsonData","SQLexception: "+e.toString());
+            Log.e("DBHelper - getUpcAnime","SQLexception: "+e.toString());
         }
 
         return seasonData;
 
 
+    }
+
+    public UpcomingAnime getUpcomingAnime(int id){
+        UpcomingAnime anime = new UpcomingAnime();
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
+            String whereCluse = GENERAL_COLUMN_ID + "=?";
+            Cursor res;
+
+            res = db.query(TABLE_AP_ANIMEINFO, columns, whereCluse, new String[]{String.valueOf(id)}, null, null, null);
+
+            while (res.moveToNext()) {
+                anime.setId(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
+                anime.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
+                anime.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANNIMGURL)));
+                anime.setType(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
+                anime.setDesc(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_DESCRIPTION)));
+                anime.setGenres(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_GENRE)));
+            }
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e("DBHelper - getUpcAnime","SQLexception: "+e.toString());
+        }
+        return anime;
     }
 
     public List<WatchListModel> getWatchlistData() {
@@ -797,7 +825,7 @@ public class DBHelper extends SQLiteOpenHelper {
         Anime anime = new Anime();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            String projection[] = {GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_IMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION};
+            String projection[] = {GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_ANNIMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION};
             Cursor res = db.query(TABLE_ANIMEINFO, projection, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
             if (res.moveToFirst()) {
@@ -984,12 +1012,12 @@ public class DBHelper extends SQLiteOpenHelper {
                 whereArgs[i] = "%" + animegenres.nextToken() + "%";
             }
 
-            Cursor res = db.query(TABLE_ANIMEINFO, new String[]{GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_IMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION}, whereClause.toString(), whereArgs, null, null, null);
+            Cursor res = db.query(TABLE_ANIMEINFO, new String[]{GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_ANNIMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION}, whereClause.toString(), whereArgs, null, null, null);
             while (res.moveToNext()) {
                 Anime newAnime = new Anime();
                 newAnime.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
                 newAnime.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
+                newAnime.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
                 newAnime.setGenre(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
                 newAnime.setEpisodes(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_EPISODES)));
                 newAnime.setAnimetype(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANIMETYPE)));

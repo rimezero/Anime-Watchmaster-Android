@@ -19,17 +19,17 @@ import me.grantland.widget.AutofitTextView;
 /**
  * Created by abraham on 6/7/2016.
  */
-public class UpcomingHorAdapter extends ArrayAdapter<UpcomingAnime> {
+public class UpcomingHorAdapter extends ArrayAdapter<SeasonModel> {
 
 
-    public UpcomingHorAdapter(Context context,List<UpcomingAnime> models) {
+    public UpcomingHorAdapter(Context context,List<SeasonModel> models) {
         super(context,0,models);
     }
 
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final UpcomingAnime model = getItem(position);
+        final SeasonModel model = getItem(position);
 
         if(convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_anime_hot_row,parent,false);
@@ -39,9 +39,9 @@ public class UpcomingHorAdapter extends ArrayAdapter<UpcomingAnime> {
 
         try {
 
-            if(model.getImageurl() != null && !model.getImageurl().trim().isEmpty() && !model.getImageurl().equals("na")) {
+            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na")) {
                 Picasso.with(getContext())
-                        .load(model.getImageurl())
+                        .load(model.getImgurl())
                         .fit()
                         .into(imageView);
             }else {

@@ -11,6 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cspeitch.animewatchmaster.activities.UpcomingHorAdapter;
@@ -21,6 +22,7 @@ import com.cspeitch.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.cspeitch.animewatchmaster.activities.share.ShareActivity;
 import com.cspeitch.animewatchmaster.activities.topanime.TopAnimeActivity;
 import com.cspeitch.animewatchmaster.activities.upcoming.UpcomingActivity;
+import com.cspeitch.animewatchmaster.activities.upcoming.UpcomingAdapter;
 import com.cspeitch.animewatchmaster.activities.upcoming.UpcomingInfo;
 import com.cspeitch.animewatchmaster.activities.watched.WatchedAnime;
 import com.cspeitch.animewatchmaster.activities.watchlater.AnimeWatchLater;
@@ -82,23 +84,30 @@ public class MainActivity extends AppCompatActivity {
         }).start();
 
 
+        TextView upcominganimetxt = (TextView)findViewById(R.id.upcominganime);
+        upcominganimetxt.setText(DBHelper.getInstance(getApplicationContext()).getCurrentSeason()+ " anime");
         TwoWayView upcominghorlist = (TwoWayView)findViewById(R.id.horupcoming);
-        // List<SeasonModel> seasonModels = DBHelper.getInstance(getApplicationContext()).getSeasonData(false, "Upcoming");
-        final List<UpcomingAnime> upcomingAnimeList = DBHelper.getInstance(getApplicationContext()).getUpcomingAnime();
+        final List<SeasonModel> seasonModels = DBHelper.getInstance(getApplicationContext()).getSeasonData(true, DBHelper.getInstance(getApplicationContext()).getCurrentSeason());
+        //final List<UpcomingAnime> upcomingAnimeList = DBHelper.getInstance(getApplicationContext()).getUpcomingAnime();
 
 
-        if(upcomingAnimeList != null && !upcomingAnimeList.isEmpty()) {
-            UpcomingHorAdapter upcomingAdapter = new UpcomingHorAdapter(getApplicationContext(), upcomingAnimeList);
+        if(seasonModels != null && !seasonModels.isEmpty()) {
+            UpcomingHorAdapter upcomingAdapter = new UpcomingHorAdapter(getApplicationContext(), seasonModels);
             upcominghorlist.setAdapter(upcomingAdapter);
 
             upcominghorlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     //startActivity(new Intent(MainActivity.this, UpcomingActivity.class));
-                    UpcomingAnime upcomingAnime = (UpcomingAnime)parent.getItemAtPosition(position);
-                    Intent intent = new Intent(getApplicationContext(), UpcomingInfo.class);
-                    intent.putExtra("anime",upcomingAnime);
-                    startActivity(intent);
+                    SeasonModel model = (SeasonModel)parent.getItemAtPosition(position);
+
+
+                    Anime anime = DBHelper.getInstance(getApplicationContext()).getAnimeInfo(model.getAnimeinfo_id());
+
+                    Intent intent = new Intent(getApplicationContext(), AnimeInfo.class);
+                    intent.putExtra("anime", anime);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    getApplicationContext().startActivity(intent);
                 }
             });
 
@@ -252,6 +261,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void upcoming(View v) {
+        tempDisableView(v,500);
+        startActivity(new Intent(this, SeasonsMainActivity.class));
+    }
+
+    public void upcomingList(View v) {
         tempDisableView(v,500);
         startActivity(new Intent(this, UpcomingActivity.class));
     }
