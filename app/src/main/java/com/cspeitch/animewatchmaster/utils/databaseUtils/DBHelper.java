@@ -28,11 +28,11 @@ import java.util.StringTokenizer;
 /**
  * Created by admin on 4/11/2016.
  */
-public class DBHelper extends SQLiteOpenHelper {
+public class DBHelper extends SQLiteAssetHelper {
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 1;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //genaral
@@ -122,7 +122,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
 
-
+    /*
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
@@ -179,21 +179,21 @@ public class DBHelper extends SQLiteOpenHelper {
         contentValues = new ContentValues();
         contentValues.put(AP_CURRENTSEASON_COLUMN_SEASON,"na");
         db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
-    }
+    }*/
 
     //kanw drop ta pada gia testing
-
+    /*
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // TODO Auto-generated method stub
-        /*
+
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMELINKS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_ANIMEINFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLIST);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHLATER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HOTANIME);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VERSION);
-        onCreate(db);*/
+        onCreate(db);
 
         switch (oldVersion){
             case 1:
@@ -244,10 +244,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 db.insert(TABLE_AP_CURRENTSEASON, null, contentValues);
             default:
                 //you know ;p
-            */
+
         }
 
-    }
+    }*/
 
     /*
     @Override
