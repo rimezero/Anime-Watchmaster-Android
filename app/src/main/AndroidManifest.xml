@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cspeitch.animewatchmaster">
+    package="com.peitch.animewatchmaster">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -26,7 +26,7 @@
             android:exported="true" />
 
         <activity
-            android:name="com.cspeitch.animewatchmaster.MainActivity"
+            android:name="com.peitch.animewatchmaster.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
 
@@ -44,7 +44,7 @@
 
         </activity>
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.animebyletter.ActivityLetters"
+        <activity android:name="com.peitch.animewatchmaster.activities.animebyletter.ActivityLetters"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="anime by letter">
             <intent-filter>
@@ -54,7 +54,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.animeinfo.AnimeInfo"
+        <activity android:name="com.peitch.animewatchmaster.activities.animeinfo.AnimeInfo"
             android:label="anime info">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -63,7 +63,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.animebyletter.AnimesByLetter"
+        <activity android:name="com.peitch.animewatchmaster.activities.animebyletter.AnimesByLetter"
             android:theme="@style/AppTheme.NoActionBar"
             android:label="anime by letter">
             <intent-filter>
@@ -73,7 +73,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.watchlist.WatchList"
+        <activity android:name="com.peitch.animewatchmaster.activities.watchlist.WatchList"
             android:windowSoftInputMode="adjustPan"
             android:label="my watchlist">
             <intent-filter>
@@ -82,7 +82,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.watchlater.AnimeWatchLater"
+        <activity android:name="com.peitch.animewatchmaster.activities.watchlater.AnimeWatchLater"
             android:label="watch later">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -90,7 +90,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.watched.WatchedAnime"
+        <activity android:name="com.peitch.animewatchmaster.activities.watched.WatchedAnime"
             android:label="watched">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -99,7 +99,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.topanime.TopAnimeActivity"
+        <activity android:name="com.peitch.animewatchmaster.activities.topanime.TopAnimeActivity"
             android:label="top anime">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -108,7 +108,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.upcoming.UpcomingActivity"
+        <activity android:name="com.peitch.animewatchmaster.activities.upcoming.UpcomingActivity"
             android:label="upcoming anime">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -117,7 +117,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.seasons.SeasonsMainActivity"
+        <activity android:name="com.peitch.animewatchmaster.activities.seasons.SeasonsMainActivity"
             android:label="seasons">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -126,7 +126,7 @@
         </activity>
 
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.share.ShareActivity"
+        <activity android:name="com.peitch.animewatchmaster.activities.share.ShareActivity"
             android:label="share">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -134,7 +134,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cspeitch.animewatchmaster.activities.upcoming.UpcomingInfo"
+        <activity android:name="com.peitch.animewatchmaster.activities.upcoming.UpcomingInfo"
             android:label="upcoming info">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
