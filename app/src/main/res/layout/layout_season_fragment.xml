@@ -4,13 +4,13 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <GridView
+    <com.twotoasters.jazzylistview.JazzyGridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/listview"
         android:numColumns="2"
         >
 
-    </GridView>
+    </com.twotoasters.jazzylistview.JazzyGridView>
 
 </LinearLayout>
