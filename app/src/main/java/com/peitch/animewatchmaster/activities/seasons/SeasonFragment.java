@@ -10,6 +10,8 @@ import android.widget.GridView;
 import com.peitch.animewatchmaster.R;
 import com.peitch.animewatchmaster.model.SeasonModel;
 import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
+import com.twotoasters.jazzylistview.JazzyGridView;
+import com.twotoasters.jazzylistview.effects.SlideInEffect;
 
 import java.util.List;
 
@@ -41,7 +43,8 @@ public class SeasonFragment extends Fragment {
         DBHelper dbHelper = DBHelper.getInstance(getContext());
         List<SeasonModel> models = dbHelper.getSeasonData(true,season);
 
-        GridView gridView = (GridView)view.findViewById(R.id.listview);
+        JazzyGridView gridView = (JazzyGridView)view.findViewById(R.id.listview);
+        gridView.setTransitionEffect(new SlideInEffect());
         loadGridView(models,-1,gridView);
 
         return view;

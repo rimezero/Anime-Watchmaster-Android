@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,12 +21,9 @@ import com.peitch.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.peitch.animewatchmaster.utils.Utils;
 import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.StringTokenizer;
 
 import me.grantland.widget.AutofitTextView;
@@ -39,11 +35,11 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
 
     //stro getView to target tou picasso krataei adinami anafora kai arketes anafores sto target xanontai kai oi eikones den fortonontai pote
     //kai mia lisi ta pernaw edo
-    private Map<Integer,Target> strongReferences;
+    //private Map<Integer,Target> strongReferences;
 
     public SeasonDataAdapter(Context context,List<SeasonModel> models) {
         super(context,0,models);
-        strongReferences = new HashMap<>();
+       //strongReferences = new HashMap<>();
     }
 
 
@@ -59,6 +55,7 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
 
         final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
+        /*
         Target target = new Target() {
             @Override
             public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
@@ -78,17 +75,20 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
         };
 
         strongReferences.put(model.getAnimeinfo_id(),target);
+        */
 
 
-        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && Utils.imgflag) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && !Utils.imgflag) {
 
             Picasso.with(getContext())
                     .load(model.getImgurl())
-                    .into(target);
+                    .fit()
+                    .into(imageView);
         }  else {
             Picasso.with(getContext())
                     .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
-                    .into(target);
+                    .fit()
+                    .into(imageView);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {
