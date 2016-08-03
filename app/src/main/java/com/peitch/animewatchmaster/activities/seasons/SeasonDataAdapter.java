@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,9 +22,12 @@ import com.peitch.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.peitch.animewatchmaster.utils.Utils;
 import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import me.grantland.widget.AutofitTextView;
@@ -33,9 +37,13 @@ import me.grantland.widget.AutofitTextView;
  */
 public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
 
+    //stro getView to target tou picasso krataei adinami anafora kai arketes anafores sto target xanontai kai oi eikones den fortonontai pote
+    //kai mia lisi ta pernaw edo
+    private Map<Integer,Target> strongReferences;
 
     public SeasonDataAdapter(Context context,List<SeasonModel> models) {
         super(context,0,models);
+        strongReferences = new HashMap<>();
     }
 
 
@@ -49,18 +57,38 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.layout_season_vert_row,parent,false);
         }
 
-        ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
+        final ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && Utils.imgflag) {
+        Target target = new Target() {
+            @Override
+            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                imageView.setImageBitmap(bitmap);
+                strongReferences.remove(model.getAnimeinfo_id());
+            }
+
+            @Override
+            public void onBitmapFailed(Drawable errorDrawable) {
+
+            }
+
+            @Override
+            public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+            }
+        };
+
+        strongReferences.put(model.getAnimeinfo_id(),target);
+
+
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && !Utils.imgflag) {
+
             Picasso.with(getContext())
                     .load(model.getImgurl())
-                    .fit()
-                    .into(imageView);
+                    .into(target);
         }  else {
             Picasso.with(getContext())
                     .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
-                    .fit()
-                    .into(imageView);
+                    .into(target);
         }
 
         imageView.setOnClickListener(new View.OnClickListener() {

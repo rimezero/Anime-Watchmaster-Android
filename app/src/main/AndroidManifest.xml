@@ -41,7 +41,14 @@
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="com.evolsoft.animewatchmaster" />
             </intent-filter>
+        </activity>
 
+        <activity android:name=".activities.seasons.SeasonMainFragment"
+            android:label="seasons">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
         <activity android:name="com.peitch.animewatchmaster.activities.animebyletter.ActivityLetters"

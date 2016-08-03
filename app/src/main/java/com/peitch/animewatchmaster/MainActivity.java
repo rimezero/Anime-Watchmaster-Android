@@ -17,6 +17,7 @@ import com.peitch.animewatchmaster.activities.UpcomingHorAdapter;
 import com.peitch.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.peitch.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.peitch.animewatchmaster.activities.hotanime.AnimeHotAdapter;
+import com.peitch.animewatchmaster.activities.seasons.SeasonMainFragment;
 import com.peitch.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.peitch.animewatchmaster.activities.share.ShareActivity;
 import com.peitch.animewatchmaster.activities.topanime.TopAnimeActivity;
@@ -264,7 +265,9 @@ public class MainActivity extends AppCompatActivity {
 
     public void season(View v) {
         tempDisableView(v,500);
-        startActivity(new Intent(this, SeasonsMainActivity.class));
+
+        //startActivity(new Intent(this, SeasonsMainActivity.class));
+        startActivity(new Intent(this, SeasonMainFragment.class));
     }
 
     public void upcoming(View v) {
