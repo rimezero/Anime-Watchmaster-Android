@@ -120,12 +120,10 @@ public class AnimeInfo extends AppCompatActivity {
                 if(anime.getImgurl() != null && !anime.getImgurl().trim().isEmpty() && Utils.imgflag) {
                     Picasso.with(getApplicationContext())
                             .load(anime.getImgurl())
-                            .fit()
                             .into(imageView);
                 }  else {
                     Picasso.with(getApplicationContext())
                             .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
-                            .fit()
                             .into(imageView);
                 }
 
