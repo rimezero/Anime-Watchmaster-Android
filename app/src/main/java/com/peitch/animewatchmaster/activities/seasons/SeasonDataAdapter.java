@@ -80,7 +80,7 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
         strongReferences.put(model.getAnimeinfo_id(),target);
 
 
-        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && !Utils.imgflag) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && Utils.imgflag) {
 
             Picasso.with(getContext())
                     .load(model.getImgurl())
