@@ -10,6 +10,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -29,6 +30,8 @@ import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.facebook.appevents.AppEventsLogger;
 import com.twotoasters.jazzylistview.JazzyGridView;
 import com.twotoasters.jazzylistview.effects.SlideInEffect;
+
+import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
 import java.util.List;
