@@ -196,6 +196,10 @@ public class AnimesByLetter extends AppCompatActivity {
             }
         });
 
+        ImageView imageView = (ImageView)findViewById(R.id.imagebtnswitch);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_white_24dp);
+        imageView.setImageBitmap(bitmap);
+
     }
 
 

@@ -13,12 +13,15 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.github.clans.fab.FloatingActionButton;
+import com.github.clans.fab.FloatingActionMenu;
 import com.peitch.animewatchmaster.activities.UpcomingHorAdapter;
 import com.peitch.animewatchmaster.activities.animebyletter.ActivityLetters;
 import com.peitch.animewatchmaster.activities.animeinfo.AnimeInfo;
 import com.peitch.animewatchmaster.activities.hotanime.AnimeHotAdapter;
 import com.peitch.animewatchmaster.activities.seasons.SeasonMainFragment;
-import com.peitch.animewatchmaster.activities.seasons.SeasonsMainActivity;
 import com.peitch.animewatchmaster.activities.share.ShareActivity;
 import com.peitch.animewatchmaster.activities.topanime.TopAnimeActivity;
 import com.peitch.animewatchmaster.activities.upcoming.UpcomingActivity;
@@ -35,10 +38,6 @@ import com.peitch.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.peitch.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
 import com.peitch.animewatchmaster.utils.Asynctasks.imgflagUpdater;
 import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.github.clans.fab.FloatingActionButton;
-import com.github.clans.fab.FloatingActionMenu;
 
 import org.lucasr.twowayview.TwoWayView;
 
@@ -264,15 +263,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void season(View v) {
-        tempDisableView(v,500);
-
+        tempDisableView(v,1000);
         //startActivity(new Intent(this, SeasonsMainActivity.class));
         startActivity(new Intent(this, SeasonMainFragment.class));
     }
 
     public void upcoming(View v) {
-        tempDisableView(v,500);
-        startActivity(new Intent(this, SeasonsMainActivity.class));
+        //tempDisableView(v,500);
+        //startActivity(new Intent(this, SeasonsMainActivity.class));
     }
 
     public void upcomingList(View v) {

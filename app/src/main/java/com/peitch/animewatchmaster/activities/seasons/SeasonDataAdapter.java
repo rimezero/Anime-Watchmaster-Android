@@ -78,7 +78,7 @@ public class SeasonDataAdapter extends ArrayAdapter<SeasonModel> {
         */
 
 
-        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && !Utils.imgflag) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && Utils.imgflag) {
 
             Picasso.with(getContext())
                     .load(model.getImgurl())

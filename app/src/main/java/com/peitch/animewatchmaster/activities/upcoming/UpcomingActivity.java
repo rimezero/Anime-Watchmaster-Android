@@ -39,6 +39,10 @@ public class UpcomingActivity extends AppCompatActivity {
 
             loadGridView(seasonModels,-1);
 
+            ImageView imageView = (ImageView)findViewById(R.id.imagebtnswitch);
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_list_black_24dp);
+            imageView.setImageBitmap(bitmap);
+
         } else {
             finish();
         }

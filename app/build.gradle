@@ -40,13 +40,12 @@ dependencies {
     compile 'com.facebook.android:facebook-android-sdk:4.+'
     compile 'me.grantland:autofittextview:0.2.1'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
-    compile 'com.twotoasters.jazzylistview:library:1.2.1'
-    compile 'com.twotoasters.jazzylistview:library-recyclerview:1.2.1'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.1.16'
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
     compile 'com.github.Hitta:RippleEffect:82cf00e551'
     compile 'com.github.dmytrodanylyk.circular-progress-button:library:1.1.3'
     compile 'com.github.clans:fab:1.6.4'
     compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
-
+    compile project(':library')
+    compile project(':library-recyclerview')
 }

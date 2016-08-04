@@ -38,6 +38,7 @@ public class SeasonMainFragment extends MainFragment {
                 seasonModelsList = dbHelper.getSeasonData(true,seasonsSortModel.get(1).toString());
             }
 
+
             if(seasonModelsList != null && !seasonModelsList.isEmpty()) {
 
                 ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
