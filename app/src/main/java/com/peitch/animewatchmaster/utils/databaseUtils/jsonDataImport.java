@@ -66,6 +66,14 @@ public class jsonDataImport {
         return getData(base_db_url+"/animedraw/drawclasses/drawanimultimabyversion.php",version);
     }
 
+    public static JSONObject getVData(String base_db_url){
+        return getVData2(base_db_url+"/animedraw/drawclasses/drawversion.php");
+    }
+
+    public static JSONObject getTOPVData(String base_db_url){
+        return getVData2(base_db_url+"/animedraw/drawclasses/drawMALtopanimeversion.php");
+    }
+
     private static JSONArray getData(String db_url, int version){
         final String TAG = CLASS_TAG+"getData";
         JSONArray jarr =  new JSONArray();
@@ -150,10 +158,9 @@ public class jsonDataImport {
         return result;
     }
 
-    public static JSONObject getVData(String db_url){
+    private static JSONObject getVData2(String db_url){
         final String TAG = CLASS_TAG+"getVData";
         JSONObject job=null;
-        db_url+="/animedraw/drawclasses/drawversion.php";
         try {
 
             JSONObject obj = new JSONObject();

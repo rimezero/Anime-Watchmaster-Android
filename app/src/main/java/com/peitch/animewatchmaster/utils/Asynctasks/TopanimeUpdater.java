@@ -37,38 +37,56 @@ public class TopanimeUpdater extends AsyncTask<String,Void,Void> {
         }
 
         DBHelper dbinstance = DBHelper.getInstance(mainContext);
+        JSONObject versionjob = jsonDataImport.getTOPVData(databaseurl[0]);
 
-        JSONArray jarr = jsonDataImport.getMALtopanimeData(mainContext.getString(R.string.base_db_url));
-
-        if(jarr.length()==0){
-            Log.i("TopanimeUpdater","Empty array");
-            return null;
-        }
-
-        int spot = 1;
-        final int topAnimeNumber = dbinstance.getNumberOfAnime(6);
-        for(int i=0; i<jarr.length(); i++){
+        if(versionjob != null) {
+            int localversion = dbinstance.getTOPVersion();
+            int onlineversion = -1;
             try {
-                JSONObject job = jarr.getJSONObject(i);
-                int id = dbinstance.getAnimeID(job.getString("title"));
-                if(id!=-1) {
-                    if (spot<=topAnimeNumber) {
-                        dbinstance.updateMALtopanime(spot, id, job.getDouble("score"));
-                    } else {
-                        dbinstance.insertIntoMALtopanime(id, spot, job.getDouble("score"));
-                    }
-                    spot++;
-                }else{
-                    Log.i("TopanimeUpdater","Cannot find id for anime with title: "+job.getString("title"));
-                }
+                onlineversion = versionjob.getInt("TOPversion");
             } catch (JSONException e) {
+                Log.e("APdbupdater - bkground", "Cannot read version from json object");
                 e.printStackTrace();
-                Log.e("TopanimeUpdater","Json exception in loop");
             }
+            Log.d("TOPupdater - bkground", "local version: " + localversion + " online version: " + onlineversion);
+            JSONArray jarr = new JSONArray();
 
+            if (onlineversion > localversion) {
+                jarr = jsonDataImport.getMALtopanimeData(mainContext.getString(R.string.base_db_url));
+                if (jarr.length() == 0) {
+                    Log.i("TopanimeUpdater", "Empty array");
+                    return null;
+                }
+
+                int spot = 1;
+                final int topAnimeNumber = dbinstance.getNumberOfAnime(6);
+                for (int i = 0; i < jarr.length(); i++) {
+                    try {
+                        JSONObject job = jarr.getJSONObject(i);
+                        int id = dbinstance.getAnimeID(job.getString("title"));
+                        if (id != -1) {
+                            if (spot <= topAnimeNumber) {
+                                dbinstance.updateMALtopanime(spot, id, job.getDouble("score"));
+                            } else {
+                                dbinstance.insertIntoMALtopanime(id, spot, job.getDouble("score"));
+                            }
+                            spot++;
+                        } else {
+                            Log.i("TopanimeUpdater", "Cannot find id for anime with title: " + job.getString("title"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Log.e("TopanimeUpdater", "Json exception in loop");
+                    }
+
+                }
+                dbinstance.deleteMALtopanimeAfterSpot(--spot);
+
+                dbinstance.updateTOPVersion(onlineversion);
+            }else {
+                Log.i("TOPupdater - backgrnd", "Up to date update not needed");
+            }
         }
-
-        dbinstance.deleteMALtopanimeAfterSpot(--spot);
 
         //testing on create
         /*

@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteAssetHelper {
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
     private static final String CLASS_TAG = "DBHelper - ";
 
     //genaral
@@ -81,6 +81,9 @@ public class DBHelper extends SQLiteAssetHelper {
     //APversion
     private static final String AP_VERSION_COLUMN_VERSION = "version";
 
+    //TOPversion
+    private static final String TOP_VERSION_COLUMN_VERSION = "version";
+
     //tables
     private static final String TABLE_ANIMELINKS = "animelinks";
     private static final String TABLE_ANIMEINFO = "animeinfo";
@@ -92,6 +95,7 @@ public class DBHelper extends SQLiteAssetHelper {
     private static final String TABLE_MAL_TOPANIME = "MALtopanime";
     private static final String TABLE_VERSION = "version";
     private static final String TABLE_AP_VERSION = "APversion";
+    private static final String TABLE_TOP_VERSION = "TOPversion";
     private static final String TABLE_AP_CURRENTSEASON = "APcurrentseason";
 
     private static volatile DBHelper dbHelper;
@@ -799,6 +803,22 @@ public class DBHelper extends SQLiteAssetHelper {
         }catch (SQLException e){
             e.printStackTrace();
             Log.e(CLASS_TAG+"getAPversion","SQLexception: "+e.toString());
+        }
+        return version;
+    }
+
+    public int getTOPVersion(){
+        int version = -1;
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor res = db.rawQuery("select * from " + TABLE_TOP_VERSION, null);
+            if (res.moveToFirst()) {
+                version = res.getInt(res.getColumnIndex(TOP_VERSION_COLUMN_VERSION));
+            }
+            res.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e(CLASS_TAG+"getTOPVers","SQLexception: "+e.toString());
         }
         return version;
     }
@@ -1548,6 +1568,22 @@ public class DBHelper extends SQLiteAssetHelper {
             contentValues.put(TABLE_AP_VERSION, version);
             db.execSQL("update " + TABLE_AP_VERSION + " set " + AP_VERSION_COLUMN_VERSION + "=" + version);
             Log.d(TAG, "updated APversion to: " + version);
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e(TAG,"SQLexception: "+e.toString());
+            return false;
+        }
+    }
+
+    public boolean updateTOPVersion(int version) {
+        final String TAG = CLASS_TAG+"updTOPversion";
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TABLE_TOP_VERSION, version);
+            db.execSQL("update " + TABLE_TOP_VERSION + " set " + TOP_VERSION_COLUMN_VERSION + "=" + version);
+            Log.d(TAG, "updated TOPversion to: " + version);
             return true;
         }catch (SQLException e){
             e.printStackTrace();
