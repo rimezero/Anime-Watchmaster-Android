@@ -41,6 +41,7 @@ import java.util.TimerTask;
 /**
  * Created by abraham on 9/6/2016.
  */
+@SuppressWarnings("ResourceType")
 public class ActivityLetters extends AppCompatActivity {
 
 

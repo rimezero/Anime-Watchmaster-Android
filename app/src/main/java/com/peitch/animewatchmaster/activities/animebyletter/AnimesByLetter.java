@@ -41,6 +41,7 @@ import java.util.TimerTask;
 /**
  * Created by abraham on 10/6/2016.
  */
+@SuppressWarnings("ResourceType")
 public class AnimesByLetter extends AppCompatActivity {
 
     private DBHelper dbHelper;
