@@ -142,7 +142,7 @@ public class AnimeLetterAdapter extends ArrayAdapter<Anime> {
             */
 
 
-            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && Utils.imgflag) {
+            if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na") && Utils.imgflag) {
                 Picasso.with(getContext())
                         .load(model.getImgurl())
                         .fit()

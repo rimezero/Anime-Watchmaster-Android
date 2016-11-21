@@ -31,8 +31,9 @@ public class DBHelper extends SQLiteAssetHelper {
 
     //dbhelper
     public static final String DATABASE_NAME = "anime.db";
-    public static final int DATABASE_VERSION = 2;
+    public static final int DATABASE_VERSION = 3;
     private static final String CLASS_TAG = "DBHelper - ";
+    private static final boolean useAnnImages = false;
 
     //genaral
     private static final String GENERAL_COLUMN_ID = "id";
@@ -84,6 +85,9 @@ public class DBHelper extends SQLiteAssetHelper {
     //TOPversion
     private static final String TOP_VERSION_COLUMN_VERSION = "version";
 
+    //UPCversion
+    private static final String UPC_VERSION_COLUMN_VERSION = "version";
+
     //tables
     private static final String TABLE_ANIMELINKS = "animelinks";
     private static final String TABLE_ANIMEINFO = "animeinfo";
@@ -96,6 +100,7 @@ public class DBHelper extends SQLiteAssetHelper {
     private static final String TABLE_VERSION = "version";
     private static final String TABLE_AP_VERSION = "APversion";
     private static final String TABLE_TOP_VERSION = "TOPversion";
+    private static final String TABLE_UPC_VERSION = "UPCversion";
     private static final String TABLE_AP_CURRENTSEASON = "APcurrentseason";
 
     private static volatile DBHelper dbHelper;
@@ -517,8 +522,8 @@ public class DBHelper extends SQLiteAssetHelper {
         List<SeasonModel> seasonData = new ArrayList<>();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            final String[] columns = new String[]{"ap."+AP_ANIMEINFO_COLUMN_ANIMEINFOID, "ap."+AP_ANIMEINFO_COLUMN_TITLE, "info."+ANIMEINFO_COLUMN_ANNIMGURL, "ap."+AP_ANIMEINFO_COLUMN_ANIMETYPE, "ap."+AP_ANIMEINFO_COLUMN_RATING};
-            final String[] upccolumns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_RATING};
+            final String[] columns = new String[]{"ap."+AP_ANIMEINFO_COLUMN_ANIMEINFOID, "ap."+AP_ANIMEINFO_COLUMN_TITLE, "ap."+AP_ANIMEINFO_COLUMN_IMGURL, "info."+ANIMEINFO_COLUMN_ANNIMGURL, "ap."+AP_ANIMEINFO_COLUMN_ANIMETYPE, "ap."+AP_ANIMEINFO_COLUMN_RATING};
+            final String[] upccolumns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_IMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_RATING};
             String whereCluse = AP_ANIMEINFO_COLUMN_SEASON + "=?";
             Cursor res;
             if (season == null) {
@@ -537,7 +542,10 @@ public class DBHelper extends SQLiteAssetHelper {
                         SeasonModel model = new SeasonModel();
                         model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                         model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                        model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                        if(useAnnImages)
+                            model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                        else
+                            model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
                         model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                         model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
                         seasonData.add(model);
@@ -546,7 +554,10 @@ public class DBHelper extends SQLiteAssetHelper {
                     SeasonModel model = new SeasonModel();
                     model.setAnimeinfo_id(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                     model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                    model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    if(useAnnImages)
+                        model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    else
+                        model.setImgurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
                     model.setAnimetype(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                     model.setRating(res.getDouble(res.getColumnIndex(AP_ANIMEINFO_COLUMN_RATING)));
                     seasonData.add(model);
@@ -565,7 +576,7 @@ public class DBHelper extends SQLiteAssetHelper {
         List<UpcomingAnime> seasonData = new ArrayList<>();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
+            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_IMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
             String whereCluse = AP_ANIMEINFO_COLUMN_SEASON + "=?";
             Cursor res;
 
@@ -575,7 +586,7 @@ public class DBHelper extends SQLiteAssetHelper {
                 UpcomingAnime model = new UpcomingAnime();
                 model.setId(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                 model.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                model.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANNIMGURL)));
+                model.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
                 model.setType(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                 model.setDesc(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_DESCRIPTION)));
                 model.setGenres(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_GENRE)));
@@ -595,7 +606,7 @@ public class DBHelper extends SQLiteAssetHelper {
         UpcomingAnime anime = new UpcomingAnime();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_ANNIMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
+            String[] columns = new String[]{AP_ANIMEINFO_COLUMN_ANIMEINFOID, AP_ANIMEINFO_COLUMN_TITLE, AP_ANIMEINFO_COLUMN_IMGURL, AP_ANIMEINFO_COLUMN_ANIMETYPE, AP_ANIMEINFO_COLUMN_DESCRIPTION, AP_ANIMEINFO_COLUMN_GENRE};
             String whereCluse = GENERAL_COLUMN_ID + "=?";
             Cursor res;
 
@@ -604,7 +615,7 @@ public class DBHelper extends SQLiteAssetHelper {
             while (res.moveToNext()) {
                 anime.setId(res.getInt(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMEINFOID)));
                 anime.setTitle(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_TITLE)));
-                anime.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANNIMGURL)));
+                anime.setImageurl(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_IMGURL)));
                 anime.setType(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_ANIMETYPE)));
                 anime.setDesc(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_DESCRIPTION)));
                 anime.setGenres(res.getString(res.getColumnIndex(AP_ANIMEINFO_COLUMN_GENRE)));
@@ -623,7 +634,7 @@ public class DBHelper extends SQLiteAssetHelper {
             SQLiteDatabase db = this.getWritableDatabase();
 
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", W." + WATCHLIST_COLUMN_EPISODESWATCHED + ", W." + WATCHLIST_COLUMN_CURRENTEPISODE + ", W." + WATCHLIST_COLUMN_LASTUPDATED + " from " + TABLE_WATCHLIST + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", W." + WATCHLIST_COLUMN_EPISODESWATCHED + ", W." + WATCHLIST_COLUMN_CURRENTEPISODE + ", W." + WATCHLIST_COLUMN_LASTUPDATED + " from " + TABLE_WATCHLIST + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -632,7 +643,7 @@ public class DBHelper extends SQLiteAssetHelper {
                     WatchListModel watchListModel = new WatchListModel();
                     watchListModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchListModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchListModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    watchListModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
                     watchListModel.setCurrentEpisode(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_CURRENTEPISODE)));
                     watchListModel.setEpisodeswatched(c.getInt(c.getColumnIndex(WATCHLIST_COLUMN_EPISODESWATCHED)));
                     watchListModel.setLastupdated(c.getString(c.getColumnIndex(WATCHLIST_COLUMN_LASTUPDATED)));
@@ -657,7 +668,7 @@ public class DBHelper extends SQLiteAssetHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHLATER + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -667,7 +678,7 @@ public class DBHelper extends SQLiteAssetHelper {
 
                     watchlaterlistModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
                     watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                     models.add(watchlaterlistModel);
@@ -690,7 +701,7 @@ public class DBHelper extends SQLiteAssetHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_WATCHED + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID + " order by Info." + ANIMEINFO_COLUMN_TITLE + " collate nocase asc";
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -700,7 +711,7 @@ public class DBHelper extends SQLiteAssetHelper {
 
                     watchedmodel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchedmodel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchedmodel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    watchedmodel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
                     watchedmodel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                     models.add(watchedmodel);
@@ -724,7 +735,7 @@ public class DBHelper extends SQLiteAssetHelper {
         try {
             SQLiteDatabase db = this.getWritableDatabase();
 
-            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_ANNIMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_HOTANIME + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
+            String command = "select W." + GENERAL_COLUMN_ID + ", Info." + ANIMEINFO_COLUMN_TITLE + ", Info." + ANIMEINFO_COLUMN_IMGURL + ", Info." + ANIMEINFO_COLUMN_GENRE + " from " + TABLE_HOTANIME + " W inner join " + TABLE_ANIMEINFO + " Info on W." + GENERAL_COLUMN_ID + "=Info." + GENERAL_COLUMN_ID;
             Cursor c = db.rawQuery(command, null);
 
             if (c.moveToFirst()) {
@@ -734,7 +745,7 @@ public class DBHelper extends SQLiteAssetHelper {
 
                     watchlaterlistModel.setId(c.getInt(c.getColumnIndex(GENERAL_COLUMN_ID)));
                     watchlaterlistModel.setTitle(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                    watchlaterlistModel.setImgurl(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
                     watchlaterlistModel.setGenre(c.getString(c.getColumnIndex(ANIMEINFO_COLUMN_GENRE)));
 
                     models.add(watchlaterlistModel);
@@ -756,14 +767,14 @@ public class DBHelper extends SQLiteAssetHelper {
         try {
             SQLiteDatabase db = this.getReadableDatabase();
 
-            Cursor res = db.query(TABLE_MAL_TOPANIME + " T inner join " + TABLE_ANIMEINFO + " A on T." + GENERAL_COLUMN_ID + "=" + "A." + GENERAL_COLUMN_ID, new String[]{"T." + MAL_TOPANIME_COLUMN_SPOT, "T." + GENERAL_COLUMN_ID, "T." + MAL_TOPANIME_COLUMN_SCORE, "A." + ANIMEINFO_COLUMN_TITLE, "A." + ANIMEINFO_COLUMN_ANNIMGURL}, null, null, null, null, null);
+            Cursor res = db.query(TABLE_MAL_TOPANIME + " T inner join " + TABLE_ANIMEINFO + " A on T." + GENERAL_COLUMN_ID + "=" + "A." + GENERAL_COLUMN_ID, new String[]{"T." + MAL_TOPANIME_COLUMN_SPOT, "T." + GENERAL_COLUMN_ID, "T." + MAL_TOPANIME_COLUMN_SCORE, "A." + ANIMEINFO_COLUMN_TITLE, "A." + ANIMEINFO_COLUMN_IMGURL}, null, null, null, null, null);
             while (res.moveToNext()) {
                 TopanimeModel model = new TopanimeModel();
                 model.setSpot(res.getInt(res.getColumnIndex(MAL_TOPANIME_COLUMN_SPOT)));
                 model.setId(res.getInt(res.getColumnIndex(GENERAL_COLUMN_ID)));
                 model.setScore(res.getDouble(res.getColumnIndex(MAL_TOPANIME_COLUMN_SCORE)));
                 model.setTitle(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_TITLE)));
-                model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_ANNIMGURL)));
+                model.setImgurl(res.getString(res.getColumnIndex(ANIMEINFO_COLUMN_IMGURL)));
                 models.add(model);
             }
 
@@ -823,6 +834,22 @@ public class DBHelper extends SQLiteAssetHelper {
         return version;
     }
 
+    public int getUPCVersion(){
+        int version = -1;
+        try {
+            SQLiteDatabase db = this.getReadableDatabase();
+            Cursor res = db.rawQuery("select * from " + TABLE_UPC_VERSION, null);
+            if (res.moveToFirst()) {
+                version = res.getInt(res.getColumnIndex(UPC_VERSION_COLUMN_VERSION));
+            }
+            res.close();
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e(CLASS_TAG+"getUPCvers","SQLexception: "+e.toString());
+        }
+        return version;
+    }
+
     public String getCurrentSeason(){
         String currentSeason = "na";
         try {
@@ -844,7 +871,7 @@ public class DBHelper extends SQLiteAssetHelper {
         Anime anime = new Anime();
         try {
             SQLiteDatabase db = this.getReadableDatabase();
-            String projection[] = {GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_ANNIMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION};
+            String projection[] = {GENERAL_COLUMN_ID, ANIMEINFO_COLUMN_TITLE, ANIMEINFO_COLUMN_IMGURL, ANIMEINFO_COLUMN_GENRE, ANIMEINFO_COLUMN_EPISODES, ANIMEINFO_COLUMN_ANIMETYPE, ANIMEINFO_COLUMN_AGERATING, ANIMEINFO_COLUMN_DESCRIPTION};
             Cursor res = db.query(TABLE_ANIMEINFO, projection, "id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
             if (res.moveToFirst()) {
@@ -1584,6 +1611,22 @@ public class DBHelper extends SQLiteAssetHelper {
             contentValues.put(TABLE_TOP_VERSION, version);
             db.execSQL("update " + TABLE_TOP_VERSION + " set " + TOP_VERSION_COLUMN_VERSION + "=" + version);
             Log.d(TAG, "updated TOPversion to: " + version);
+            return true;
+        }catch (SQLException e){
+            e.printStackTrace();
+            Log.e(TAG,"SQLexception: "+e.toString());
+            return false;
+        }
+    }
+
+    public boolean updateUPCVersion(int version) {
+        final String TAG = CLASS_TAG+"updUPCversion";
+        try {
+            SQLiteDatabase db = this.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put(TABLE_UPC_VERSION, version);
+            db.execSQL("update " + TABLE_UPC_VERSION + " set " + UPC_VERSION_COLUMN_VERSION + "=" + version);
+            Log.d(TAG, "updated UPCversion to: " + version);
             return true;
         }catch (SQLException e){
             e.printStackTrace();

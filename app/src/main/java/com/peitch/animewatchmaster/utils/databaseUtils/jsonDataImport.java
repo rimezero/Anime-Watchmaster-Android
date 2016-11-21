@@ -46,6 +46,10 @@ public class jsonDataImport {
         return getData(base_db_url+"/animedraw/drawclasses/drawAPanimeinfobyversion.php",version);
     }
 
+    public static JSONArray getUPCtodelete(String base_db_url, int version){
+        return getData(base_db_url+"/animedraw/drawclasses/drawUPCtodelete.php",version);
+    }
+
     public static JSONArray getAnimeultimaData(String base_db_url, int version){
         return getData(base_db_url+"/animedraw/drawclasses/animeultima.php",version);
     }
@@ -68,6 +72,10 @@ public class jsonDataImport {
 
     public static JSONObject getVData(String base_db_url){
         return getVData2(base_db_url+"/animedraw/drawclasses/drawversion.php");
+    }
+
+    public static JSONObject getUPCVData(String base_db_url){
+        return getVData2(base_db_url+"/animedraw/drawclasses/drawUPCversion.php");
     }
 
     public static JSONObject getTOPVData(String base_db_url){

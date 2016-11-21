@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.peitch.animewatchmaster.R;
 import com.peitch.animewatchmaster.model.SeasonModel;
 import com.peitch.animewatchmaster.model.UpcomingAnime;
+import com.peitch.animewatchmaster.utils.Utils;
 import com.peitch.animewatchmaster.utils.databaseUtils.DBHelper;
 import com.squareup.picasso.Picasso;
 
@@ -42,17 +43,17 @@ public class UpcomingAdapter extends ArrayAdapter<SeasonModel> {
 
         ImageView imageView = (ImageView)convertView.findViewById(R.id.image);
 
-        /*if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na")) {
+        if(model.getImgurl() != null && !model.getImgurl().trim().isEmpty() && !model.getImgurl().equals("na")&& Utils.imgflag) {
             Picasso.with(getContext())
                     .load(model.getImgurl())
                     .fit()
                     .into(imageView);
-        }  else {*/
+        }  else {
             Picasso.with(getContext())
                     .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                     .fit()
                     .into(imageView);
-        //}
+        }
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.peitch.animewatchmaster.R;
 import com.peitch.animewatchmaster.model.UpcomingAnime;
 import com.facebook.appevents.AppEventsLogger;
+import com.peitch.animewatchmaster.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import me.grantland.widget.AutofitTextView;
@@ -29,17 +30,17 @@ public class UpcomingInfo extends AppCompatActivity {
 
             ImageView imageView = (ImageView) findViewById(R.id.image);
 
-            /*if (anime.getImageurl() != null && !anime.getImageurl().trim().isEmpty() && !anime.getImageurl().equals("na")) {
+            if (anime.getImageurl() != null && !anime.getImageurl().trim().isEmpty() && !anime.getImageurl().equals("na")&& Utils.imgflag) {
                 Picasso.with(getApplicationContext())
                         .load(anime.getImageurl())
                         .fit()
                         .into(imageView);
-            }else{*/
+            }else{
                 Picasso.with(getApplicationContext())
                         .load("http://www.anime-planet.com/inc/img/blank_main.jpg")
                         .fit()
                         .into(imageView);
-            //}
+            }
 
 
             TextView type = (TextView)findViewById(R.id.type);

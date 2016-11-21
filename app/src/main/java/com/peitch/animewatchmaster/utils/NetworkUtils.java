@@ -37,7 +37,6 @@ public class NetworkUtils {
         if(isNetworkAvailable(systemService)) {
 
             try {
-
                 HttpURLConnection httpURLConnection = (HttpURLConnection)(new URL("http://cspeitch.com/").openConnection());
                 httpURLConnection.setRequestProperty("User-Agent","Test");
                 httpURLConnection.setRequestProperty("Connection","close");

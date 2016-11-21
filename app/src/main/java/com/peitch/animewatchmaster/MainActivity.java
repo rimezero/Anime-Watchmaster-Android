@@ -33,6 +33,7 @@ import com.peitch.animewatchmaster.model.SeasonModel;
 import com.peitch.animewatchmaster.model.WatchlaterlistModel;
 import com.peitch.animewatchmaster.utils.Asynctasks.APdatabaseUpdater;
 import com.peitch.animewatchmaster.utils.Asynctasks.TopanimeUpdater;
+import com.peitch.animewatchmaster.utils.Asynctasks.UPCdeleter;
 import com.peitch.animewatchmaster.utils.Asynctasks.WatchlistUpdater;
 import com.peitch.animewatchmaster.utils.Asynctasks.databaseUpdater;
 import com.peitch.animewatchmaster.utils.Asynctasks.hotanimeUpdater;
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     //prepei prwta na teliwsei to database updater gia na ginoun apotelesmatika ta alla 2 updates
                     new databaseUpdater(getApplicationContext()).execute(getString(R.string.base_db_url)).get();
+                    new UPCdeleter(getApplicationContext()).execute(getString(R.string.base_db_url)).get();
                     new APdatabaseUpdater(getApplicationContext()).execute(getString(R.string.base_db_url));
                     new TopanimeUpdater(getApplicationContext()).execute(getString(R.string.base_db_url));
                 } catch (InterruptedException e) {
